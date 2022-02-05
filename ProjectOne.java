@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Abhay Chopra, Brandon Greene
@@ -14,6 +10,7 @@ public class ProjectOne
 {
     public static void main(String[] args)
     {
+        HashMap<String, HashMap<ArrayList<String>, Integer>> anime = new HashMap<>();
         boolean notQuit = true;
         String[] cmds = {"help", "add", "remove", "exit"};
 
@@ -32,7 +29,7 @@ public class ProjectOne
             switch (input)
             {
                 case "help" -> help(cmds);
-                case "add" -> getUserInput();
+                case "add" -> anime = getUserInput();
                 case "remove" -> remove();
                 case "exit" -> notQuit = setQuit(scan);
                 default -> printError();
@@ -56,6 +53,10 @@ public class ProjectOne
     {
     }
 
+    /**
+     * Display help for the command usage
+     * @param cmds : an array of commands for the user to interact with
+     */
     private static void help(String[] cmds)
     {
         //Display help for the commands
@@ -80,35 +81,28 @@ public class ProjectOne
         // get some type of input
         Scanner scan = new Scanner(System.in);
         // getting anime name
+        System.out.println("What is the anime name?");
         String animeName = scan.nextLine().strip().toLowerCase();
 
         // bringing vars into scope`
-        ArrayList<String> genre = new ArrayList<>();
+        ArrayList<String> genresList = new ArrayList<>();
         int episodesWatched;
 
-        // looping for genre names
-        boolean gettingGenre = true;
-        do {
-            // getting the genre corresponding to the anime
-            System.out.println("Please enter the genre of this anime, ie, \"romance\": ");
-            String genreName = scan.nextLine().strip().toLowerCase();
-            // conditional for turning off the sentinel
-            if (genreName.equals("exit")) {
-                gettingGenre = false;
-            } else {
-                genre.add(genreName);
-            }
-            // getting number of episodes watched
-            System.out.println("How many episodes did you watch of " + animeName + "?");
-            episodesWatched = Integer.parseInt(scan.nextLine());
+        // getting the genre corresponding to the anime
+        System.out.println("Please enter the genres of this anime, ie, \"romance,action\" (exit to quit): ");
+        String genresInput = scan.nextLine().strip().toLowerCase();
+        String[] genres = genresInput.split(",");
+        Collections.addAll(genresList, genres);
 
-        } while (gettingGenre);
+        // getting number of episodes watched
+        System.out.println("How many episodes did you watch of " + animeName + "?");
+        episodesWatched = Integer.parseInt(scan.nextLine());
 
         // creating nested HashMaps
         HashMap<String, HashMap<ArrayList<String>, Integer>> outerHash = new HashMap<>();
         HashMap<ArrayList<String>, Integer> innerHash = new HashMap<>();
 
-        innerHash.put(genre, episodesWatched);
+        innerHash.put(genresList, episodesWatched);
         outerHash.put(animeName, innerHash);
 
         return outerHash;
