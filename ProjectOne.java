@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +16,6 @@ public class ProjectOne
 {
     public static void main(String[] args)
     {
-        HashMap<String, HashMap<ArrayList<String>, Double>> anime = new HashMap<>();
         boolean notQuit = true;
         String[] cmds = {"help", "add", "remove", "exit"};
 
@@ -39,6 +41,8 @@ public class ProjectOne
             }
         }
         while(notQuit);
+
+        getUserInput();
     }
 
     private static void printError()
@@ -65,16 +69,25 @@ public class ProjectOne
      *
      * @return Some type of storage structure (Array, ArrayLists, HashMap)
      */
-    public static int[] getUserInput() {
+    public static HashMap<String, String> getUserInput() {
         // get some type of input
         Scanner scan = new Scanner(System.in);
-        // put data into some sort of data structure (default array)
-        int[] array = {scan.nextInt()};
+        // getting anime name
+        String animeName = scan.nextLine().strip();
         scan.close();
-        // For Testing
-        System.out.println(Arrays.toString(array));
+        ArrayList<String> genre = new ArrayList<>();
+        boolean gettingGenre = true;
+        // looping for genre names
+        do{
+            // getting the genre (multiple)
+            System.out.println("Please enter the genre of this anime, ie, \"romance\": ");
+            String genreName = scan.nextLine().strip();
+            // turning off the sentinel
+            if(genreName.equals("exit")) {gettingGenre = false;}
+            else{genre.add(genreName);}
 
-        // return to main; create a data structure in main to share data between functions
-        return array;
+        }while(gettingGenre);
+        HashMap<String, String> tracker = new HashMap<>();
+        return tracker;
     }
 }
