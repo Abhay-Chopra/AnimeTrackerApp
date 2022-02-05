@@ -31,8 +31,8 @@ public class ProjectOne
             String input = scan.nextLine();
             switch (input)
             {
-                case "help" -> help();
-                case "add" -> getUserInput(scan);
+                case "help" -> help(cmds);
+                case "add" -> getUserInput();
                 case "remove" -> remove();
                 case "exit" -> notQuit = setQuit(scan);
                 default -> printError();
@@ -56,8 +56,19 @@ public class ProjectOne
     {
     }
 
-    private static void help()
+    private static void help(String[] cmds)
     {
+        //Display help for the commands
+        for(String x : cmds)
+        {
+            switch(x)
+            {
+                case "help" -> System.out.println("help -> displays help for commands");
+                case "add" -> System.out.println("add -> add an anime to the list (Name, Genre, # of Episodes)");
+                case "remove" -> System.out.println("remove -> remove an anime via name from the list");
+                case "exit" -> System.out.println("exit -> exit the program");
+            }
+        }
     }
 
     /**
