@@ -63,25 +63,27 @@ public class ProjectOne
     /**
      * Gets input & sanitizes input (from System.in stream)
      *
-     * @return Some type of storage structure (Array, ArrayLists, HashMap)
+     * @return HasMap<String, ArrayList<String>>
      */
-    public static HashMap<String, String> getUserInput(Scanner scan) {
+    public static HashMap<String, ArrayList<String>> getUserInput() {
+        // get some type of input
+        Scanner scan = new Scanner(System.in);
         // getting anime name
-        String animeName = scan.nextLine().strip();
-        scan.close();
+        String animeName = scan.nextLine().strip().toLowerCase();
         ArrayList<String> genre = new ArrayList<>();
         boolean gettingGenre = true;
         // looping for genre names
         do{
-            // getting the genre (multiple)
-            System.out.println("Please enter the genre of this anime, ie, \"romance\" (exit to quit): ");
-            String genreName = scan.nextLine().strip();
-            // turning off the sentinel
+            // getting the genre corresponding to the anime
+            System.out.println("Please enter the genre of this anime, ie, \"romance\": ");
+            String genreName = scan.nextLine().strip().toLowerCase();
+            // conditional for turning off the sentinel
             if(genreName.equals("exit")) {gettingGenre = false;}
             else{genre.add(genreName);}
 
         }while(gettingGenre);
-        HashMap<String, String> tracker = new HashMap<>();
+        HashMap<String, ArrayList<String>> tracker = new HashMap<>();
+        tracker.put(animeName, genre);
         return tracker;
     }
 }
