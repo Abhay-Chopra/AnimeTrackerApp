@@ -11,17 +11,18 @@ public class ProjectOne
 {
     public static void main(String[] args)
     {
-        Scanner scan = new Scanner(System.in);
-        String[] cmds = {"help", "add", "remove", "exit"};
         boolean notQuit = true;
+        String[] cmds = {"help", "add", "remove", "exit"};
 
+        //Print out the list of available commands
         System.out.println("Welcome, please input one of the following commands!");
-
         for(String x : cmds)
         {
             System.out.println(x);
         }
 
+        //Make a scanner to get user input
+        Scanner scan = new Scanner(System.in);
         do
         {
             String input = scan.nextLine();
@@ -30,7 +31,7 @@ public class ProjectOne
                 case "help" -> help();
                 case "add" -> add();
                 case "remove" -> remove();
-                case "exit" -> notQuit = setQuit();
+                case "exit" -> notQuit = setQuit(scan);
                 default -> printError();
             }
         }
@@ -41,11 +42,13 @@ public class ProjectOne
 
     private static void printError()
     {
+        System.out.println("Error reading command, please enter again!");
     }
 
-    private static boolean setQuit()
+    private static boolean setQuit(Scanner scan)
     {
-        return true;
+        System.out.println("Are you sure you wish to quit? (Y, N)");
+        return scan.nextLine().equals("Y");
     }
 
     private static void remove()
