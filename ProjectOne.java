@@ -70,25 +70,41 @@ public class ProjectOne
      *
      * @return HasMap<String, ArrayList<String>>
      */
-    public static HashMap<String, ArrayList<String>> getUserInput() {
+    public static HashMap<String, HashMap<ArrayList<String>, Integer>> getUserInput() {
         // get some type of input
         Scanner scan = new Scanner(System.in);
         // getting anime name
         String animeName = scan.nextLine().strip().toLowerCase();
+
+        // bringing vars into scope`
         ArrayList<String> genre = new ArrayList<>();
-        boolean gettingGenre = true;
+        int episodesWatched;
+
         // looping for genre names
-        do{
+        boolean gettingGenre = true;
+        do {
             // getting the genre corresponding to the anime
             System.out.println("Please enter the genre of this anime, ie, \"romance\": ");
             String genreName = scan.nextLine().strip().toLowerCase();
             // conditional for turning off the sentinel
-            if(genreName.equals("exit")) {gettingGenre = false;}
-            else{genre.add(genreName);}
+            if (genreName.equals("exit")) {
+                gettingGenre = false;
+            } else {
+                genre.add(genreName);
+            }
+            // getting number of episodes watched
+            System.out.println("How many episodes did you watch of " + animeName + "?");
+            episodesWatched = Integer.parseInt(scan.nextLine());
 
-        }while(gettingGenre);
-        HashMap<String, ArrayList<String>> tracker = new HashMap<>();
-        tracker.put(animeName, genre);
-        return tracker;
+        } while (gettingGenre);
+
+        // creating nested HashMaps
+        HashMap<String, HashMap<ArrayList<String>, Integer>> outerHash = new HashMap<>();
+        HashMap<ArrayList<String>, Integer> innerHash = new HashMap<>();
+
+        innerHash.put(genre, episodesWatched);
+        outerHash.put(animeName, innerHash);
+
+        return outerHash;
     }
 }
