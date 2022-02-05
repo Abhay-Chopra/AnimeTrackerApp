@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -11,6 +13,7 @@ public class ProjectOne
 {
     public static void main(String[] args)
     {
+        HashMap<String, HashMap<ArrayList<String>, Double>> anime = new HashMap<>();
         boolean notQuit = true;
         String[] cmds = {"help", "add", "remove", "exit"};
 
@@ -29,15 +32,13 @@ public class ProjectOne
             switch (input)
             {
                 case "help" -> help();
-                case "add" -> add();
+                case "add" -> getUserInput();
                 case "remove" -> remove();
                 case "exit" -> notQuit = setQuit(scan);
                 default -> printError();
             }
         }
         while(notQuit);
-
-        getUserInput();
     }
 
     private static void printError()
@@ -52,10 +53,6 @@ public class ProjectOne
     }
 
     private static void remove()
-    {
-    }
-
-    private static void add()
     {
     }
 
