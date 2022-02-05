@@ -21,7 +21,7 @@ public class ProjectOne
         System.out.println("Welcome, please input one of the following commands!");
         for(String x : cmds)
         {
-            System.out.println(x);
+            System.out.print(x + " ");
         }
 
         //Make a scanner to get user input
