@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -8,39 +9,56 @@ import java.util.*;
  */
 public class ProjectOne
 {
+    private static final int AVG_EP_TIME = 23;
+
     public static void main(String[] args)
     {
-        HashMap<String, HashMap<ArrayList<String>, Integer>> anime = new HashMap<>();
         boolean notQuit = true;
-        String[] cmds = {"help", "add", "remove", "exit"};
+        String[] cmds = {"Add", "Remove", "Exit", "Info", "Help"};
 
-        //Print out the list of available commands
-        System.out.println("Welcome, please input one of the following commands!");
-        for(String x : cmds)
-        {
-            System.out.print(x + " ");
-        }
+        //Hash maps for storing information (anime)
+        HashMap<String, HashMap<ArrayList<String>, Integer>> anime = new HashMap<>();
+
+        //ArrayList<String> animeList = new ArrayList<>();
+        //HashMap<String, String> animeGenre = new HashMap<>();
+        //HashMap<String, int> animeEpisodeCount = new HashMap<>();
+        //HashMap<String, String> animeStudio = new HashMap<>();
+
+        //Printing out the title
+        System.out.println("-----------------------------");
+        System.out.println("Brandon's And Abhay's Anime List");
+        System.out.println("-----------------------------");
+
+        System.out.println("(Select A Command With The Number (ie: 5 for Help))");
+        //Display our list of commands
+        for(int i = 0; i < cmds.length; i++)
+            System.out.println(i+1 + ") " + cmds[i]);
 
         //Make a scanner to get user input
         Scanner scan = new Scanner(System.in);
         do
         {
-            String input = scan.nextLine();
+            int input = scan.nextInt();
             switch (input)
             {
-                case "help" -> help(cmds);
-                case "add" -> anime = getUserInput();
-                case "remove" -> remove();
-                case "exit" -> notQuit = setQuit(scan);
+                case 1 -> help(cmds);
+                case 2 -> anime = getUserInput();
+                case 3 -> remove();
+                case 4 -> notQuit = setQuit(scan);
+                case 5 -> displayInformation();
                 default -> printError();
             }
         }
         while(notQuit);
     }
 
+    private static void displayInformation()
+    {
+    }
+
     private static void printError()
     {
-        System.out.println("Error reading command, please enter again!");
+        System.out.println("Error reading command, please enter command by integer again!");
     }
 
     private static boolean setQuit(Scanner scan)

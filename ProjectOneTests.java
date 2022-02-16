@@ -1,5 +1,5 @@
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+// import org.junit.jupiter.api.*;
+// import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Abhay Chopra, Brandon Greene
@@ -8,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class ProjectOneTests {
 
-    @BeforeEach
+    /**@BeforeEach
     void setUp() {
     }
 
     @AfterEach
     void tearDown() {
     }
+    */
 }
