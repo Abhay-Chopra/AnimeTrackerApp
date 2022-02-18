@@ -18,20 +18,17 @@ public class ProjectOne
         //Hash maps for storing information (anime)
         HashMap<String, HashMap<ArrayList<String>, Integer>> anime = new HashMap<>();
 
-        //ArrayList<String> animeList = new ArrayList<>();
-        //HashMap<String, String> animeGenre = new HashMap<>();
-        //HashMap<String, int> animeEpisodeCount = new HashMap<>();
-        //HashMap<String, String> animeStudio = new HashMap<>();
+        ArrayList<String> animeList = new ArrayList<>();
+        ArrayList<String> studioList = new ArrayList<>();
+        HashMap<String, ArrayList<String>> animeGenre = new HashMap<>();
+        HashMap<String, Integer> animeEpisodeCount = new HashMap<>();
+        HashMap<String, String> animeStudio = new HashMap<>();
+        HashMap<String, Double> animeScore = new HashMap<>();
 
         //Printing out the title
         System.out.println("-----------------------------");
         System.out.println("Brandon's And Abhay's Anime List");
         System.out.println("-----------------------------");
-
-        /*System.out.println("(Select A Command With The Number (ie: 5 for Help))");
-        //Display our list of commands
-        for(int i = 0; i < cmds.length; i++)
-            System.out.println(i+1 + ") " + cmds[i]);*/
 
         //Make a scanner to get user input
         Scanner scan = new Scanner(System.in);
@@ -41,7 +38,7 @@ public class ProjectOne
             int input = scan.nextInt();
             switch (input)
             {
-                case 1 -> anime = getUserInput(scan);
+                case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
                 case 2 -> remove();
                 case 3 -> notQuit = setQuit(scan);
                 case 4 -> displayInformation();
@@ -54,6 +51,7 @@ public class ProjectOne
 
     private static void displayInformation()
     {
+
     }
 
     private static void printError()
@@ -69,6 +67,7 @@ public class ProjectOne
 
     private static void remove()
     {
+
     }
 
     /**
@@ -82,10 +81,10 @@ public class ProjectOne
         {
             switch(x)
             {
-                case "help" -> System.out.println("help -> displays help for commands");
-                case "add" -> System.out.println("add -> add an anime to the list (Name, Genre, # of Episodes)");
-                case "remove" -> System.out.println("remove -> remove an anime via name from the list");
-                case "exit" -> System.out.println("exit -> exit the program");
+                case "Help" -> System.out.println("help -> displays help for commands");
+                case "Add" -> System.out.println("add -> add an anime to the list (Name, Genre, # of Episodes)");
+                case "Remove" -> System.out.println("remove -> remove an anime via name from the list");
+                case "Exit" -> System.out.println("exit -> exit the program");
             }
         }
     }
@@ -95,38 +94,42 @@ public class ProjectOne
      *
      * @return HasMap<String, ArrayList<String>>
      */
-    public static HashMap<String, HashMap<ArrayList<String>, Integer>> getUserInput(Scanner scan) {
-        // getting anime name
-        System.out.println("What is the anime name?");
-        scan.nextLine();
-        // sanitizing input function
-        String animeName = cleanNextIn(scan);
+    public static void getUserInput(Scanner scan,
+                                    ArrayList<String> animeList,
+                                    ArrayList<String> studioList,
+                                    HashMap<String, ArrayList<String>> animeGenre,
+                                    HashMap<String, Integer> animeEpisodeCount,
+                                    HashMap<String, String> animeStudio,
+                                    HashMap<String, Double> animeScore)
+    {
+        ArrayList<String> genres = new ArrayList<>();
 
-        // bringing vars into scope`
-        ArrayList<String> genresList = new ArrayList<>();
-        int episodesWatched;
+        System.out.println("What anime would you like to add?");
+        String newAnime = scan.nextLine();
+        animeList.add(newAnime);
 
-        // getting the genre corresponding to the anime
-        System.out.println("Please enter the genres of this anime, ie, \"romance,action\" (exit to quit): ");
-        String genresInput = cleanNextIn(scan);
-        String[] genres = genresInput.split(",");
-        Collections.addAll(genresList, genres);
+        System.out.println("What studio worked on the anime?");
+        String newStudio = scan.nextLine();
+        studioList.add(newStudio);
+        animeStudio.put(newAnime, newStudio);
 
-        // getting number of episodes watched
-        System.out.println("How many episodes did you watch of " + animeName + "?");
-        episodesWatched = Integer.parseInt(scan.nextLine());
+        System.out.println("What genres does this anime fall under (ie: romance, action [done when finished])?");
+        String newGenre = scan.nextLine();
+        do
+        {
+           genres.add(newGenre);
+           System.out.println("Another genre? [done when finished]");
+           newGenre = scan.nextLine();
+        }while(!newGenre.equals("done"));
+        animeGenre.put(newAnime, genres);
 
-        // setting up nested hash structure
-        HashMap<String, HashMap<ArrayList<String>, Integer>> outerHash = new HashMap<>();
-        HashMap<ArrayList<String>, Integer> innerHash = new HashMap<>();
-        innerHash.put(genresList, episodesWatched);
-        outerHash.put(animeName, innerHash);
+        System.out.println("How many episode have you watched?");
+        animeEpisodeCount.put(newAnime, scan.nextInt());
 
-        // This is strictly for testing | IGNORE THIS
-        System.out.printf("\nStored Anime name: %s\nStored Genres: %s\nStored #watched: %s\n\n",
-                                               animeName, Arrays.toString(genres), episodesWatched);
+        System.out.println("What rating would you give this anime (1-10)");
+        animeScore.put(newAnime, scan.nextDouble());
 
-        return outerHash;
+        System.out.println("Completed adding " + newAnime + " to the list!");
     }
 
     /**
