@@ -41,10 +41,10 @@ public class ProjectOne
             switch (input)
             {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
-                case 2 -> remove();
+                case 2 -> remove(animeList);
                 case 3 -> notQuit = setQuit(scan);
                 case 4 -> displayInformation();
-                case 5 -> help(cmds);
+                case 5 -> help();
                 default -> printError();
             }
         }
@@ -67,28 +67,27 @@ public class ProjectOne
         return !(scan.nextInt() == 1);
     }
 
-    private static void remove()
+    private static void remove(ArrayList<String> animeList)
     {
-
+        System.out.println("Which of the following would you like to remove? ");
+        for(int i = 0; i < animeList.size(); i++){
+            System.out.printf("%s ", i);
+        }
     }
 
     /**
-     * Display help for the command usage
-     * @param cmds : an array of commands for the user to interact with
+     * Displays help for each command usage
      */
-    private static void help(String[] cmds)
+    private static void help()
     {
-        //Display help for the commands
-        for(String x : cmds)
-        {
-            switch(x)
-            {
-                case "Help" -> System.out.println("help -> displays help for commands");
-                case "Add" -> System.out.println("add -> add an anime to the list (Name, Genre, # of Episodes)");
-                case "Remove" -> System.out.println("remove -> remove an anime via name from the list");
-                case "Exit" -> System.out.println("exit -> exit the program");
-            }
-        }
+        System.out.print(
+                """
+                add -> add an anime to the list (Name, Genre, # of Episodes)
+                remove -> remove an anime via name from the list
+                exit -> exit the program
+                help -> displays help for commands
+                
+                """);
     }
 
     /**
@@ -112,6 +111,7 @@ public class ProjectOne
         ArrayList<String> genres = new ArrayList<>();
 
         System.out.println("What anime would you like to add?");
+        scan.nextLine();
         String newAnime = scan.nextLine();
         animeList.add(newAnime);
 
