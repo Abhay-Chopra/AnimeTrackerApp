@@ -8,6 +8,7 @@ import java.util.*;
  */
 public class ProjectOne
 {
+    //Episode time in minutes
     private static final int AVG_EP_TIME = 23;
 
     public static void main(String[] args)
@@ -15,9 +16,7 @@ public class ProjectOne
         boolean notQuit = true;
         String[] cmds = {"Add", "Remove", "Exit", "Info", "Help"};
 
-        //Hash maps for storing information (anime)
-        HashMap<String, HashMap<ArrayList<String>, Integer>> anime = new HashMap<>();
-
+        //Structures for holding our data
         ArrayList<String> animeList = new ArrayList<>();
         ArrayList<String> studioList = new ArrayList<>();
         HashMap<String, ArrayList<String>> animeGenre = new HashMap<>();
@@ -32,10 +31,13 @@ public class ProjectOne
 
         //Make a scanner to get user input
         Scanner scan = new Scanner(System.in);
+
+        //Loop for main functionality of the program
         do
         {
             printInterface(cmds);
             int input = scan.nextInt();
+            scan.nextLine();
             switch (input)
             {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
@@ -90,9 +92,14 @@ public class ProjectOne
     }
 
     /**
-     * Gets input & sanitizes input (from System.in stream)
-     *
-     * @return HasMap<String, ArrayList<String>>
+     * The main input function
+     * @param scan scanner for getting the input
+     * @param animeList the main list of stored anime
+     * @param studioList the main list of stored studios
+     * @param animeGenre the linked anime/genre hashmap
+     * @param animeEpisodeCount the linked anime/episodeCount hashmap
+     * @param animeStudio tying anime and studios together
+     * @param animeScore giving anime a 1-10 score
      */
     public static void getUserInput(Scanner scan,
                                     ArrayList<String> animeList,
@@ -117,7 +124,8 @@ public class ProjectOne
         String newGenre = scan.nextLine();
         do
         {
-           genres.add(newGenre);
+            if(!newGenre.isEmpty() || newGenre.trim().length() > 0)
+                genres.add(newGenre);
            System.out.println("Another genre? [done when finished]");
            newGenre = scan.nextLine();
         }while(!newGenre.equals("done"));
@@ -130,6 +138,8 @@ public class ProjectOne
         animeScore.put(newAnime, scan.nextDouble());
 
         System.out.println("Completed adding " + newAnime + " to the list!");
+
+        scan.nextLine();
     }
 
     /**
@@ -145,8 +155,10 @@ public class ProjectOne
      * Prints out the interface, ie, all the different options
      * @param cmds Array containing all the commands
      */
-    private static void printInterface(String[] cmds){
-        System.out.println("(Select A Command With The Number (ie: 5 for Help))");
+    private static void printInterface(String[] cmds)
+    {
+        System.out.println("Select A Command With The Number (ie: 5 for Help)");
+
         //Display our list of commands
         for(int i = 0; i < cmds.length; i++)
             System.out.println(i+1 + ") " + cmds[i]);
