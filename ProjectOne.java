@@ -41,9 +41,9 @@ public class ProjectOne
             switch (input)
             {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
-                case 2 -> remove();
+                case 2 -> remove(animeList);
                 case 3 -> displayInformation();
-                case 4 -> help(cmds);
+                case 4 -> help();
                 case 5 -> notQuit = setQuit(scan);
                 default -> printError();
             }
@@ -72,29 +72,27 @@ public class ProjectOne
         return !(scan.nextInt() == 1);
     }
 
-    private static void remove()
+    private static void remove(ArrayList<String> animeList)
     {
-
+        System.out.println("Which of the following would you like to remove? ");
+        for(int i = 0; i < animeList.size(); i++){
+            System.out.printf("%s ", i);
+        }
     }
 
     /**
-     * Display help for the command usage
-     * @param cmds : an array of commands for the user to interact with
+     * Displays help for each command usage
      */
-    private static void help(String[] cmds)
+    private static void help()
     {
-        //Display help for the commands
-        for(String x : cmds)
-        {
-            switch(x)
-            {
-                case "Add" -> System.out.println("Add -> Add an anime to the list (Name, Genre, # of Episodes)");
-                case "Remove" -> System.out.println("Remove -> Remove an anime via name from the list");
-                case "Info" -> System.out.println("Info -> Choose queries to receive some information");
-                case "Help" -> System.out.println("Help -> displays help for commands");
-                case "Exit" -> System.out.println("Exit -> exit the program");
-            }
-        }
+        System.out.print(
+                """
+                add -> add an anime to the list (Name, Genre, # of Episodes)
+                remove -> remove an anime via name from the list
+                exit -> exit the program
+                help -> displays help for commands
+                
+                """);
     }
 
     /**
