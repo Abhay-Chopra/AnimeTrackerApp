@@ -14,7 +14,7 @@ public class ProjectOne
     public static void main(String[] args)
     {
         boolean notQuit = true;
-        String[] cmds = {"Add", "Remove", "Exit", "Info", "Help"};
+        String[] cmds = {"Add", "Remove", "Info", "Help", "Exit"};
 
         //Structures for holding our data
         ArrayList<String> animeList = new ArrayList<>();
@@ -42,13 +42,18 @@ public class ProjectOne
             {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
                 case 2 -> remove();
-                case 3 -> notQuit = setQuit(scan);
-                case 4 -> displayInformation();
-                case 5 -> help(cmds);
+                case 3 -> displayInformation();
+                case 4 -> help(cmds);
+                case 5 -> notQuit = setQuit(scan);
                 default -> printError();
             }
         }
         while(notQuit);
+
+        //Only get here upon user choosing to exit
+        System.out.println("-------------------------------------");
+        System.out.println("Thank you for using our anime list!");
+        System.out.println("-------------------------------------");
     }
 
     private static void displayInformation()
@@ -83,10 +88,11 @@ public class ProjectOne
         {
             switch(x)
             {
-                case "Help" -> System.out.println("help -> displays help for commands");
-                case "Add" -> System.out.println("add -> add an anime to the list (Name, Genre, # of Episodes)");
-                case "Remove" -> System.out.println("remove -> remove an anime via name from the list");
-                case "Exit" -> System.out.println("exit -> exit the program");
+                case "Add" -> System.out.println("Add -> Add an anime to the list (Name, Genre, # of Episodes)");
+                case "Remove" -> System.out.println("Remove -> Remove an anime via name from the list");
+                case "Info" -> System.out.println("Info -> Choose queries to receive some information");
+                case "Help" -> System.out.println("Help -> displays help for commands");
+                case "Exit" -> System.out.println("Exit -> exit the program");
             }
         }
     }
