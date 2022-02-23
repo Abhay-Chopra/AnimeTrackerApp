@@ -14,7 +14,7 @@ public class ProjectOne
     public static void main(String[] args)
     {
         boolean notQuit = true;
-        String[] cmds = {"Add", "Remove", "Info", "Help", "Exit"};
+        String[] cmds = {"Add", "Remove", "Info", "Help", "Output Commands" ,"Exit"};
 
         //Structures for holding our data
         ArrayList<String> animeList = new ArrayList<>();
@@ -44,7 +44,8 @@ public class ProjectOne
                 case 2 -> remove(animeList);
                 case 3 -> displayInformation();
                 case 4 -> help();
-                case 5 -> notQuit = setQuit(scan);
+                case 5 -> outputCases(scan);
+                case 6 -> notQuit = setQuit(scan);
                 default -> printError();
             }
         }
@@ -87,11 +88,12 @@ public class ProjectOne
     {
         System.out.print(
                 """
+                -----------------------------------------------------------
                 add -> add an anime to the list (Name, Genre, # of Episodes)
                 remove -> remove an anime via name from the list
                 exit -> exit the program
                 help -> displays help for commands
-                
+                -----------------------------------------------------------
                 """);
     }
 
@@ -141,18 +143,9 @@ public class ProjectOne
         System.out.println("What rating would you give this anime (1-10)");
         animeScore.put(newAnime, scan.nextDouble());
 
-        System.out.println("Completed adding " + newAnime + " to the list!");
+        System.out.println("\nCompleted adding " + newAnime + " to the list!");
 
         scan.nextLine();
-    }
-
-    /**
-     * Gets and cleans the next user input
-     * @param scan Scanner object to get String input
-     * @return Cleaned String
-     */
-    private static String cleanNextIn(Scanner scan) {
-        return scan.nextLine().toLowerCase().strip();
     }
 
     /**
@@ -161,10 +154,60 @@ public class ProjectOne
      */
     private static void printInterface(String[] cmds)
     {
-        System.out.println("Select A Command With The Number (ie: 5 for Help)");
+        System.out.println("Select A Command With The Number:");
 
         //Display our list of commands
         for(int i = 0; i < cmds.length; i++)
             System.out.println(i+1 + ") " + cmds[i]);
+    }
+
+    /**
+     * Function for all the handling of output commands
+     */
+    private static void outputCases(Scanner scan){
+        String [] outputCmds = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
+                                "Top Streamed Genre", "Give Anime Name" ,"Help", "Exit to Main Menu"};
+        boolean notQuit = true;
+        // looping for the output commands interface
+        do
+        {
+            printInterface(outputCmds);
+            int input = scan.nextInt();
+            scan.nextLine();
+            switch (input)
+            {
+                case 1 -> allAnimeTracked();
+                case 2 -> totalWatchTime();
+                case 3 -> topStreamedAnime();
+                case 4 -> topStreamedGenre();
+                case 5 -> giveAnimeName();
+                case 6 -> helpOutputCommands();
+                case 7 -> notQuit = exitToMain(scan);
+                default -> printError();
+            }
+        }
+        while(notQuit);
+    }
+
+    private static void giveAnimeName() {
+    }
+
+    private static void topStreamedGenre() {
+    }
+
+    private static void topStreamedAnime() {
+    }
+
+    private static void totalWatchTime() {
+    }
+
+    private static boolean exitToMain(Scanner scan) {
+        return true;
+    }
+
+    private static void helpOutputCommands() {
+    }
+
+    private static void allAnimeTracked() {
     }
 }
