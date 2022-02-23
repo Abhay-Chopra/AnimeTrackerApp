@@ -125,29 +125,42 @@ public class ProjectOne {
                                     HashMap<String, Integer> animeEpisodeCount,
                                     HashMap<String, String> animeStudio,
                                     HashMap<String, Double> animeScore) {
+        boolean notAdded = true;
         ArrayList<String> genres = new ArrayList<>();
-        //TODO Add a method to reject same anime being added twice
         System.out.println("What anime would you like to add?");
-        String newAnime = scan.nextLine().toUpperCase();
-        animeList.add(newAnime);
+        String newAnime = "";
+        while(notAdded){
+            newAnime = scan.nextLine().toUpperCase();
+            if(animeList.contains(newAnime)){
+                System.out.println("That anime is already tracked! Please try again");
+            }else{
+                animeList.add(newAnime);
+                notAdded = false;
+            }
+        }
 
         System.out.println("What studio worked on the anime?");
-        String newStudio = scan.nextLine();
+        String newStudio = scan.nextLine().toUpperCase();
         studioList.add(newStudio);
         animeStudio.put(newAnime, newStudio);
 
         System.out.println("What genres does this anime fall under (ie: romance, action [done when finished])?");
-        String newGenre = scan.nextLine();
+        String newGenre = scan.nextLine().toUpperCase();
         do {
             if (!newGenre.isEmpty() || newGenre.trim().length() > 0)
                 genres.add(newGenre);
             System.out.println("Another genre? [done when finished]");
-            newGenre = scan.nextLine();
-        } while (!newGenre.equals("done"));
+            newGenre = scan.nextLine().toUpperCase();
+        } while (!newGenre.equals("DONE"));
         animeGenre.put(newAnime, genres);
-        //TODO Add a way to check if positive integer value
+
         System.out.println("How many episode have you watched?");
-        animeEpisodeCount.put(newAnime, scan.nextInt());
+        int episodesWatched = scan.nextInt();
+        while (episodesWatched <= 0){
+            System.out.println("You cant watch 0 or negative episodes! Please enter again");
+            episodesWatched = scan.nextInt();
+        }
+        animeEpisodeCount.put(newAnime, episodesWatched);
 
         System.out.println("What rating would you give this anime (1-10)");
         animeScore.put(newAnime, scan.nextDouble());
@@ -193,7 +206,7 @@ public class ProjectOne {
                 case 2 -> totalWatchTime(animeList, animeEpisodeCount);
                 case 3 -> topStreamedAnime(animeList, animeEpisodeCount);
                 case 4 -> topStreamedGenre();
-                case 5 -> giveAnimeName();
+                case 5 -> getGenreByAnime();
                 case 6 -> helpOutputCommands();
                 case 7 -> notQuit = exitToMain(scan);
                 default -> printError();
@@ -250,7 +263,8 @@ public class ProjectOne {
     /**
      *
      */
-    private static void giveAnimeName() {
+    private static void getGenreByAnime() {
+
     }
 
     /**
