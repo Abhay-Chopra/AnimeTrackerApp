@@ -136,9 +136,9 @@ public class ProjectOne {
 
         System.out.println("What rating would you give this anime (1-10)");
         animeScore.put(newAnime, scan.nextDouble());
-        System.out.println("\n-----------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------");
         System.out.println("Completed adding " + newAnime + " to the list!");
-        System.out.println("-----------------------------------------------------------\n");
+        System.out.println("-----------------------------------------------------------");
         scan.nextLine();
     }
 
@@ -175,7 +175,7 @@ public class ProjectOne {
             scan.nextLine();
             switch (input) {
                 case 1 -> allAnimeTracked(animeList);
-                case 2 -> totalWatchTime(animeEpisodeCount);
+                case 2 -> totalWatchTime(animeList, animeEpisodeCount);
                 case 3 -> topStreamedAnime(animeList, animeEpisodeCount);
                 case 4 -> topStreamedGenre();
                 case 5 -> giveAnimeName();
@@ -194,6 +194,7 @@ public class ProjectOne {
      * @param animeEpisodeCount //TODO Javadoc
      */
     private static void topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+        System.out.println("-----------------------------------------------------------");
         if (animeList.size() > 0) {
             String topStreamedAnime = animeList.get(0);
             Integer episodeCount = -1;
@@ -203,14 +204,11 @@ public class ProjectOne {
                     episodeCount = animeEpisodeCount.get(anime);
                 }
             }
-            System.out.println("-----------------------------------------------------------");
             System.out.printf("Your current top streamed anime is: %s\nEstimated watch time: %s minutes\n", topStreamedAnime, episodeCount * AVG_EP_TIME);
-            System.out.println("-----------------------------------------------------------");
         } else {
-            System.out.println("-----------------------------------------------------------");
             System.out.println("No anime currently being tracked!");
-            System.out.println("-----------------------------------------------------------");
         }
+        System.out.println("-----------------------------------------------------------");
     }
 
     /**
@@ -220,10 +218,18 @@ public class ProjectOne {
     }
 
     /**
-     * @param animeEpisodeCount
+     *
+     * @param animeList ArrayList
+     * @param animeEpisodeCount HashMap
      */
-    private static void totalWatchTime(HashMap<String, Integer> animeEpisodeCount) {
-        System.out.println(animeEpisodeCount);
+    private static void totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+        int watchTime = 0;
+        for (String anime : animeList) {
+            watchTime += animeEpisodeCount.get(anime);
+        }
+        System.out.println("-----------------------------------------------------------");
+        System.out.printf("Total Watch Time (estimated): %s minutes\n", watchTime * AVG_EP_TIME);
+        System.out.println("-----------------------------------------------------------");
     }
 
     /**
@@ -233,8 +239,8 @@ public class ProjectOne {
     }
 
     /**
-     * @param scan
-     * @return
+     * @param scan Scanner
+     * @return True if user does not want to exit program, otherwise false
      */
     private static boolean exitToMain(Scanner scan) {
         System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
@@ -242,7 +248,7 @@ public class ProjectOne {
     }
 
     /**
-     * @param animeList
+     * @param animeList ArrayList
      */
     private static void allAnimeTracked(ArrayList<String> animeList) {
         System.out.println("-----------------------------------------------------------");
