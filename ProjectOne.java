@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -77,17 +76,23 @@ public class ProjectOne {
                                HashMap<String, Double> animeScore)
     {
         System.out.println("Which of the following would you like to remove?");
+        System.out.println("------------------------------------------------");
         for (String s : animeList)
         {
-            System.out.printf("%s ", s);
+            System.out.println(s);
+            System.out.println("------------------------------------------------");
         }
-        String animeToRemove = scan.nextLine();
-        animeList.remove(animeToRemove);
-        animeGenre.remove(animeToRemove);
-        animeEpisodeCount.remove(animeToRemove);
-        animeStudio.remove(animeToRemove);
-        animeScore.remove(animeToRemove);
-        System.out.println("Finished removing " + animeToRemove);
+        String animeToRemove = scan.nextLine().toUpperCase();
+        if(animeList.contains(animeToRemove)) {
+            animeList.remove(animeToRemove);
+            animeGenre.remove(animeToRemove);
+            animeEpisodeCount.remove(animeToRemove);
+            animeStudio.remove(animeToRemove);
+            animeScore.remove(animeToRemove);
+            System.out.println("Finished removing " + animeToRemove);
+        }else{
+            System.out.println("That anime is not in the list!");
+        }
     }
 
     /**
@@ -206,7 +211,7 @@ public class ProjectOne {
                 case 2 -> totalWatchTime(animeList, animeEpisodeCount);
                 case 3 -> topStreamedAnime(animeList, animeEpisodeCount);
                 case 4 -> topStreamedGenre();
-                case 5 -> getGenreByAnime();
+                case 5 -> getGenreByAnime(scan, animeGenre);
                 case 6 -> helpOutputCommands();
                 case 7 -> notQuit = exitToMain(scan);
                 default -> printError();
@@ -263,8 +268,15 @@ public class ProjectOne {
     /**
      *
      */
-    private static void getGenreByAnime() {
-
+    private static void getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+        System.out.println("What anime's genres would you like to search?");
+        String searchedAnime = scan.nextLine().toUpperCase();
+        if(animeGenre.containsKey(searchedAnime)) {
+            System.out.println("The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime));
+        }
+        else{
+            System.out.println("That anime is not stored! Try again");
+        }
     }
 
     /**
