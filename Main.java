@@ -8,7 +8,8 @@ import java.util.Scanner;
  * Tutorial: T06 (w/ Amir)
  * Objective: Software that tracks the user's top streamed anime category
  */
-public class ProjectOne {
+public class Main
+{
     //Episode time in minutes
     private static final int AVG_EP_TIME = 23;
 
@@ -22,7 +23,7 @@ public class ProjectOne {
         HashMap<String, ArrayList<String>> animeGenre = new HashMap<>();
         HashMap<String, Integer> animeEpisodeCount = new HashMap<>();
         HashMap<String, String> animeStudio = new HashMap<>();
-        HashMap<String, Double> animeScore = new HashMap<>();
+        HashMap<String, Double> animeRating = new HashMap<>();
 
         //Printing out the title
         System.out.println("-----------------------------");
@@ -38,11 +39,11 @@ public class ProjectOne {
             int input = scan.nextInt();
             scan.nextLine();
             switch (input) {
-                case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
-                case 2 -> remove(scan, animeList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
+                case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
+                case 2 -> remove(scan, animeList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
                 case 3 -> displayInformation();
                 case 4 -> help();
-                case 5 -> outputCases(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
+                case 5 -> outputCases(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
                 case 6 -> notQuit = setQuit(scan);
                 default -> printError();
             }
@@ -123,6 +124,7 @@ public class ProjectOne {
      * @param animeStudio       tying anime and studios together
      * @param animeScore        giving anime a 1-10 score
      */
+    //TODO: Maybe come back and compartmentalize this method
     public static void getUserInput(Scanner scan,
                                     ArrayList<String> animeList,
                                     ArrayList<String> studioList,
@@ -222,7 +224,6 @@ public class ProjectOne {
 
     /**
      * Determines the top streamed anime based on total watch time of each anime
-     *
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeEpisodeCount //TODO Javadoc
      */
@@ -248,6 +249,7 @@ public class ProjectOne {
      *
      */
     private static void topStreamedGenre() {
+
     }
 
     /**
@@ -266,7 +268,9 @@ public class ProjectOne {
     }
 
     /**
-     *
+     * Get the genre of a supplied anime
+     * @param scan scanner for inputs
+     * @param animeGenre the map of anime -> a list of genre
      */
     private static void getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
@@ -319,5 +323,4 @@ public class ProjectOne {
                         -----------------------------------------------------------
                         """);
     }
-
 }

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  * Tutorial: T06
  */
-class ProjectOneTests
+class MainTests
 {
     @Test
     public void testCreation()
