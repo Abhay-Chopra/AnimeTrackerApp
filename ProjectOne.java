@@ -84,6 +84,8 @@ public class ProjectOne {
                         -----------------------------------------------------------
                         add -> add an anime to the list (Name, Genre, # of Episodes)
                         remove -> remove an anime via name from the list
+                        output commands -> displays menu with all possible output commands
+                        
                         exit -> exit the program
                         help -> displays help for commands
                         -----------------------------------------------------------
@@ -164,7 +166,7 @@ public class ProjectOne {
                                     HashMap<String, String> animeStudio,
                                     HashMap<String, Double> animeScore) {
         String[] outputCmds = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
-                "Top Streamed Genre", "Give Anime Name", "Help", "Exit to Main Menu"};
+                "Top Streamed Genre", "Anime By Genre", "Help", "Exit to Main Menu"};
         boolean notQuit = true;
         //Looping for the output commands interface
         do {
@@ -216,6 +218,19 @@ public class ProjectOne {
     }
 
     private static void helpOutputCommands() {
+        System.out.print(
+                """     
+                        -----------------------------------------------------------
+                        Print All Anime Tracked -> Displays all anime currently being tracked
+                        Total Watch Time -> Displays total watch time accumulated across all anime
+                        Top Streamed Anime -> Displays your top streamed anime, determined by watch time
+                        Top Streamed Genre -> Displays top anime genre, determined by watch time
+                        Anime By Genre -> Given a genre, provides an anime (from current tracked anime)
+                        
+                        exit -> exit to main menu
+                        help -> displays help for commands
+                        -----------------------------------------------------------
+                        """);
     }
 
 }
