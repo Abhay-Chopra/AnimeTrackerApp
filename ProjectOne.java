@@ -41,7 +41,7 @@ public class ProjectOne
             switch (input)
             {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
-                case 2 -> remove(animeList);
+                case 2 -> remove(scan, animeList, animeGenre, animeEpisodeCount, animeStudio, animeScore);
                 case 3 -> displayInformation();
                 case 4 -> help();
                 case 5 -> outputCases(scan);
@@ -73,12 +73,25 @@ public class ProjectOne
         return !(scan.nextInt() == 1);
     }
 
-    private static void remove(ArrayList<String> animeList)
+    private static void remove(Scanner scan,
+                               ArrayList<String> animeList,
+                               HashMap<String, ArrayList<String>> animeGenre,
+                               HashMap<String, Integer> animeEpisodeCount,
+                               HashMap<String, String> animeStudio,
+                               HashMap<String, Double> animeScore)
     {
-        System.out.println("Which of the following would you like to remove? ");
-        for(int i = 0; i < animeList.size(); i++){
-            System.out.printf("%s ", i);
+        System.out.println("Which of the following would you like to remove?");
+        for (String s : animeList)
+        {
+            System.out.printf("%s ", s);
         }
+        String animeToRemove = scan.nextLine();
+        animeList.remove(animeToRemove);
+        animeGenre.remove(animeToRemove);
+        animeEpisodeCount.remove(animeToRemove);
+        animeStudio.remove(animeToRemove);
+        animeScore.remove(animeToRemove);
+        System.out.println("Finished removing " + animeToRemove);
     }
 
     /**
