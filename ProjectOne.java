@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -127,7 +128,7 @@ public class ProjectOne {
         ArrayList<String> genres = new ArrayList<>();
         //TODO Add a method to reject same anime being added twice
         System.out.println("What anime would you like to add?");
-        String newAnime = scan.nextLine();
+        String newAnime = scan.nextLine().toUpperCase();
         animeList.add(newAnime);
 
         System.out.println("What studio worked on the anime?");
