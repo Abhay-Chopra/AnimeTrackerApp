@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author Abhay Chopra, Brandon Greene
@@ -8,14 +9,13 @@ import java.util.Scanner;
  * Tutorial: T06 (w/ Amir)
  * Objective: Software that tracks the user's top streamed anime category
  */
-public class Main
-{
+public class Main {
     //Episode time in minutes
     private static final int AVG_EP_TIME = 23;
 
     public static void main(String[] args) {
         boolean notQuit = true;
-        String[] cmds = {"Add", "Remove", "Info", "Help", "Output Commands", "Exit Program"};
+        String[] cmds = {"Add", "Remove", "Help", "Output Commands", "Exit Program"};
 
         //Structures for holding our data
         ArrayList<String> animeList = new ArrayList<>();
@@ -41,10 +41,9 @@ public class Main
             switch (input) {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
                 case 2 -> remove(scan, animeList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
-                case 3 -> displayInformation();
-                case 4 -> help();
-                case 5 -> outputCases(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
-                case 6 -> notQuit = setQuit(scan);
+                case 3 -> help();
+                case 4 -> outputCases(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
+                case 5 -> notQuit = setQuit(scan);
                 default -> printError();
             }
         }
@@ -56,42 +55,36 @@ public class Main
         System.out.println("-------------------------------------");
     }
 
-    private static void displayInformation() {
-
-    }
-
-    private static void printError() {
+    public static void printError() {
         System.out.println("Error reading command, please enter command by integer again!");
     }
 
-    private static boolean setQuit(Scanner scan) {
+    public static boolean setQuit(Scanner scan) {
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
         return !(scan.nextInt() == 1);
     }
 
-    private static void remove(Scanner scan,
-                               ArrayList<String> animeList,
-                               HashMap<String, ArrayList<String>> animeGenre,
-                               HashMap<String, Integer> animeEpisodeCount,
-                               HashMap<String, String> animeStudio,
-                               HashMap<String, Double> animeScore)
-    {
+    public static void remove(Scanner scan,
+                              ArrayList<String> animeList,
+                              HashMap<String, ArrayList<String>> animeGenre,
+                              HashMap<String, Integer> animeEpisodeCount,
+                              HashMap<String, String> animeStudio,
+                              HashMap<String, Double> animeScore) {
         System.out.println("Which of the following would you like to remove?");
         System.out.println("------------------------------------------------");
-        for (String s : animeList)
-        {
+        for (String s : animeList) {
             System.out.println(s);
             System.out.println("------------------------------------------------");
         }
         String animeToRemove = scan.nextLine().toUpperCase();
-        if(animeList.contains(animeToRemove)) {
+        if (animeList.contains(animeToRemove)) {
             animeList.remove(animeToRemove);
             animeGenre.remove(animeToRemove);
             animeEpisodeCount.remove(animeToRemove);
             animeStudio.remove(animeToRemove);
             animeScore.remove(animeToRemove);
             System.out.println("Finished removing " + animeToRemove);
-        }else{
+        } else {
             System.out.println("That anime is not in the list!");
         }
     }
@@ -99,7 +92,7 @@ public class Main
     /**
      * Displays help for each command usage
      */
-    private static void help() {
+    public static void help() {
         System.out.print(
                 """
                         -----------------------------------------------------------
@@ -136,11 +129,11 @@ public class Main
         ArrayList<String> genres = new ArrayList<>();
         System.out.println("What anime would you like to add?");
         String newAnime = "";
-        while(notAdded){
+        while (notAdded) {
             newAnime = scan.nextLine().toUpperCase();
-            if(animeList.contains(newAnime)){
+            if (animeList.contains(newAnime)) {
                 System.out.println("That anime is already tracked! Please try again");
-            }else{
+            } else {
                 animeList.add(newAnime);
                 notAdded = false;
             }
@@ -163,8 +156,8 @@ public class Main
 
         System.out.println("How many episode have you watched?");
         int episodesWatched = scan.nextInt();
-        while (episodesWatched <= 0){
-            System.out.println("You cant watch 0 or negative episodes! Please enter again");
+        while (episodesWatched <= 0) {
+            System.out.println("You can't watch 0 or negative episodes! Please enter again");
             episodesWatched = scan.nextInt();
         }
         animeEpisodeCount.put(newAnime, episodesWatched);
@@ -182,7 +175,7 @@ public class Main
      *
      * @param cmds Array containing all the commands
      */
-    private static void printInterface(String[] cmds) {
+    public static void printInterface(String[] cmds) {
         System.out.println("Select A Command With The Number:");
 
         //Display our list of commands
@@ -193,13 +186,13 @@ public class Main
     /**
      * Function for all the handling of output commands
      */
-    private static void outputCases(Scanner scan,
-                                    ArrayList<String> animeList,
-                                    ArrayList<String> studioList,
-                                    HashMap<String, ArrayList<String>> animeGenre,
-                                    HashMap<String, Integer> animeEpisodeCount,
-                                    HashMap<String, String> animeStudio,
-                                    HashMap<String, Double> animeScore) {
+    public static void outputCases(Scanner scan,
+                                   ArrayList<String> animeList,
+                                   ArrayList<String> studioList,
+                                   HashMap<String, ArrayList<String>> animeGenre,
+                                   HashMap<String, Integer> animeEpisodeCount,
+                                   HashMap<String, String> animeStudio,
+                                   HashMap<String, Double> animeScore) {
         String[] outputCmds = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
                 "Top Streamed Genre", "Anime By Genre", "Help", "Exit to Main Menu"};
         boolean notQuit = true;
@@ -212,7 +205,7 @@ public class Main
                 case 1 -> allAnimeTracked(animeList);
                 case 2 -> totalWatchTime(animeList, animeEpisodeCount);
                 case 3 -> topStreamedAnime(animeList, animeEpisodeCount);
-                case 4 -> topStreamedGenre();
+                case 4 -> topStreamedGenre(animeList, animeGenre, animeEpisodeCount);
                 case 5 -> getGenreByAnime(scan, animeGenre);
                 case 6 -> helpOutputCommands();
                 case 7 -> notQuit = exitToMain(scan);
@@ -224,10 +217,11 @@ public class Main
 
     /**
      * Determines the top streamed anime based on total watch time of each anime
+     *
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeEpisodeCount //TODO Javadoc
      */
-    private static void topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+    public static void topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         System.out.println("-----------------------------------------------------------");
         if (animeList.size() > 0) {
             String topStreamedAnime = animeList.get(0);
@@ -240,24 +234,61 @@ public class Main
             }
             System.out.printf("Your current top streamed anime is: %s\nEstimated watch time: %s minutes\n", topStreamedAnime, episodeCount * AVG_EP_TIME);
         } else {
-            System.out.println("No anime currently being tracked!");
+            System.out.println("No anime is currently being tracked!");
         }
         System.out.println("-----------------------------------------------------------");
     }
 
     /**
-     *
+     * @param animeList         ArrayList
+     * @param animeGenre        HashMap
+     * @param animeEpisodeCount HashMap
      */
-    private static void topStreamedGenre() {
-
+    //TODO Test function, by removing and adding anime
+    public static void topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
+                                        HashMap<String, Integer> animeEpisodeCount) {
+        // creating intermediate data structure
+        HashMap<String, Integer> genreToEpisodeMapping = new HashMap<>();
+        System.out.println("-----------------------------------------------------------");
+        if (animeList.size() > 0) {
+            for (String anime : animeList) {
+                ArrayList<String> genreList = animeGenre.get(anime);
+                for (String genre : genreList) {
+                    // if  key already exists, its being updated
+                    if (genreToEpisodeMapping.containsKey(genre)) {
+                        genreToEpisodeMapping.put(genre, genreToEpisodeMapping.get(genre) + animeEpisodeCount.get(anime));
+                    }
+                    // creating a new key and item pair within hashmap
+                    else {
+                        genreToEpisodeMapping.put(genre, animeEpisodeCount.get(anime));
+                    }
+                }
+            }
+            Set<String> genreKeySet = genreToEpisodeMapping.keySet();
+            ArrayList<String> genresList = new ArrayList<>(genreKeySet);
+            String topStreamedGenre = genresList.get(0);
+            int numberOfEpisodes = 0;
+            //looping through all genres
+            for (String genre : genresList) {
+                if (genreToEpisodeMapping.get(genre) > numberOfEpisodes) {
+                    topStreamedGenre = genre;
+                    numberOfEpisodes = genreToEpisodeMapping.get(genre);
+                }
+            }
+            //printing out to console
+            System.out.printf("Your top streamed anime genre is: %s\n", topStreamedGenre);
+            System.out.printf("Estimated Watch Time: %s minutes\n", numberOfEpisodes * AVG_EP_TIME);
+        } else {
+            System.out.println("No anime is currently being tracked!");
+        }
+        System.out.println("-----------------------------------------------------------");
     }
 
     /**
-     *
-     * @param animeList ArrayList
+     * @param animeList         ArrayList
      * @param animeEpisodeCount HashMap
      */
-    private static void totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+    public static void totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         int watchTime = 0;
         for (String anime : animeList) {
             watchTime += animeEpisodeCount.get(anime);
@@ -269,16 +300,16 @@ public class Main
 
     /**
      * Get the genre of a supplied anime
-     * @param scan scanner for inputs
+     *
+     * @param scan       scanner for inputs
      * @param animeGenre the map of anime -> a list of genre
      */
-    private static void getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+    public static void getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
         String searchedAnime = scan.nextLine().toUpperCase();
-        if(animeGenre.containsKey(searchedAnime)) {
+        if (animeGenre.containsKey(searchedAnime)) {
             System.out.println("The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime));
-        }
-        else{
+        } else {
             System.out.println("That anime is not stored! Try again");
         }
     }
@@ -287,7 +318,7 @@ public class Main
      * @param scan Scanner
      * @return True if user does not want to exit program, otherwise false
      */
-    private static boolean exitToMain(Scanner scan) {
+    public static boolean exitToMain(Scanner scan) {
         System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
         return !(scan.nextInt() == 1);
     }
@@ -295,7 +326,7 @@ public class Main
     /**
      * @param animeList ArrayList
      */
-    private static void allAnimeTracked(ArrayList<String> animeList) {
+    public static void allAnimeTracked(ArrayList<String> animeList) {
         System.out.println("-----------------------------------------------------------");
         System.out.println("The anime(s) currently tracked:");
         if (animeList.size() == 0) {
@@ -308,7 +339,7 @@ public class Main
         System.out.println("-----------------------------------------------------------");
     }
 
-    private static void helpOutputCommands() {
+    public static void helpOutputCommands() {
         System.out.print(
                 """     
                         -----------------------------------------------------------
@@ -316,7 +347,7 @@ public class Main
                         Total Watch Time -> Displays total watch time accumulated across all anime
                         Top Streamed Anime -> Displays your top streamed anime, determined by watch time
                         Top Streamed Genre -> Displays top anime genre, determined by watch time
-                        Anime By Genre -> Given a genre, provides an anime (from current tracked anime)
+                        Anime By Genre -> Given an anime, returns all the genres of anime (from current tracked anime)
                                                 
                         exit -> exit to main menu
                         help -> displays help for commands
