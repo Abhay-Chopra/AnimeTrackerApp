@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.*;
-
-import java.awt.image.AreaAveragingScaleFilter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Abhay Chopra, Brandon Greene
@@ -42,6 +40,7 @@ class MainTests
         oneEntryAnimeList.add(anime);
         oneAnimeEpisodes = new HashMap<>();
         oneAnimeEpisodes.put(anime, episodes);
+        oneAnimeGenre = new HashMap<>();
         oneAnimeGenre.put(anime, genres);
     }
 
@@ -60,13 +59,27 @@ class MainTests
         multipleAnimeList = new ArrayList<>(){};
         multipleAnimeList.add(animeOne);
         multipleAnimeList.add(animeTwo);
+        multipleAnimeEpisodes = new HashMap<>();
         multipleAnimeEpisodes.put(animeOne, oneEpisodes);
         multipleAnimeEpisodes.put(animeTwo, twoEpisodes);
+        multipleAnimeGenre = new HashMap<>();
         multipleAnimeGenre.put(animeOne, oneGenre);
         multipleAnimeGenre.put(animeTwo, twoGenre);
     }
     //Tests for topStreamedAnime function
     @Test
-    public void noTopStreamedAnime() {
+    public void noTopStreamedAnime()
+    {
+        assertEquals("No anime is currently being tracked", Main.topStreamedAnime(emptyAnimeList, noAnimeEpisodes));
+    }
+    @Test void oneStreamedAnime()
+    {
+        assertEquals("Your current top streamed anime is: ATTACK ON TITAN\nEstimated watch time: 1656 minutes",
+                Main.topStreamedAnime(oneEntryAnimeList, oneAnimeEpisodes));
+    }
+    @Test void multipleStreamedAnime()
+    {
+        assertEquals("Your current top streamed anime is: ATTACK ON TITAN\nEstimated watch time: 1656 minutes",
+                Main.topStreamedAnime(multipleAnimeList, multipleAnimeEpisodes));
     }
 }
