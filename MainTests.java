@@ -118,4 +118,19 @@ class MainTests {
                 Main.topStreamedGenre(multipleAnimeList, multipleAnimeGenre, multipleAnimeEpisodes));
     }
 
+    //Tests for totalWatchTime
+    @Test
+    void noWatchTime(){
+        assertEquals("Total Watch Time (estimated): 0 minutes", Main.totalWatchTime(emptyAnimeList, noAnimeEpisodes));
+    }
+
+    @Test
+    void oneAnimeWatchTime(){
+        assertEquals("Total Watch Time (estimated): 1656 minutes", Main.totalWatchTime(oneEntryAnimeList, oneAnimeEpisodes));
+    }
+
+    @Test
+    void multipleAnimeWatchTime(){
+        assertEquals("Total Watch Time (estimated): 2668 minutes", Main.totalWatchTime(multipleAnimeList, multipleAnimeEpisodes));
+    }
 }
