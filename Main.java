@@ -47,7 +47,6 @@ public class Main {
                 case 5 -> notQuit = setQuit(scan);
                 default -> printError();
             }
-            scan.nextLine();
         }
         while (notQuit);
 
@@ -58,11 +57,15 @@ public class Main {
     }
 
     public static void printError() {
+        System.out.println("-------------------------------------");
         System.out.println("Error reading command, please enter command by integer again!");
+        System.out.println("-------------------------------------");
     }
 
     public static boolean setQuit(Scanner scan) {
+        System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
+        System.out.println("-------------------------------------");
         return !(scan.nextInt() == 1);
     }
 
@@ -72,22 +75,34 @@ public class Main {
                               HashMap<String, Integer> animeEpisodeCount,
                               HashMap<String, String> animeStudio,
                               HashMap<String, Double> animeScore) {
-        System.out.println("Which of the following would you like to remove?");
-        System.out.println("------------------------------------------------");
-        for (String s : animeList) {
-            System.out.println(s);
+        if(animeList.isEmpty()){
+            System.out.println("-------------------------------------");
+            System.out.println("The anime list is empty!!");
+            System.out.println("-------------------------------------");
+        }else
+        {
+            System.out.println("Which of the following would you like to remove?");
             System.out.println("------------------------------------------------");
-        }
-        String animeToRemove = scan.nextLine().toUpperCase();
-        if (animeList.contains(animeToRemove)) {
-            animeList.remove(animeToRemove);
-            animeGenre.remove(animeToRemove);
-            animeEpisodeCount.remove(animeToRemove);
-            animeStudio.remove(animeToRemove);
-            animeScore.remove(animeToRemove);
-            System.out.println("Finished removing " + animeToRemove);
-        } else {
-            System.out.println("That anime is not in the list!");
+            for (String s : animeList)
+            {
+                System.out.println(s);
+                System.out.println("------------------------------------------------");
+            }
+            String animeToRemove = scan.nextLine().toUpperCase();
+            if (animeList.contains(animeToRemove)) {
+                animeList.remove(animeToRemove);
+                animeGenre.remove(animeToRemove);
+                animeEpisodeCount.remove(animeToRemove);
+                animeStudio.remove(animeToRemove);
+                animeScore.remove(animeToRemove);
+                System.out.println("-------------------------------------");
+                System.out.println("Finished removing " + animeToRemove);
+                System.out.println("-------------------------------------");
+            } else {
+                System.out.println("-------------------------------------");
+                System.out.println("That anime is not in the list!");
+                System.out.println("-------------------------------------");
+            }
         }
     }
 
@@ -156,20 +171,40 @@ public class Main {
         } while (!newGenre.equals("DONE"));
         animeGenre.put(newAnime, genres);
 
-        System.out.println("How many episode have you watched?");
-        int episodesWatched = scan.nextInt();
-        while (episodesWatched <= 0) {
-            System.out.println("You can't watch 0 or negative episodes! Please enter again");
-            episodesWatched = scan.nextInt();
-        }
-        animeEpisodeCount.put(newAnime, episodesWatched);
+        //Adding episodes watched
+        int episodesWatched = 0;
+        do{
+            if (episodesWatched < 0){
+                System.out.println("Cant add a negative count!");
+            }
+            try{
+                System.out.println("How many episode have you watched?");
+                episodesWatched = scan.nextInt();
+                animeEpisodeCount.put(newAnime, episodesWatched);
+            }catch (InputMismatchException e){
+                System.out.println("Error adding episode count! Try again! (negative or non-integer error!)");
+                episodesWatched = 0;
+                scan.nextLine();
+            }
+        }while (episodesWatched <= 0);
 
         System.out.println("What rating would you give this anime (1-10)");
-        animeScore.put(newAnime, scan.nextDouble());
+        double rating = -1;
+        while (rating < 0)
+        {
+            try
+            {
+                rating = scan.nextDouble();
+                animeScore.put(newAnime, rating);
+            } catch (InputMismatchException e)
+            {
+                System.out.println("Error adding rating! Try Again!");
+                scan.nextLine();
+            }
+        }
         System.out.println("-----------------------------------------------------------");
         System.out.println("Completed adding " + newAnime + " to the list!");
         System.out.println("-----------------------------------------------------------");
-        scan.nextLine();
     }
 
     /**
