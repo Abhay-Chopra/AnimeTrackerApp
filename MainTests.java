@@ -48,8 +48,8 @@ class MainTests
     private void setupMultiple(){
         String animeOne = "ATTACK ON TITAN";
         String animeTwo = "DEMON SLAYER";
-        int oneEpisodes = 72;
-        int twoEpisodes = 44;
+        int attackOnTitanEpisodes = 72;
+        int demonSlayerEpisodes = 44;
         ArrayList<String> oneGenre = new ArrayList<>();
         ArrayList<String> twoGenre = new ArrayList<>();
         oneGenre.add("action");
@@ -60,8 +60,8 @@ class MainTests
         multipleAnimeList.add(animeOne);
         multipleAnimeList.add(animeTwo);
         multipleAnimeEpisodes = new HashMap<>();
-        multipleAnimeEpisodes.put(animeOne, oneEpisodes);
-        multipleAnimeEpisodes.put(animeTwo, twoEpisodes);
+        multipleAnimeEpisodes.put(animeOne, attackOnTitanEpisodes);
+        multipleAnimeEpisodes.put(animeTwo, demonSlayerEpisodes);
         multipleAnimeGenre = new HashMap<>();
         multipleAnimeGenre.put(animeOne, oneGenre);
         multipleAnimeGenre.put(animeTwo, twoGenre);
@@ -75,11 +75,18 @@ class MainTests
     @Test void oneStreamedAnime()
     {
         assertEquals("Your current top streamed anime is: ATTACK ON TITAN\nEstimated watch time: 1656 minutes",
-                Main.topStreamedAnime(oneEntryAnimeList, oneAnimeEpisodes));
+                     Main.topStreamedAnime(oneEntryAnimeList, oneAnimeEpisodes));
     }
     @Test void multipleStreamedAnime()
     {
         assertEquals("Your current top streamed anime is: ATTACK ON TITAN\nEstimated watch time: 1656 minutes",
-                Main.topStreamedAnime(multipleAnimeList, multipleAnimeEpisodes));
+                     Main.topStreamedAnime(multipleAnimeList, multipleAnimeEpisodes));
+    }
+    //Test Case for when DEMON SLAYER HAS MORE EPISODES STREAMED
+    @Test void topStreamedAnime(){
+        //Changing number of episodes for one anime
+        multipleAnimeEpisodes.put("DEMON SLAYER", 73);
+        assertEquals("Your current top streamed anime is: DEMON SLAYER\nEstimated watch time: 1679 minutes",
+                     Main.topStreamedAnime(multipleAnimeList, multipleAnimeEpisodes));
     }
 }
