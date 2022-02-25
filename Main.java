@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Abhay Chopra, Brandon Greene
@@ -32,12 +29,16 @@ public class Main {
 
         //Make a scanner to get user input
         Scanner scan = new Scanner(System.in);
-
+        int input;
         //Loop for main functionality of the program
         do {
             printInterface(cmds);
-            int input = scan.nextInt();
-            scan.nextLine();
+            try {
+                input = scan.nextInt();
+                scan.nextLine();
+            }catch (InputMismatchException e){
+                input = 0;
+            }
             switch (input) {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
                 case 2 -> remove(scan, animeList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
@@ -46,6 +47,7 @@ public class Main {
                 case 5 -> notQuit = setQuit(scan);
                 default -> printError();
             }
+            scan.nextLine();
         }
         while (notQuit);
 
