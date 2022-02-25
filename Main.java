@@ -253,10 +253,10 @@ public class Main {
             scan.nextLine();
             switch (input) {
                 case 1 -> allAnimeTracked(animeList);
-                case 2 -> totalWatchTime(animeList, animeEpisodeCount);
-                case 3 -> System.out.println(topStreamedAnime(animeList, animeEpisodeCount));
-                case 4 -> topStreamedGenre(animeList, animeGenre, animeEpisodeCount);
-                case 5 -> getGenreByAnime(scan, animeGenre);
+                case 2 -> System.out.println(printTopBorder() + totalWatchTime(animeList, animeEpisodeCount) + printBottomBorder());
+                case 3 -> System.out.println(printTopBorder() + topStreamedAnime(animeList, animeEpisodeCount) + printBottomBorder());
+                case 4 -> System.out.println(printTopBorder() + topStreamedGenre(animeList, animeGenre, animeEpisodeCount) + printBottomBorder());
+                case 5 -> System.out.println(printTopBorder() + getGenreByAnime(scan, animeGenre) + printBottomBorder());
                 case 6 -> helpOutputCommands();
                 case 7 -> notQuit = exitToMain(scan);
                 default -> printError();
@@ -272,7 +272,6 @@ public class Main {
      * @param animeEpisodeCount //TODO Javadoc
      */
     public static String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
-        printBorder();
         String output = "";
         if (animeList.size() > 0) {
             String topStreamedAnime = animeList.get(0);
@@ -283,15 +282,19 @@ public class Main {
                     episodeCount = animeEpisodeCount.get(anime);
                 }
             }
-            output = "Your current top streamed anime is: " + topStreamedAnime + "\n Estimated watch time: " + episodeCount * AVG_EP_TIME + " minutes";
+            output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + episodeCount * AVG_EP_TIME + " minutes";
         } else {
             output = "No anime is currently being tracked";
         }
         return output;
     }
 
-    private static void printBorder() {
-        System.out.println("--------------------");
+    private static String printTopBorder(){
+        return "--------------------\n";
+    }
+
+    private static String printBottomBorder() {
+        return "\n--------------------";
     }
 
     /**
@@ -300,8 +303,9 @@ public class Main {
      * @param animeEpisodeCount HashMap
      */
     //TODO Test function, by removing and adding anime
-    public static void topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
+    public static String topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
                                         HashMap<String, Integer> animeEpisodeCount) {
+        String output = "";
         // creating intermediate data structure
         HashMap<String, Integer> genreToEpisodeMapping = new HashMap<>();
         System.out.println("-----------------------------------------------------------");
@@ -331,26 +335,23 @@ public class Main {
                 }
             }
             //printing out to console
-            System.out.printf("Your top streamed anime genre is: %s\n", topStreamedGenre);
-            System.out.printf("Estimated Watch Time: %s minutes\n", numberOfEpisodes * AVG_EP_TIME);
+            output = "Your top streamed anime genre is: " + topStreamedGenre + "\nEstimated Watch Time: " + numberOfEpisodes * AVG_EP_TIME + " minutes";
         } else {
-            System.out.println("No anime is currently being tracked!");
+            output = "No anime is currently being tracked!";
         }
-        System.out.println("-----------------------------------------------------------");
+        return output;
     }
 
     /**
      * @param animeList         ArrayList
      * @param animeEpisodeCount HashMap
      */
-    public static void totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+    public static String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         int watchTime = 0;
         for (String anime : animeList) {
             watchTime += animeEpisodeCount.get(anime);
         }
-        System.out.println("-----------------------------------------------------------");
-        System.out.printf("Total Watch Time (estimated): %s minutes\n", watchTime * AVG_EP_TIME);
-        System.out.println("-----------------------------------------------------------");
+        return "Total Watch Time (estimated): " + (watchTime * AVG_EP_TIME);
     }
 
     /**
@@ -359,13 +360,13 @@ public class Main {
      * @param scan       scanner for inputs
      * @param animeGenre the map of anime -> a list of genre
      */
-    public static void getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+    public static String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
         String searchedAnime = scan.nextLine().toUpperCase();
         if (animeGenre.containsKey(searchedAnime)) {
-            System.out.println("The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime));
+            return "The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime);
         } else {
-            System.out.println("That anime is not stored! Try again");
+            return "That anime is not stored! Try again";
         }
     }
 
