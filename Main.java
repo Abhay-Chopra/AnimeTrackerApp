@@ -66,7 +66,15 @@ public class Main {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
-        return !(scan.nextInt() == 1);
+        try{
+            return !(scan.nextInt() == 1);
+        }catch (InputMismatchException e){
+            System.out.println("-------------------------------------");
+            System.out.println("Error On Exit!");
+            System.out.println("-------------------------------------");
+            scan.nextLine();
+            return true;
+        }
     }
 
     public static void remove(Scanner scan,
@@ -164,8 +172,9 @@ public class Main {
         System.out.println("What genres does this anime fall under (ie: romance, action [done when finished])?");
         String newGenre = scan.nextLine().toUpperCase();
         do {
-            if (!newGenre.isEmpty() || newGenre.trim().length() > 0)
+            if (!newGenre.isEmpty() || newGenre.trim().length() > 0){
                 genres.add(newGenre);
+            }
             System.out.println("Another genre? [done when finished]");
             newGenre = scan.nextLine().toUpperCase();
         } while (!newGenre.equals("DONE"));
@@ -188,17 +197,20 @@ public class Main {
             }
         }while (episodesWatched <= 0);
 
-        System.out.println("What rating would you give this anime (1-10)");
+        System.out.println("What rating would you give this anime (0-10)");
         double rating = -1;
-        while (rating < 0)
+        while (rating < 0 || rating > 10)
         {
             try
             {
                 rating = scan.nextDouble();
-                animeScore.put(newAnime, rating);
+                if (rating < 0 || rating > 10)
+                    System.out.println("Rating must be between 0 and 10! Please input again");
+                else
+                    animeScore.put(newAnime, rating);
             } catch (InputMismatchException e)
             {
-                System.out.println("Error adding rating! Try Again!");
+                System.out.println("Error! Please input a double value!");
                 scan.nextLine();
             }
         }
@@ -356,8 +368,18 @@ public class Main {
      * @return True if user does not want to exit program, otherwise false
      */
     public static boolean exitToMain(Scanner scan) {
+        System.out.println("-------------------------------------");
         System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
-        return !(scan.nextInt() == 1);
+        System.out.println("-------------------------------------");
+        try{
+            return !(scan.nextInt() == 1);
+        }catch (InputMismatchException e){
+            System.out.println("-------------------------------------");
+            System.out.println("Error On Exit!");
+            System.out.println("-------------------------------------");
+            scan.nextLine();
+            return true;
+        }
     }
 
     /**
