@@ -38,6 +38,7 @@ public class Main {
                 scan.nextLine();
             }catch (InputMismatchException e){
                 input = 0;
+                scan.nextLine();
             }
             switch (input) {
                 case 1 -> getUserInput(scan, animeList, studioList, animeGenre, animeEpisodeCount, animeStudio, animeRating);
@@ -253,7 +254,7 @@ public class Main {
             switch (input) {
                 case 1 -> allAnimeTracked(animeList);
                 case 2 -> totalWatchTime(animeList, animeEpisodeCount);
-                case 3 -> topStreamedAnime(animeList, animeEpisodeCount);
+                case 3 -> System.out.println(topStreamedAnime(animeList, animeEpisodeCount));
                 case 4 -> topStreamedGenre(animeList, animeGenre, animeEpisodeCount);
                 case 5 -> getGenreByAnime(scan, animeGenre);
                 case 6 -> helpOutputCommands();
@@ -270,8 +271,9 @@ public class Main {
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeEpisodeCount //TODO Javadoc
      */
-    public static void topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
-        System.out.println("-----------------------------------------------------------");
+    public static String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+        printBorder();
+        String output = "";
         if (animeList.size() > 0) {
             String topStreamedAnime = animeList.get(0);
             Integer episodeCount = -1;
@@ -281,11 +283,15 @@ public class Main {
                     episodeCount = animeEpisodeCount.get(anime);
                 }
             }
-            System.out.printf("Your current top streamed anime is: %s\nEstimated watch time: %s minutes\n", topStreamedAnime, episodeCount * AVG_EP_TIME);
+            output = "Your current top streamed anime is: " + topStreamedAnime + "\n Estimated watch time: " + episodeCount * AVG_EP_TIME + " minutes";
         } else {
-            System.out.println("No anime is currently being tracked!");
+            output = "No anime is currently being tracked";
         }
-        System.out.println("-----------------------------------------------------------");
+        return output;
+    }
+
+    private static void printBorder() {
+        System.out.println("--------------------");
     }
 
     /**

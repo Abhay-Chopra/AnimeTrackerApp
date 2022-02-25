@@ -8,21 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class MainTests
 {
-    @Test
-    public void testCreation()
-    {
-
+    @BeforeEach
+    private void setup(){
     }
 
     @Test
-    public void testRemoval()
-    {
-
+    public void testCreation() {
     }
 
     @Test
-    public void testEdit()
-    {
+    public void testRemoval() {
+    }
 
+    @Test
+    public void testEdit() {
     }
 }
