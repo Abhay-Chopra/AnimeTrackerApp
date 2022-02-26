@@ -65,6 +65,7 @@ class MainTests
         multipleAnimeGenre.put(animeOne, oneGenre);
         multipleAnimeGenre.put(animeTwo, twoGenre);
     }
+
     //Tests for topStreamedAnime function
     @Test
     public void noTopStreamedAnime() {
