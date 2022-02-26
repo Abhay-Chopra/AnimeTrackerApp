@@ -272,7 +272,7 @@ public class Main {
      * @param animeEpisodeCount //TODO Javadoc
      */
     public static String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
-        String output = "";
+        String output;
         if (animeList.size() > 0) {
             String topStreamedAnime = animeList.get(0);
             Integer episodeCount = -1;
@@ -290,11 +290,11 @@ public class Main {
     }
 
     private static String printTopBorder(){
-        return "--------------------\n";
+        return "-----------------------------------------------------------\n";
     }
 
     private static String printBottomBorder() {
-        return "\n--------------------";
+        return "\n-----------------------------------------------------------";
     }
 
     /**
@@ -305,10 +305,9 @@ public class Main {
     //TODO Test function, by removing and adding anime
     public static String topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
                                         HashMap<String, Integer> animeEpisodeCount) {
-        String output = "";
+        String output;
         // creating intermediate data structure
         HashMap<String, Integer> genreToEpisodeMapping = new HashMap<>();
-        System.out.println("-----------------------------------------------------------");
         if (animeList.size() > 0) {
             for (String anime : animeList) {
                 ArrayList<String> genreList = animeGenre.get(anime);
@@ -351,7 +350,7 @@ public class Main {
         for (String anime : animeList) {
             watchTime += animeEpisodeCount.get(anime);
         }
-        return "Total Watch Time (estimated): " + (watchTime * AVG_EP_TIME);
+        return "Total Watch Time (estimated): " + (watchTime * AVG_EP_TIME + " minutes");
     }
 
     /**
