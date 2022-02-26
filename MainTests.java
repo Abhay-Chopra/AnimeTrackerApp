@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,8 +29,7 @@ class MainTests {
 
     @BeforeEach
     private void setupEmpty() {
-        emptyAnimeList = new ArrayList<>() {
-        };
+        emptyAnimeList = new ArrayList<>();
         noAnimeEpisodes = new HashMap<>();
         noAnimeGenres = new HashMap<>();
     }
@@ -38,8 +39,8 @@ class MainTests {
         int episodes = 72;
         String anime = "ATTACK ON TITAN";
         ArrayList<String> genres = new ArrayList<>();
-        genres.add("action");
-        genres.add("drama");
+        genres.add("ACTION");
+        genres.add("DRAMA");
         oneEntryAnimeList = new ArrayList<>() {
         };
         oneEntryAnimeList.add(anime);
@@ -57,10 +58,10 @@ class MainTests {
         int demonSlayerEpisodes = 44;
         ArrayList<String> oneGenre = new ArrayList<>();
         ArrayList<String> twoGenre = new ArrayList<>();
-        oneGenre.add("action");
-        oneGenre.add("drama");
-        twoGenre.add("action");
-        twoGenre.add("horror");
+        oneGenre.add("ACTION");
+        oneGenre.add("DRAMA");
+        twoGenre.add("ACTION");
+        twoGenre.add("HORROR");
         multipleAnimeList = new ArrayList<>() {
         };
         multipleAnimeList.add(animeOne);
@@ -132,5 +133,24 @@ class MainTests {
     @Test
     void multipleAnimeWatchTime(){
         assertEquals("Total Watch Time (estimated): 2668 minutes", Main.totalWatchTime(multipleAnimeList, multipleAnimeEpisodes));
+    }
+
+    //Tests for getGenreByAnime
+    @Test
+    void noGeneresByAnime(){
+        Scanner testScanner = new Scanner("attack on titan");
+        assertEquals("That anime is not stored! Try again", Main.getGenreByAnime(testScanner, noAnimeGenres));
+    }
+
+    @Test
+    void singleGenresByAnime(){
+        Scanner testScanner = new Scanner("attack on titan");
+        assertEquals("The anime ATTACK ON TITAN has genres [ACTION, DRAMA]", Main.getGenreByAnime(testScanner, oneAnimeGenre));
+    }
+
+    @Test
+    void multipleGeneresByAnime(){
+        Scanner testScanner = new Scanner("demon slayer");
+        assertEquals("The anime DEMON SLAYER has genres [ACTION, HORROR]", Main.getGenreByAnime(testScanner, multipleAnimeGenre));
     }
 }
