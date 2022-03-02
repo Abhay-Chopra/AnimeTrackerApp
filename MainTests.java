@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -109,13 +108,13 @@ class MainTests {
 
     @Test
     void oneAnimeTracked() {
-        assertEquals("Your top streamed anime genre is: drama\nEstimated Watch Time: 1656 minutes",
+        assertEquals("Your top streamed anime genre is: DRAMA\nEstimated Watch Time: 1656 minutes",
                 Main.topStreamedGenre(oneEntryAnimeList, oneAnimeGenre, oneAnimeEpisodes));
     }
 
     @Test
     void multipleAnimeTracked() {
-        assertEquals("Your top streamed anime genre is: action\nEstimated Watch Time: 2668 minutes",
+        assertEquals("Your top streamed anime genre is: ACTION\nEstimated Watch Time: 2668 minutes",
                 Main.topStreamedGenre(multipleAnimeList, multipleAnimeGenre, multipleAnimeEpisodes));
     }
 
@@ -137,7 +136,7 @@ class MainTests {
 
     //Tests for getGenreByAnime
     @Test
-    void noGeneresByAnime(){
+    void noGenresByAnime(){
         Scanner testScanner = new Scanner("attack on titan");
         assertEquals("That anime is not stored! Try again", Main.getGenreByAnime(testScanner, noAnimeGenres));
     }
@@ -149,7 +148,7 @@ class MainTests {
     }
 
     @Test
-    void multipleGeneresByAnime(){
+    void multipleGenresByAnime(){
         Scanner testScanner = new Scanner("demon slayer");
         assertEquals("The anime DEMON SLAYER has genres [ACTION, HORROR]", Main.getGenreByAnime(testScanner, multipleAnimeGenre));
     }
