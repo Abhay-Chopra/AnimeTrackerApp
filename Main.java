@@ -242,9 +242,9 @@ public class Main {
                                    HashMap<String, ArrayList<String>> animeGenre,
                                    HashMap<String, Integer> animeEpisodeCount,
                                    HashMap<String, String> animeStudio,
-                                   HashMap<String, Double> animeScore) {
+                                   HashMap<String, Double> animeRating) {
         String[] outputCmds = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
-                "Top Streamed Genre", "Anime By Genre", "Help", "Exit to Main Menu"};
+                "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Help", "Exit to Main Menu"};
         boolean notQuit = true;
         //Looping for the output commands interface
         do {
@@ -257,12 +257,31 @@ public class Main {
                 case 3 -> System.out.println(printTopBorder() + topStreamedAnime(animeList, animeEpisodeCount) + printBottomBorder());
                 case 4 -> System.out.println(printTopBorder() + topStreamedGenre(animeList, animeGenre, animeEpisodeCount) + printBottomBorder());
                 case 5 -> System.out.println(printTopBorder() + getGenreByAnime(scan, animeGenre) + printBottomBorder());
-                case 6 -> helpOutputCommands();
-                case 7 -> notQuit = exitToMain(scan);
+                case 6 -> System.out.println(printTopBorder() + getAnimeRatings(animeRating) + printBottomBorder());
+                case 8 -> helpOutputCommands();
+                case 9 -> notQuit = exitToMain(scan);
                 default -> printError();
             }
         }
         while (notQuit);
+    }
+
+    /**
+     * Print the contents of the map of anime -> rating (double_
+     * @param animeRating the map of anime to rating
+     * @return a toString from a StringBuilder
+     */
+    private static String getAnimeRatings(HashMap<String, Double> animeRating)
+    {
+        StringBuilder retString = new StringBuilder();
+
+        for(String key : animeRating.keySet())
+        {
+            retString.append(key).append(" -> ").append(animeRating.get(key)).append("\n");
+        }
+        retString.deleteCharAt(retString.length()-1);
+
+        return retString.toString();
     }
 
     /**
