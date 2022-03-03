@@ -167,7 +167,8 @@ public class Main {
 
         System.out.println("What studio worked on the anime?");
         String newStudio = scan.nextLine().toUpperCase();
-        studioList.add(newStudio);
+        if(!studioList.contains(newStudio))
+            studioList.add(newStudio);
         animeStudio.put(newAnime, newStudio);
 
         System.out.println("What genres does this anime fall under (ie: romance, action [done when finished])?");
@@ -258,12 +259,28 @@ public class Main {
                 case 4 -> System.out.println(printTopBorder() + topStreamedGenre(animeList, animeGenre, animeEpisodeCount) + printBottomBorder());
                 case 5 -> System.out.println(printTopBorder() + getGenreByAnime(scan, animeGenre) + printBottomBorder());
                 case 6 -> System.out.println(printTopBorder() + getAnimeRatings(animeRating) + printBottomBorder());
+                case 7 -> System.out.println(printTopBorder() + getStudios(studioList) + printBottomBorder());
                 case 8 -> helpOutputCommands();
                 case 9 -> notQuit = exitToMain(scan);
                 default -> printError();
             }
         }
         while (notQuit);
+    }
+
+    /**
+     * Display a list of the studios currenty in tracking
+     * @param studios the list of studios
+     * @return a string build from a string builder
+     */
+    private static String getStudios(ArrayList<String> studios)
+    {
+        StringBuilder retString = new StringBuilder();
+        for(String studio : studios){
+            retString.append(studio).append("\n");
+        }
+        retString.deleteCharAt(retString.length()-1);
+        return retString.toString();
     }
 
     /**
@@ -432,6 +449,8 @@ public class Main {
                         Top Streamed Anime -> Displays your top streamed anime, determined by watch time
                         Top Streamed Genre -> Displays top anime genre, determined by watch time
                         Anime By Genre -> Given an anime, returns all the genres of anime (from current tracked anime)
+                        View Ratings -> See all tracked anime and their ratings
+                        View Studios -> See all currently tracked studios
                                                 
                         exit -> exit to main menu
                         help -> displays help for commands
