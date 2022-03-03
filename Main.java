@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         boolean notQuit = true;
+        //Array of outer menu options
         String[] cmds = {"Add", "Remove", "Help", "Output Commands", "Exit Program"};
 
         //Structures for holding our data
@@ -29,6 +30,7 @@ public class Main {
 
         //Make a scanner to get user input
         Scanner scan = new Scanner(System.in);
+        //int for the case number (to given by user)
         int input;
         //Loop for main functionality of the program
         do {
@@ -57,12 +59,20 @@ public class Main {
         System.out.println("-------------------------------------");
     }
 
+    /**
+     * Function prints an indication that no valid menu option was selected
+     */
     public static void printError() {
         System.out.println("-------------------------------------");
         System.out.println("Error reading command, please enter command by integer again!");
         System.out.println("-------------------------------------");
     }
 
+    /**
+     * Function confirms that the user wants to exit the program
+     * @param scan Scanner to get input from user
+     * @return Boolean false, if user wants to exit program, otherwise returns true
+     */
     public static boolean setQuit(Scanner scan) {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
@@ -78,6 +88,15 @@ public class Main {
         }
     }
 
+    /**
+     * Removes anime from all datastructures given a name (by user)
+     * @param scan              Scanner for getting input from user
+     * @param animeList         ArrayList of stored anime
+     * @param animeGenre        the linked anime/genre Hashmap
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @param animeStudio       Hashmap tying anime and studios together
+     * @param animeScore        Hashmap typing anime and a given anime rating (1-10)
+     */
     public static void remove(Scanner scan,
                               ArrayList<String> animeList,
                               HashMap<String, ArrayList<String>> animeGenre,
@@ -116,7 +135,7 @@ public class Main {
     }
 
     /**
-     * Displays help for each command usage
+     * Displays quick usability guide for each command (from main menu)
      */
     public static void help() {
         System.out.print(
@@ -133,17 +152,16 @@ public class Main {
     }
 
     /**
-     * The main input function
+     * Input function that sets up case structure for main menu interface
      *
-     * @param scan              scanner for getting the input
-     * @param animeList         the main list of stored anime
-     * @param studioList        the main list of stored studios
-     * @param animeGenre        the linked anime/genre hashmap
-     * @param animeEpisodeCount the linked anime/episodeCount hashmap
-     * @param animeStudio       tying anime and studios together
-     * @param animeScore        giving anime a 1-10 score
+     * @param scan              Scanner for getting input from user
+     * @param animeList         ArrayList of stored anime
+     * @param studioList        ArrayList of stored studios
+     * @param animeGenre        the linked anime/genre Hashmap
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @param animeStudio       Hashmap tying anime and studios together
+     * @param animeScore        Hashmap typing anime and a given anime rating (1-10)
      */
-    //TODO: Maybe come back and compartmentalize this method
     public static void getUserInput(Scanner scan,
                                     ArrayList<String> animeList,
                                     ArrayList<String> studioList,
@@ -222,7 +240,7 @@ public class Main {
     }
 
     /**
-     * Prints out the interface, ie, all the different options
+     * Prints out the menu interface, ie, all the different options
      *
      * @param cmds Array containing all the commands
      */
@@ -235,7 +253,14 @@ public class Main {
     }
 
     /**
-     * Function for all the handling of output commands
+     * Sets up the output command structure for output commands menu
+     * @param scan              Scanner for getting input from user
+     * @param animeList         ArrayList of stored anime
+     * @param studioList        ArrayList of stored studios
+     * @param animeGenre        the linked anime/genre Hashmap
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @param animeStudio       Hashmap tying anime and studios together
+     * @param animeRating        Hashmap typing anime and a given anime rating (1-10)
      */
     public static void outputCases(Scanner scan,
                                    ArrayList<String> animeList,
@@ -244,6 +269,7 @@ public class Main {
                                    HashMap<String, Integer> animeEpisodeCount,
                                    HashMap<String, String> animeStudio,
                                    HashMap<String, Double> animeRating) {
+        //Array for all the output options
         String[] outputCmds = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
                 "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Help", "Exit to Main Menu"};
         boolean notQuit = true;
@@ -305,7 +331,7 @@ public class Main {
      * Determines the top streamed anime based on total watch time of each anime
      *
      * @param animeList         Arraylist containing all anime being tracked
-     * @param animeEpisodeCount //TODO Javadoc
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
      */
     public static String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         String output;
@@ -325,20 +351,22 @@ public class Main {
         return output;
     }
 
-    private static String printTopBorder(){
+    private static String printTopBorder()
+    {
         return "-----------------------------------------------------------\n";
     }
 
-    private static String printBottomBorder() {
+    private static String printBottomBorder()
+    {
         return "\n-----------------------------------------------------------";
     }
 
     /**
-     * @param animeList         ArrayList
-     * @param animeGenre        HashMap
-     * @param animeEpisodeCount HashMap
+     * Calculates the top streamed anime genre, from anime currently stored
+     * @param animeList         Arraylist containing all anime being tracked
+     * @param animeGenre        the linked anime/genre Hashmap
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
      */
-    //TODO Test function, by removing and adding anime
     public static String topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
                                         HashMap<String, Integer> animeEpisodeCount) {
         String output;
@@ -378,8 +406,9 @@ public class Main {
     }
 
     /**
-     * @param animeList         ArrayList
-     * @param animeEpisodeCount HashMap
+     *
+     * @param animeList         Arraylist containing all anime being tracked
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
      */
     public static String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         int watchTime = 0;
@@ -390,10 +419,10 @@ public class Main {
     }
 
     /**
-     * Get the genre of a supplied anime
+     * Get the genre of a supplied anime, given by user
      *
-     * @param scan       scanner for inputs
-     * @param animeGenre the map of anime -> a list of genre
+     * @param scan       Scanner for getting user input
+     * @param animeGenre the linked anime/genre Hashmap
      */
     public static String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
@@ -406,8 +435,9 @@ public class Main {
     }
 
     /**
+     * Confirms exit from output command menu to main menu
      * @param scan Scanner
-     * @return True if user does not want to exit program, otherwise false
+     * @return returns Boolean => true if user does not want to exit program, otherwise false
      */
     public static boolean exitToMain(Scanner scan) {
         System.out.println("-------------------------------------");
@@ -425,7 +455,8 @@ public class Main {
     }
 
     /**
-     * @param animeList ArrayList
+     * Prints out all the anime currently stored
+     * @param animeList Arraylist containing all anime being tracked
      */
     public static void allAnimeTracked(ArrayList<String> animeList) {
         System.out.println("-----------------------------------------------------------");
@@ -440,6 +471,9 @@ public class Main {
         System.out.println("-----------------------------------------------------------");
     }
 
+    /**
+     *  Displays quick usability guide for each command (for output command options)
+     */
     public static void helpOutputCommands() {
         System.out.print(
                 """     
