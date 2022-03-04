@@ -4,6 +4,7 @@ import java.util.*;
  * @author Abhay Chopra, Brandon Greene
  * @version 1.0
  * Tutorial: T06 (w/ Amir)
+ * Date: March 3rd 2022
  * Objective: Software that tracks the user's top streamed anime category
  */
 public class Main {
@@ -62,7 +63,7 @@ public class Main {
     /**
      * Function prints an indication that no valid menu option was selected
      */
-    public static void printError() {
+    private static void printError() {
         System.out.println("-------------------------------------");
         System.out.println("Error reading command, please enter command by integer again!");
         System.out.println("-------------------------------------");
@@ -73,7 +74,7 @@ public class Main {
      * @param scan Scanner to get input from user
      * @return Boolean false, if user wants to exit program, otherwise returns true
      */
-    public static boolean setQuit(Scanner scan) {
+    private static boolean setQuit(Scanner scan) {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
@@ -97,7 +98,7 @@ public class Main {
      * @param animeStudio       Hashmap tying anime and studios together
      * @param animeScore        Hashmap typing anime and a given anime rating (1-10)
      */
-    public static void remove(Scanner scan,
+    private static void remove(Scanner scan,
                               ArrayList<String> animeList,
                               HashMap<String, ArrayList<String>> animeGenre,
                               HashMap<String, Integer> animeEpisodeCount,
@@ -137,7 +138,7 @@ public class Main {
     /**
      * Displays quick usability guide for each command (from main menu)
      */
-    public static void help() {
+    private static void help() {
         System.out.print(
                 """
                         -----------------------------------------------------------
@@ -162,7 +163,7 @@ public class Main {
      * @param animeStudio       Hashmap tying anime and studios together
      * @param animeScore        Hashmap typing anime and a given anime rating (1-10)
      */
-    public static void getUserInput(Scanner scan,
+    private static void getUserInput(Scanner scan,
                                     ArrayList<String> animeList,
                                     ArrayList<String> studioList,
                                     HashMap<String, ArrayList<String>> animeGenre,
@@ -244,7 +245,7 @@ public class Main {
      *
      * @param cmds Array containing all the commands
      */
-    public static void printInterface(String[] cmds) {
+    private static void printInterface(String[] cmds) {
         System.out.println("Select A Command With The Number:");
 
         //Display our list of commands
@@ -262,7 +263,7 @@ public class Main {
      * @param animeStudio       Hashmap tying anime and studios together
      * @param animeRating        Hashmap typing anime and a given anime rating (1-10)
      */
-    public static void outputCases(Scanner scan,
+    private static void outputCases(Scanner scan,
                                    ArrayList<String> animeList,
                                    ArrayList<String> studioList,
                                    HashMap<String, ArrayList<String>> animeGenre,
@@ -451,7 +452,7 @@ public class Main {
      * @param scan Scanner
      * @return returns Boolean => true if user does not want to exit program, otherwise false
      */
-    public static boolean exitToMain(Scanner scan) {
+    private static boolean exitToMain(Scanner scan) {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
@@ -470,7 +471,7 @@ public class Main {
      * Prints out all the anime currently stored
      * @param animeList Arraylist containing all anime being tracked
      */
-    public static void allAnimeTracked(ArrayList<String> animeList) {
+    private static void allAnimeTracked(ArrayList<String> animeList) {
         System.out.println("-----------------------------------------------------------");
         System.out.println("The anime(s) currently tracked:");
         if (animeList.size() == 0) {
@@ -486,7 +487,7 @@ public class Main {
     /**
      *  Displays quick usability guide for each command (for output command options)
      */
-    public static void helpOutputCommands() {
+    private static void helpOutputCommands() {
         System.out.print(
                 """     
                         -----------------------------------------------------------
