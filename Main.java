@@ -317,13 +317,11 @@ public class Main {
     private static String getAnimeRatings(HashMap<String, Double> animeRating)
     {
         StringBuilder retString = new StringBuilder();
-
         for(String key : animeRating.keySet())
         {
             retString.append(key).append(" -> ").append(animeRating.get(key)).append("\n");
         }
         retString.deleteCharAt(retString.length()-1);
-
         return retString.toString();
     }
 
