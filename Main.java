@@ -295,12 +295,13 @@ public class Main {
     }
 
     /**
-     * Display a list of the studios currenty in tracking
+     * Display a list of the studios currently in tracking
      * @param studios the list of studios
      * @return a string build from a string builder
      */
     private static String getStudios(ArrayList<String> studios)
     {
+        if(studios.isEmpty()){return "No anime currently being tracked!";}
         StringBuilder retString = new StringBuilder();
         for(String studio : studios){
             retString.append(studio).append("\n");
@@ -316,6 +317,7 @@ public class Main {
      */
     private static String getAnimeRatings(HashMap<String, Double> animeRating)
     {
+        if(animeRating.isEmpty()){return "No anime currently being tracked!";}
         StringBuilder retString = new StringBuilder();
         for(String key : animeRating.keySet())
         {
@@ -330,6 +332,7 @@ public class Main {
      *
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @return String that contains the top streamed anime from all stored anime
      */
     public static String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         String output;
@@ -349,11 +352,19 @@ public class Main {
         return output;
     }
 
+    /**
+     *
+     * @return String that contains top portion of border
+     */
     private static String printTopBorder()
     {
         return "-----------------------------------------------------------\n";
     }
 
+    /**
+     *
+     * @return string that contains bottom portion of border
+     */
     private static String printBottomBorder()
     {
         return "\n-----------------------------------------------------------";
@@ -364,6 +375,7 @@ public class Main {
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeGenre        the linked anime/genre Hashmap
      * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @return String that contains all the genres of a particular anime
      */
     public static String topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
                                         HashMap<String, Integer> animeEpisodeCount) {
@@ -404,9 +416,10 @@ public class Main {
     }
 
     /**
-     *
+     * Calculates total watch time (given an estimated 23 mins per anime episode)
      * @param animeList         Arraylist containing all anime being tracked
      * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @return String that contains the total watch-time for user
      */
     public static String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         int watchTime = 0;
@@ -421,6 +434,7 @@ public class Main {
      *
      * @param scan       Scanner for getting user input
      * @param animeGenre the linked anime/genre Hashmap
+     * @return String that contains all genre for a particular anime
      */
     public static String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
