@@ -1,3 +1,4 @@
+package anime.Entity;
 
 import java.util.ArrayList;
 

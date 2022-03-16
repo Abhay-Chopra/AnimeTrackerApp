@@ -1,3 +1,5 @@
+package anime.Entity;
+
 public class SeasonAnime extends Anime {
     private Anime parentAnime;
 
