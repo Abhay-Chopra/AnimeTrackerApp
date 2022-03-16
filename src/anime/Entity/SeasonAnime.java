@@ -1,4 +1,4 @@
-package anime.Entity;
+package src.anime.Entity;
 
 public class SeasonAnime extends Anime {
     private Anime parentAnime;

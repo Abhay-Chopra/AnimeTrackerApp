@@ -1,4 +1,4 @@
-package anime;
+package src.anime;
 
 import java.util.*;
 

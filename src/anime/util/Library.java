@@ -1,7 +1,7 @@
-package anime.util;
+package src.anime.util;
 
 import java.util.ArrayList;
-import anime.Entity.Anime;
+import src.anime.Entity.Anime;
 
 public class Library {
     //The only container in the class, a List of Anime
