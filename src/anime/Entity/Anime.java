@@ -1,3 +1,5 @@
+package anime.Entity;
+
 import java.util.ArrayList;
 
 public class Anime {
