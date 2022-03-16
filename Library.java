@@ -16,6 +16,4 @@ public class Library {
     public void removeAnime(Anime removeAnime) {
         animeList.remove(removeAnime);
     }
-
-
 }
