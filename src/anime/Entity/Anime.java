@@ -11,7 +11,7 @@ public class Anime {
     private Status status;
     private Season season;
 
-    //Not changing and similar for all anime, public?
+    //Not changing and similar for all anime
     public static final int EPISODE_LENGTH = 23;
     public static final String[] LIST_OF_GENRES = {"ACTION", "DRAMA", "COMEDY", "ADVENTURE", "SUPERNATURAL", "FANTASY"};
     public static final String[] LIST_OF_THEMES = {"SUPERPOWER", "MARTIAL ARTS", "MECHA", "DEMONS", "MILITARY"};
