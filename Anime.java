@@ -2,10 +2,10 @@
 import java.util.ArrayList;
 
 public class Anime {
-    //Fields and Enums
+    //Fields
     private String name;
-    private ArrayList<String> genres = new ArrayList<>();
-    private ArrayList<String> themes = new ArrayList<>();
+    private ArrayList<String> genres;
+    private ArrayList<String> themes;
     private int episodes;
     private double rating;
     private Status status;
@@ -14,7 +14,7 @@ public class Anime {
     //Not changing and similar for all anime, public?
     public static final int EPISODE_LENGTH = 23;
     public static final String[] LIST_OF_GENRES = {"ACTION", "DRAMA", "COMEDY", "ADVENTURE", "SUPERNATURAL", "FANTASY"};
-    public static final String[] LIST_OF_THEMES = {"SUPER POWER", "MARTIAL ARTS", "MECHA", "DEMONS", "MILITARY"};
+    public static final String[] LIST_OF_THEMES = {"SUPERPOWER", "MARTIAL ARTS", "MECHA", "DEMONS", "MILITARY"};
 
     //Status and Season ENUMS
     public enum Status {
@@ -31,9 +31,18 @@ public class Anime {
     }
 
     //Constructor and Methods beyond here
-    public Anime() {
-
+    public Anime(String name, ArrayList<String> genres, ArrayList<String> themes,
+                 int episodes, double rating, Anime.Status status, Anime.Season season) {
+        this.name = name;
+        this.genres = genres;
+        this.themes = themes;
+        this.episodes = episodes;
+        this.rating = rating;
+        this.status = status;
+        this.season = season;
     }
+
+    public Anime(){}
 
     public String getName() {
         return name;
@@ -90,5 +99,4 @@ public class Anime {
     public void setSeason(Season season) {
         this.season = season;
     }
-
 }
