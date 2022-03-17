@@ -19,7 +19,7 @@ public class Menu {
         printHeader();
     }
 
-    private void printHeader(){
+    private void printHeader() {
         System.out.println("-----------------------------");
         System.out.println("Brandon's And Abhay's Anime List");
         System.out.println("-----------------------------");
