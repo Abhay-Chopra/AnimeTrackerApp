@@ -51,7 +51,7 @@ public class Library {
         retString.deleteCharAt(retString.length()-1);
         return retString.toString();
     }
-
+    //TODO Use AnimeEpisodeComparator and sort array list using that
     /**
      * Determines the top streamed anime based on total watch time of each anime
      *
@@ -76,7 +76,8 @@ public class Library {
         }
         return output;
     }
-
+    //TODO Implement AnimeGenreComparator and sort array list using that
+    //TODO Implement anime ratings comparator and sort array list using that
     /**
      * Calculates the top streamed anime genre, from anime currently stored
      * @param animeList         Arraylist containing all anime being tracked
@@ -120,6 +121,54 @@ public class Library {
             output = "No anime is currently being tracked!";
         }
         return output;
+    }
+
+    /**
+     * Calculates total watch time (given an estimated 23 mins per anime episode)
+     * @param animeList         Arraylist containing all anime being tracked
+     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     * @return String that contains the total watch-time for user
+     */
+    public static String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+        int watchTime = 0;
+        for (String anime : animeList) {
+            watchTime += animeEpisodeCount.get(anime);
+        }
+        return "Total Watch Time (estimated): " + (watchTime * Anime.EPISODE_LENGTH + " minutes");
+    }
+
+    /**
+     * Get the genre of a supplied anime, given by user
+     *
+     * @param scan       Scanner for getting user input
+     * @param animeGenre the linked anime/genre Hashmap
+     * @return String that contains all genre for a particular anime
+     */
+    public static String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+        System.out.println("What anime's genres would you like to search?");
+        String searchedAnime = scan.nextLine().toUpperCase();
+        if (animeGenre.containsKey(searchedAnime)) {
+            return "The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime);
+        } else {
+            return "That anime is not stored! Try again";
+        }
+    }
+
+    /**
+     * Prints out all the anime currently stored
+     * @param animeList Arraylist containing all anime being tracked
+     */
+    private static void allAnimeTracked(ArrayList<String> animeList) {
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("The anime(s) currently tracked:");
+        if (animeList.size() == 0) {
+            System.out.println("No anime currently being tracked!");
+        } else {
+            for (int i = 0; i < animeList.size(); i++) {
+                System.out.println(i + 1 + ") " + animeList.get(i));
+            }
+        }
+        System.out.println("-----------------------------------------------------------");
     }
 
 

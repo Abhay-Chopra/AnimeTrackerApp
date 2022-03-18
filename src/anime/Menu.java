@@ -57,4 +57,45 @@ public class Menu {
             System.out.println(i + 1 + ") " + MAIN_CMDS[i]);
     }
 
+    /**
+     *  Displays quick usability guide for each command (for output command options)
+     */
+    private static void helpOutputCommands() {
+        System.out.print(
+                """     
+                        -----------------------------------------------------------
+                        Print All Anime Tracked -> Displays all anime currently being tracked
+                        Total Watch Time -> Displays total watch time accumulated across all anime
+                        Top Streamed Anime -> Displays your top streamed anime, determined by watch time
+                        Top Streamed Genre -> Displays top anime genre, determined by watch time
+                        Anime By Genre -> Given an anime, returns all the genres of anime (from current tracked anime)
+                        View Ratings -> See all tracked anime and their ratings
+                        View Studios -> See all currently tracked studios
+                                                
+                        exit -> exit to main menu
+                        help -> displays help for commands
+                        -----------------------------------------------------------
+                        """);
+    }
+
+    /**
+     * Confirms exit from output command menu to main menu
+     * @param scan Scanner
+     * @return returns Boolean => true if user does not want to exit program, otherwise false
+     */
+    private static boolean exitToMain(Scanner scan) {
+        System.out.println("-------------------------------------");
+        System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
+        System.out.println("-------------------------------------");
+        try{
+            return !(scan.nextInt() == 1);
+        }catch (InputMismatchException e){
+            System.out.println("-------------------------------------");
+            System.out.println("Error On Exit!");
+            System.out.println("-------------------------------------");
+            scan.nextLine();
+            return true;
+        }
+
+    }
 }
