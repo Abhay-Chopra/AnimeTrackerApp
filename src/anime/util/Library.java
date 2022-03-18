@@ -2,6 +2,7 @@ package anime.util;
 import java.util.*;
 import anime.Entity.Anime;
 
+//TODO Modify all functions from Library.java to work as intended in Menu.java
 public class Library {
     //The only container in the class, a List of Anime
     private ArrayList<Anime> animeList;
@@ -10,13 +11,22 @@ public class Library {
         animeList = new ArrayList<Anime>();
     }
 
+    public boolean contains(String animeName){
+        for (Anime anime: animeList) {
+            if (anime.getName().equals(animeName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //All of our anime accessing code and processing goes here
     public void addAnime(Anime newAnime) {
         animeList.add(newAnime);
     }
-
-    public void removeAnime(Anime removeAnime) {
-        animeList.remove(removeAnime);
+    //TODO Test remove function
+    public void removeAnime(String animeToRemove) {
+        animeList.removeIf(anime -> anime.toString().equals(animeToRemove));
     }
 
     /**
@@ -129,7 +139,7 @@ public class Library {
      * @param animeEpisodeCount the linked anime/episodeCount Hashmap
      * @return String that contains the total watch-time for user
      */
-    public static String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+    public String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
         int watchTime = 0;
         for (String anime : animeList) {
             watchTime += animeEpisodeCount.get(anime);
@@ -144,7 +154,7 @@ public class Library {
      * @param animeGenre the linked anime/genre Hashmap
      * @return String that contains all genre for a particular anime
      */
-    public static String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+    public String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
         System.out.println("What anime's genres would you like to search?");
         String searchedAnime = scan.nextLine().toUpperCase();
         if (animeGenre.containsKey(searchedAnime)) {
@@ -158,7 +168,7 @@ public class Library {
      * Prints out all the anime currently stored
      * @param animeList Arraylist containing all anime being tracked
      */
-    private static void allAnimeTracked(ArrayList<String> animeList) {
+    private void allAnimeTracked(ArrayList<String> animeList) {
         System.out.println("-----------------------------------------------------------");
         System.out.println("The anime(s) currently tracked:");
         if (animeList.size() == 0) {
@@ -171,5 +181,8 @@ public class Library {
         System.out.println("-----------------------------------------------------------");
     }
 
-
+    //TODO return an array of all anime's
+    public Anime[] getAnime() {
+        return null;
+    }
 }
