@@ -11,6 +11,11 @@ public class Library {
         animeList = new ArrayList<Anime>();
     }
 
+    @Override
+    public String toString(){
+        return null;
+    }
+
     public boolean contains(String animeName){
         for (Anime anime: animeList) {
             if (anime.getName().equals(animeName)){
@@ -24,107 +29,76 @@ public class Library {
     public void addAnime(Anime newAnime) {
         animeList.add(newAnime);
     }
+
     //TODO Test remove function
     public void removeAnime(String animeToRemove) {
         animeList.removeIf(anime -> anime.toString().equals(animeToRemove));
     }
 
     /**
-     * Display a list of the studios currently in tracking
-     * @param studios the list of studios
-     * @return a string build from a string builder
+     * Display a list of the studios currently in Library
+     *
+     * @return String containing all studios'
      */
-    public String getStudios(ArrayList<String> studios)
+    public String getStudios()
     {
-        if(studios.isEmpty()){return "No anime currently being tracked!";}
-        StringBuilder retString = new StringBuilder();
-        for(String studio : studios){
-            retString.append(studio).append("\n");
+        if(animeList.isEmpty()){return "No anime currently being tracked!";}
+        StringBuilder returnString = new StringBuilder();
+        for(Anime anime: animeList){
+            //TODO Have to finish getStudios()
+            returnString.append(anime.getStudio()).append("\n");
         }
-        retString.deleteCharAt(retString.length()-1);
-        return retString.toString();
+        returnString.deleteCharAt(returnString.length()-1);
+        return returnString.toString();
     }
 
     /**
-     * Print the contents of the map of anime -> rating (double_
-     * @param animeRating the map of anime to rating
-     * @return a toString from a StringBuilder
+     * Print the contents of the map of anime -> rating (double)
+     * @return String containing all anime ratings'
      */
-    public String getAnimeRatings(HashMap<String, Double> animeRating)
+    public String getAnimeRatings()
     {
-        if(animeRating.isEmpty()){return "No anime currently being tracked!";}
-        StringBuilder retString = new StringBuilder();
-        for(String key : animeRating.keySet())
+        if(animeList.isEmpty()){return "No anime currently being tracked!";}
+        StringBuilder returnString = new StringBuilder();
+        for(Anime anime: animeList)
         {
-            retString.append(key).append(" -> ").append(animeRating.get(key)).append("\n");
+            returnString.append(anime).append(" -> ").append(anime.getRating()).append("\n");
         }
-        retString.deleteCharAt(retString.length()-1);
-        return retString.toString();
+        returnString.deleteCharAt(returnString.length()-1);
+        return returnString.toString();
     }
-    //TODO Use AnimeEpisodeComparator and sort array list using that
+
     /**
      * Determines the top streamed anime based on total watch time of each anime
      *
-     * @param animeList         Arraylist containing all anime being tracked
-     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
      * @return String that contains the top streamed anime from all stored anime
      */
-    public String topStreamedAnime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
+    public String topStreamedAnime() {
         String output;
         if (animeList.size() > 0) {
-            String topStreamedAnime = animeList.get(0);
-            Integer episodeCount = -1;
-            for (String anime : animeList) {
-                if (animeEpisodeCount.get(anime) > episodeCount) {
-                    topStreamedAnime = anime;
-                    episodeCount = animeEpisodeCount.get(anime);
-                }
-            }
-            output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + episodeCount * Anime.EPISODE_LENGTH + " minutes";
+            //TODO Use AnimeEpisodeComparator and sort array list using that
+            Anime topStreamedAnime = new Anime();
+            output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + topStreamedAnime.getEpisodes() * Anime.EPISODE_LENGTH + " minutes";
         } else {
             output = "No anime is currently being tracked";
         }
         return output;
     }
-    //TODO Implement AnimeGenreComparator and sort array list using that
     //TODO Implement anime ratings comparator and sort array list using that
     /**
      * Calculates the top streamed anime genre, from anime currently stored
-     * @param animeList         Arraylist containing all anime being tracked
-     * @param animeGenre        the linked anime/genre Hashmap
-     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     *
      * @return String that contains all the genres of a particular anime
      */
-    public String topStreamedGenre(ArrayList<String> animeList, HashMap<String, ArrayList<String>> animeGenre,
-                                   HashMap<String, Integer> animeEpisodeCount) {
+    public String topStreamedGenre() {
         String output;
-        // creating intermediate data structure
-        HashMap<String, Integer> genreToEpisodeMapping = new HashMap<>();
         if (animeList.size() > 0) {
-            for (String anime : animeList) {
-                ArrayList<String> genreList = animeGenre.get(anime);
-                for (String genre : genreList) {
-                    // if  key already exists, its being updated
-                    if (genreToEpisodeMapping.containsKey(genre)) {
-                        genreToEpisodeMapping.put(genre, genreToEpisodeMapping.get(genre) + animeEpisodeCount.get(anime));
-                    }
-                    // creating a new key and item pair within hashmap
-                    else {
-                        genreToEpisodeMapping.put(genre, animeEpisodeCount.get(anime));
-                    }
-                }
+            for (Anime anime : animeList) {
             }
-            Set<String> genreKeySet = genreToEpisodeMapping.keySet();
-            ArrayList<String> genresList = new ArrayList<>(genreKeySet);
-            String topStreamedGenre = genresList.get(0);
-            int numberOfEpisodes = 0;
-            //looping through all genres
-            for (String genre : genresList) {
-                if (genreToEpisodeMapping.get(genre) > numberOfEpisodes) {
-                    topStreamedGenre = genre;
-                    numberOfEpisodes = genreToEpisodeMapping.get(genre);
-                }
-            }
+            //TODO Implement AnimeGenreComparator and sort array list using that
+            String topStreamedGenre = "filler";
+            int numberOfEpisodes = 1;
+
             //printing out to console
             output = "Your top streamed anime genre is: " + topStreamedGenre + "\nEstimated Watch Time: " + numberOfEpisodes * Anime.EPISODE_LENGTH + " minutes";
         } else {
@@ -135,43 +109,51 @@ public class Library {
 
     /**
      * Calculates total watch time (given an estimated 23 mins per anime episode)
-     * @param animeList         Arraylist containing all anime being tracked
-     * @param animeEpisodeCount the linked anime/episodeCount Hashmap
+     *
      * @return String that contains the total watch-time for user
      */
-    public String totalWatchTime(ArrayList<String> animeList, HashMap<String, Integer> animeEpisodeCount) {
-        int watchTime = 0;
-        for (String anime : animeList) {
-            watchTime += animeEpisodeCount.get(anime);
+    public String totalWatchTime() {
+        int totalEpisodes = 0;
+        for (Anime anime : animeList) {
+            totalEpisodes += anime.getEpisodes();
         }
-        return "Total Watch Time (estimated): " + (watchTime * Anime.EPISODE_LENGTH + " minutes");
+        return "Total Watch Time (estimated): " + (totalEpisodes * Anime.EPISODE_LENGTH + " minutes");
     }
 
     /**
      * Get the genre of a supplied anime, given by user
      *
-     * @param scan       Scanner for getting user input
-     * @param animeGenre the linked anime/genre Hashmap
      * @return String that contains all genre for a particular anime
      */
-    public String getGenreByAnime(Scanner scan, HashMap<String, ArrayList<String>> animeGenre) {
+    public String getGenreByAnime(Scanner scan) {
         System.out.println("What anime's genres would you like to search?");
         String searchedAnime = scan.nextLine().toUpperCase();
-        if (animeGenre.containsKey(searchedAnime)) {
-            return "The anime " + searchedAnime + " has genres " + animeGenre.get(searchedAnime);
+        if (this.contains(searchedAnime)) {
+            ArrayList<String> animeGenres = new ArrayList<>();
+            for (Anime anime: animeList) {
+                if (anime.getName().equals(searchedAnime)){
+                    animeGenres = anime.getGenres();
+                }
+            }
+            StringBuilder genres = new StringBuilder();
+            for (String genre: animeGenres) {
+                genres.append(genre).append(", ");
+            }
+            genres.deleteCharAt(genres.length()-2);
+            return "The anime " + searchedAnime + " has genres " + genres;
         } else {
             return "That anime is not stored! Try again";
         }
     }
 
+    //TODO Might be able to get rid of this function
     /**
      * Prints out all the anime currently stored
-     * @param animeList Arraylist containing all anime being tracked
      */
-    private void allAnimeTracked(ArrayList<String> animeList) {
+    private void allAnimeTracked() {
         System.out.println("-----------------------------------------------------------");
         System.out.println("The anime(s) currently tracked:");
-        if (animeList.size() == 0) {
+        if (animeList.isEmpty()) {
             System.out.println("No anime currently being tracked!");
         } else {
             for (int i = 0; i < animeList.size(); i++) {
@@ -181,7 +163,7 @@ public class Library {
         System.out.println("-----------------------------------------------------------");
     }
 
-    //TODO return an array of all anime's
+    //TODO return an array of all anime
     public Anime[] getAnime() {
         return null;
     }

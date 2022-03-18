@@ -39,7 +39,7 @@ public final class Menu {
             }
             switch (input) {
                 case 1 -> getInputFromFile(scanner, animeList);
-                case 2 -> getUserInput(scanner, animeList);
+                case 2 -> getInputFromCMD(scanner, animeList);
                 case 3 -> remove(scanner, animeList);
                 case 4 -> help();
                 case 5 -> outputCases(scanner, animeList);
@@ -98,7 +98,7 @@ public final class Menu {
                 case 2 -> System.out.println(printTopBorder() + animeList.totalWatchTime() + printBottomBorder());
                 case 3 -> System.out.println(printTopBorder()  + animeList.topStreamedAnime() + printBottomBorder());
                 case 4 -> System.out.println(printTopBorder()  + animeList.topStreamedGenre() + printBottomBorder());
-                case 5 -> System.out.println(printTopBorder()  + animeList.getGenreByAnime() + printBottomBorder());
+                case 5 -> System.out.println(printTopBorder()  + animeList.getGenreByAnime(scanner) + printBottomBorder());
                 case 6 -> System.out.println(printTopBorder()  + animeList.getAnimeRatings() + printBottomBorder());
                 case 7 -> System.out.println(printTopBorder()  + animeList.getStudios() + printBottomBorder());
                 case 8 -> helpOutputCommands();
@@ -131,7 +131,7 @@ public final class Menu {
      * @param scanner              Scanner for getting input from user
      * @param animeList         Library containing all Anime and their information
      */
-    private static void getUserInput(Scanner scanner, Library animeList) {
+    private static void getInputFromCMD(Scanner scanner, Library animeList) {
         boolean notAdded = true;
         System.out.println("What anime would you like to add?");
         String newAnime = "";
@@ -149,6 +149,7 @@ public final class Menu {
         System.out.println("-----------------------------------------------------------");
     }
 
+    //TODO Complete function getAnimeFromUser
     private static void getAnimeFromUser(Scanner scanner, Library animeList) {
     }
     
