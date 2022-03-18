@@ -84,6 +84,7 @@ public class Library {
         }
         return output;
     }
+
     //TODO Implement anime ratings comparator and sort array list using that
     /**
      * Calculates the top streamed anime genre, from anime currently stored

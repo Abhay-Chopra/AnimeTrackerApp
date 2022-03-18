@@ -1,6 +1,5 @@
 package anime.util;
 import anime.Entity.Anime;
-
 import java.util.Comparator;
 
 public class AnimeEpisodeComparator implements Comparator<Anime> {
