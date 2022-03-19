@@ -107,4 +107,11 @@ public class Anime {
     public void setStudio(Studio studio){
         this.studio = studio;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.name + "\n" + "Genres: " + this.genres.toString() + "\n" + "Themes: " + this.themes.toString() + "\n" + "Rating: " + this.rating + "\n" +
+                "Episodes: " + this.episodes + "\n" + "Status: " + this.status.toString() + "\n" + "Season: " +this.season.toString()
+                + "\n" + "Studio: " + this.studio.getName();
+    }
 }
