@@ -4,12 +4,9 @@ import anime.Entity.Anime;
 import anime.Entity.SeasonAnime;
 import anime.util.Library;
 import anime.util.Reader;
-
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
-public final class Menu {
+public class Menu {
 
     private boolean notQuit = true;
     private final Library animeList = new Library();
@@ -42,12 +39,12 @@ public final class Menu {
                 scanner.nextLine();
             }
             switch (input) {
-                case 1 -> getInputFromFile(scanner, animeList);
-                case 2 -> getInputFromCMD(scanner, animeList);
-                case 3 -> remove(scanner, animeList);
+                case 1 -> getInputFromFile();
+                case 2 -> getInputFromCMD();
+                case 3 -> remove();
                 case 4 -> help();
-                case 5 -> outputCases(scanner, animeList);
-                case 6 -> notQuit = setQuit(scanner);
+                case 5 -> outputCases();
+                case 6 -> notQuit = setQuit();
                 default -> printError();
             }
         }
@@ -56,10 +53,8 @@ public final class Menu {
 
     /**
      * Creates or updates library given file from user
-     * @param scanner           Scanner for getting input from user
-     * @param animeList         Library of stored anime and their info
      */
-    private void getInputFromFile(Scanner scanner, Library animeList) {
+    private void getInputFromFile() {
         //TODO Complete function getInputFromFile
         System.out.print("Enter the anime file you want to read: ");
         String fileName = scanner.nextLine();
@@ -69,10 +64,8 @@ public final class Menu {
     /**
      * Input function that sets up case structure for main menu interface
      *
-     * @param scanner              Scanner for getting input from user
-     * @param animeList         Library containing all Anime and their information
      */
-    private void getInputFromCMD(Scanner scanner, Library animeList) {
+    private void getInputFromCMD() {
         System.out.println("What kind of anime are we adding? (anything else to quit)");
         for(int i = 0; i < ANIME_CMDS.length; i++)
             System.out.println(i + ") " + ANIME_CMDS[i]);
@@ -82,24 +75,22 @@ public final class Menu {
             input = scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input detected! Returning to menu");
-            eatNewLine(scanner);
+            eatNewLine();
             return;
         }
 
         switch(input) {
-            case 0 -> getAnimeFromUser(scanner, animeList);
-            case 1 -> getAlternateAnime(scanner, animeList);
+            case 0 -> getAnimeFromUser();
+            case 1 -> getAlternateAnime();
             default -> System.out.println("Nothing chosen! Returning to menu!");
         }
     }
 
     /**
      * Adding a ORIGINAL ANIME to the library
-     * @param scanner for input
-     * @param animeList
      */
-    private void getAnimeFromUser(Scanner scanner, Library animeList) {
-        eatNewLine(scanner);
+    private void getAnimeFromUser() {
+        eatNewLine();
         System.out.println("What anime would you like to add?");
         String animeTitle = scanner.nextLine().toUpperCase();
         if(animeList.contains(animeTitle)) {
@@ -166,10 +157,8 @@ public final class Menu {
 
     /**
      *
-     * @param scanner
-     * @param animeList
      */
-    private void getAlternateAnime(Scanner scanner, Library animeList) {
+    private void getAlternateAnime() {
         if(animeList.getAnime().length == 0) {
             System.out.println("No anime being tracked to branch from!");
             return;
@@ -183,7 +172,7 @@ public final class Menu {
         }
 
         Anime parentAnime = bufferAnime[scanner.nextInt()];
-        eatNewLine(scanner);
+        eatNewLine();
 
         System.out.println("What is the title of this anime?");
         String animeTitle = scanner.nextLine().toUpperCase();
@@ -251,10 +240,8 @@ public final class Menu {
 
     /**
      * Removes anime from all datastructures given a name (by user)
-     * @param scan              Scanner for getting input from user
-     * @param animeList         Library of stored anime and their info
      */
-    private void remove(Scanner scan, Library animeList) {
+    private void remove() {
         if(animeList.getAnime().length == 0) {
             System.out.println("-------------------------------------");
             System.out.println("No anime currently being tracked");
@@ -267,7 +254,7 @@ public final class Menu {
                 System.out.println(anime);
                 System.out.println("------------------------------------------------");
             }
-            String animeToRemove = scan.nextLine().toUpperCase();
+            String animeToRemove = scanner.nextLine().toUpperCase();
             if (animeList.contains(animeToRemove)) {
                 animeList.removeAnime(animeToRemove);
                 System.out.println("-------------------------------------");
@@ -283,10 +270,9 @@ public final class Menu {
 
     /**
      * Function confirms that the user wants to exit the program
-     * @param scanner Scanner to get input from user
      * @return Boolean false, if user wants to exit program, otherwise returns true
      */
-    private boolean setQuit(Scanner scanner) {
+    private boolean setQuit() {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
@@ -312,10 +298,8 @@ public final class Menu {
 
     /**
      * Sets up the output command structure for output commands menu
-     * @param scanner              Scanner for getting input from user
-     * @param animeList         ArrayList of stored anime
      */
-    private void outputCases(Scanner scanner, Library animeList) {
+    private void outputCases() {
         boolean notQuit = true;
         //Looping for the output commands interface
         do {
@@ -422,7 +406,7 @@ public final class Menu {
                 """);
     }
 
-    private void eatNewLine(Scanner scanner) {
+    private void eatNewLine() {
         scanner.nextLine();
     }
 }

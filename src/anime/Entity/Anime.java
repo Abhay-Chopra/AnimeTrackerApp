@@ -10,6 +10,7 @@ public class Anime {
     private double rating;
     private Status status;
     private Season season;
+    private Studio studio;
 
     //Not changing and similar for all anime
     public static final int EPISODE_LENGTH = 23;
@@ -41,10 +42,6 @@ public class Anime {
         this.status = status;
         this.season = season;
     }
-
-    public Anime(){
-    }
-
 
     public String getName() {
         return name;
@@ -102,7 +99,11 @@ public class Anime {
         this.season = season;
     }
 
-    public String getStudio() {
-        return null;
+    public Studio getStudio() {
+        return this.studio;
+    }
+
+    public void setStudio(Studio studio){
+        this.studio = studio;
     }
 }

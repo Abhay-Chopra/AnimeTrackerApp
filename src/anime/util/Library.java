@@ -76,7 +76,7 @@ public class Library {
         String output;
         if (animeList.size() > 0) {
             //TODO Use AnimeEpisodeComparator and sort array list using that
-            Anime topStreamedAnime = new Anime();
+            Anime topStreamedAnime = null;
             output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + topStreamedAnime.getEpisodes() * Anime.EPISODE_LENGTH + " minutes";
         } else {
             output = "No anime is currently being tracked";
