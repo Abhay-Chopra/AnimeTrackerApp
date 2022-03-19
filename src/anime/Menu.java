@@ -4,12 +4,14 @@ import anime.Entity.Anime;
 import anime.Entity.SeasonAnime;
 import anime.util.Library;
 import anime.util.Reader;
+
+import java.io.File;
 import java.util.*;
 
 public class Menu {
 
     private boolean notQuit = true;
-    private final Library animeList = new Library();
+    private final Library animeLibrary = new Library();
     private final Scanner scanner = new Scanner(System.in);
 
     private final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
@@ -55,10 +57,22 @@ public class Menu {
      * Creates or updates library given file from user
      */
     private void getInputFromFile() {
-        //TODO Complete function getInputFromFile
         System.out.print("Enter the anime file you want to read: ");
         String fileName = scanner.nextLine();
-        Reader.Import(fileName);
+        File file = new File(fileName);
+
+        boolean loopFlag = true;
+        while(loopFlag) {
+            if (file.isFile() & file.canRead() & file.exists()) {
+                ArrayList<Anime> animeList = Reader.Import(file);
+                animeLibrary.addBulkAnime(animeList);
+                loopFlag = false;
+            } else {
+                System.err.print("Please provide a valid file: ");
+                fileName = scanner.nextLine();
+                file = new File(fileName);
+            }
+        }
     }
 
     /**
@@ -70,7 +84,7 @@ public class Menu {
         for(int i = 0; i < ANIME_CMDS.length; i++)
             System.out.println(i + ") " + ANIME_CMDS[i]);
 
-        int input = -1;
+        int input;
         try {
             input = scanner.nextInt();
         } catch (InputMismatchException e) {
@@ -93,7 +107,7 @@ public class Menu {
         eatNewLine();
         System.out.println("What anime would you like to add?");
         String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeList.contains(animeTitle)) {
+        if(animeLibrary.contains(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
         }
@@ -104,7 +118,7 @@ public class Menu {
         }
 
         ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd = "";
+        String genreToAdd;
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
@@ -119,7 +133,7 @@ public class Menu {
         }
 
         ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd = "";
+        String themeToAdd;
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
@@ -148,7 +162,7 @@ public class Menu {
 
         Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
 
-        animeList.addAnime(newAnime);
+        animeLibrary.addAnime(newAnime);
 
         System.out.println("-----------------------------------------------------------");
         System.out.println("Completed adding " + newAnime.getName() + " to the list!");
@@ -156,17 +170,17 @@ public class Menu {
     }
 
     /**
-     *
+     * Getting alternate anime (OVA's, seasonal anime, etc)
      */
     private void getAlternateAnime() {
-        if(animeList.getAnime().length == 0) {
+        if(animeLibrary.getAnime().length == 0) {
             System.out.println("No anime being tracked to branch from!");
             return;
         }
 
         System.out.println("What anime is this branched from?");
 
-        Anime[] bufferAnime = animeList.getAnime();
+        Anime[] bufferAnime = animeLibrary.getAnime();
         for(int i = 0; i < bufferAnime.length; i++){
             System.out.println(i+") " + bufferAnime[i].getName());
         }
@@ -176,7 +190,7 @@ public class Menu {
 
         System.out.println("What is the title of this anime?");
         String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeList.contains(animeTitle)) {
+        if(animeLibrary.contains(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
         }
@@ -187,7 +201,7 @@ public class Menu {
         }
 
         ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd = "";
+        String genreToAdd;
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
@@ -202,7 +216,7 @@ public class Menu {
         }
 
         ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd = "";
+        String themeToAdd;
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
@@ -231,7 +245,7 @@ public class Menu {
 
         SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
 
-        animeList.addAnime(sAnime);
+        animeLibrary.addAnime(sAnime);
 
         System.out.println("-----------------------------------------------------------");
         System.out.println("Completed adding " + sAnime.getName() + " to the list!");
@@ -242,7 +256,7 @@ public class Menu {
      * Removes anime from all datastructures given a name (by user)
      */
     private void remove() {
-        if(animeList.getAnime().length == 0) {
+        if(animeLibrary.getAnime().length == 0) {
             System.out.println("-------------------------------------");
             System.out.println("No anime currently being tracked");
             System.out.println("-------------------------------------");
@@ -250,13 +264,13 @@ public class Menu {
         {
             System.out.println("Which of the following would you like to remove?");
             System.out.println("------------------------------------------------");
-            for (Anime anime : animeList.getAnime()) {
+            for (Anime anime : animeLibrary.getAnime()) {
                 System.out.println(anime);
                 System.out.println("------------------------------------------------");
             }
             String animeToRemove = scanner.nextLine().toUpperCase();
-            if (animeList.contains(animeToRemove)) {
-                animeList.removeAnime(animeToRemove);
+            if (animeLibrary.contains(animeToRemove)) {
+                animeLibrary.removeAnime(animeToRemove);
                 System.out.println("-------------------------------------");
                 System.out.println("Finished removing " + animeToRemove);
                 System.out.println("-------------------------------------");
@@ -308,13 +322,13 @@ public class Menu {
             scanner.nextLine();
             switch (input) {
                 //TODO Add toString to Library class and Anime class as well
-                case 1 -> System.out.println(animeList);
-                case 2 -> System.out.println(printTopBorder() + animeList.totalWatchTime() + printBottomBorder());
-                case 3 -> System.out.println(printTopBorder()  + animeList.topStreamedAnime() + printBottomBorder());
-                case 4 -> System.out.println(printTopBorder()  + animeList.topStreamedGenre() + printBottomBorder());
-                case 5 -> System.out.println(printTopBorder()  + animeList.getGenreByAnime(scanner) + printBottomBorder());
-                case 6 -> System.out.println(printTopBorder()  + animeList.getAnimeRatings() + printBottomBorder());
-                case 7 -> System.out.println(printTopBorder()  + animeList.getStudios() + printBottomBorder());
+                case 1 -> System.out.println(animeLibrary);
+                case 2 -> System.out.println(printTopBorder() + animeLibrary.totalWatchTime() + printBottomBorder());
+                case 3 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedAnime() + printBottomBorder());
+                case 4 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedGenre() + printBottomBorder());
+                case 5 -> System.out.println(printTopBorder()  + animeLibrary.getGenreByAnime(scanner) + printBottomBorder());
+                case 6 -> System.out.println(printTopBorder()  + animeLibrary.getAnimeRatings() + printBottomBorder());
+                case 7 -> System.out.println(printTopBorder()  + animeLibrary.getStudios() + printBottomBorder());
                 case 8 -> helpOutputCommands();
                 case 9 -> notQuit = exitToMain(scanner);
                 default -> printError();
