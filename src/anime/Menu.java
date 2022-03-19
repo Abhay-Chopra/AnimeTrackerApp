@@ -105,7 +105,7 @@ public class Menu {
         }
 
         ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd = "";
+        String genreToAdd;
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
@@ -120,11 +120,11 @@ public class Menu {
         }
 
         ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd = "";
+        String themeToAdd;
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
-                addedThemes.add(genreToAdd);
+                addedThemes.add(themeToAdd);
                 System.out.println("Added " + themeToAdd );
             }
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
@@ -150,7 +150,7 @@ public class Menu {
         eatNewLine();
 
         //Studio (this is kinda sussy)
-        Studio animeStudio = null;
+        Studio animeStudio;
         //Check if the current list of studios is empty
         if(animeLibrary.getStudios().length == 0) {
             //Go about adding a new studio for the anime, and list of studios tracked
@@ -180,6 +180,7 @@ public class Menu {
 
         Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
+        animeStudio.addAnime(newAnime);
         animeLibrary.addAnime(newAnime);
 
         System.out.println("-----------------------------------------------------------");
@@ -219,7 +220,7 @@ public class Menu {
         }
 
         ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd = "";
+        String genreToAdd;
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
@@ -234,7 +235,7 @@ public class Menu {
         }
 
         ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd = "";
+        String themeToAdd;
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
             if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
@@ -262,7 +263,7 @@ public class Menu {
         Anime.Season season = Anime.Season.values()[scanner.nextInt()];
 
         //Studio
-        Studio animeStudio = null;
+        Studio animeStudio;
         if(animeLibrary.getStudios().length == 0) {
             System.out.println("No studio's yet added!");
             System.out.println("What studio produced this name?");
@@ -289,6 +290,7 @@ public class Menu {
 
         SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
+        animeStudio.addAnime(sAnime);
         animeLibrary.addAnime(sAnime);
 
         System.out.println("-----------------------------------------------------------");
@@ -366,13 +368,13 @@ public class Menu {
             scanner.nextLine();
             switch (input) {
                 //TODO Add toString to Library class and Anime class as well
-                case 1 -> System.out.println(animeLibrary.getAnime());
+                case 1 -> System.out.println(animeLibrary.allAnimeTracked());
                 case 2 -> System.out.println(printTopBorder() + animeLibrary.totalWatchTime() + printBottomBorder());
                 case 3 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedAnime() + printBottomBorder());
                 case 4 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedGenre() + printBottomBorder());
                 case 5 -> System.out.println(printTopBorder()  + animeLibrary.getGenreByAnime(getAnimeNameToSearch()) + printBottomBorder());
                 case 6 -> System.out.println(printTopBorder()  + animeLibrary.getAnimeRatings() + printBottomBorder());
-                case 7 -> System.out.println(printTopBorder()  + animeLibrary.getStudios() + printBottomBorder());
+                case 7 -> System.out.println(printTopBorder()  + animeLibrary.allStudiostracked() + printBottomBorder());
                 case 8 -> helpOutputCommands();
                 case 9 -> notQuit = exitToMain(scanner);
                 default -> printError();
@@ -387,14 +389,13 @@ public class Menu {
             return null;
         }
 
-        System.out.println("What anime would you like the genres for");
+        System.out.println("What anime would you like the genres for?");
         for(Anime a : animeLibrary.getAnime()){
             System.out.println(a.getName() + "\n");
         }
+        eatNewLine();
 
-        String animeInput = scanner.nextLine().toUpperCase();
-
-        return animeInput;
+        return scanner.nextLine().toUpperCase();
     }
 
     private String printTopBorder() {

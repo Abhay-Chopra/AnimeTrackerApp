@@ -17,4 +17,13 @@ public class Studio {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addAnime(Anime anime) {
+        animeProduced.add(anime);
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.name;
+    }
 }

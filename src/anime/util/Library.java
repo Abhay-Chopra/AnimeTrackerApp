@@ -3,7 +3,6 @@ import java.util.*;
 import anime.Entity.Anime;
 import anime.Entity.Studio;
 
-//TODO Modify all functions from Library.java to work as intended in Menu.java
 public class Library {
     //The only container in the class, a List of Anime
     private ArrayList<Anime> animeList;
@@ -12,11 +11,6 @@ public class Library {
     public Library() {
         animeList = new ArrayList<Anime>();
         studios = new ArrayList<Studio>();
-    }
-
-    @Override
-    public String toString(){
-        return null;
     }
 
     public boolean containsAnime(String animeName){
@@ -33,7 +27,6 @@ public class Library {
         animeList.add(newAnime);
     }
 
-    //TODO Test remove function
     public void removeAnime(String animeToRemove) {
         animeList.removeIf(anime -> anime.getName().equals(animeToRemove));
     }
@@ -50,13 +43,12 @@ public class Library {
      * Print the contents of the map of anime -> rating (double)
      * @return String containing all anime ratings'
      */
-    public String getAnimeRatings()
-    {
+    public String getAnimeRatings() {
         if(animeList.isEmpty()){return "No anime currently being tracked!";}
         StringBuilder returnString = new StringBuilder();
         for(Anime anime: animeList)
         {
-            returnString.append(anime).append(" -> ").append(anime.getRating()).append("\n");
+            returnString.append(anime.getName()).append(" -> ").append(anime.getRating()).append("\n");
         }
         returnString.deleteCharAt(returnString.length()-1);
         return returnString.toString();
@@ -70,7 +62,6 @@ public class Library {
     public String topStreamedAnime() {
         String output;
         if (animeList.size() > 0) {
-            //TODO Use AnimeEpisodeComparator and sort array list using that
             Anime topStreamedAnime = null;
             output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + topStreamedAnime.getEpisodes() * Anime.EPISODE_LENGTH + " minutes";
         } else {
@@ -79,7 +70,6 @@ public class Library {
         return output;
     }
 
-    //TODO Implement anime ratings comparator and sort array list using that
     /**
      * Calculates the top streamed anime genre, from anime currently stored
      *
@@ -90,7 +80,6 @@ public class Library {
         if (animeList.size() > 0) {
             for (Anime anime : animeList) {
             }
-            //TODO Implement AnimeGenreComparator and sort array list using that
             String topStreamedGenre = "filler";
             int numberOfEpisodes = 1;
 
@@ -139,21 +128,14 @@ public class Library {
         }
     }
 
-    //TODO Might be able to get rid of this function
-    /**
-     * Prints out all the anime currently stored
-     */
-    private void allAnimeTracked() {
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("The anime(s) currently tracked:");
-        if (animeList.isEmpty()) {
-            System.out.println("No anime currently being tracked!");
-        } else {
-            for (int i = 0; i < animeList.size(); i++) {
-                System.out.println(i + 1 + ") " + animeList.get(i));
-            }
+    public String allAnimeTracked() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(Anime a : this.animeList) {
+            stringBuilder.append("---------------\n").append(a.toString()).append("\n");
         }
-        System.out.println("-----------------------------------------------------------");
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -175,5 +157,15 @@ public class Library {
         Studio[] studioArray = new Studio[studios.size()];
         studioArray = studios.toArray(studioArray);
         return studioArray;
+    }
+
+    public String allStudiostracked() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(Studio s : this.studios) {
+            stringBuilder.append("---------------\n").append(s.toString()).append("\n");
+        }
+
+        return stringBuilder.toString();
     }
 }
