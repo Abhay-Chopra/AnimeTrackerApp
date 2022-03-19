@@ -15,10 +15,10 @@ public final class Menu {
     private final Library animeList = new Library();
     private final Scanner scanner = new Scanner(System.in);
 
-    private static final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
-    private static final String[] OUTPUT_CMDS = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
+    private final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
+    private final String[] OUTPUT_CMDS = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
             "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Help", "Exit to Main Menu"};
-    private static final String[] ANIME_CMDS = {"Original", "Alternate"};
+    private final String[] ANIME_CMDS = {"Original", "Alternate"};
 
     public Menu(){
         printHeader();
@@ -59,7 +59,7 @@ public final class Menu {
      * @param scanner           Scanner for getting input from user
      * @param animeList         Library of stored anime and their info
      */
-    private static void getInputFromFile(Scanner scanner, Library animeList) {
+    private void getInputFromFile(Scanner scanner, Library animeList) {
         //TODO Complete function getInputFromFile
         System.out.print("Enter the anime file you want to read: ");
         String fileName = scanner.nextLine();
@@ -72,7 +72,7 @@ public final class Menu {
      * @param scanner              Scanner for getting input from user
      * @param animeList         Library containing all Anime and their information
      */
-    private static void getInputFromCMD(Scanner scanner, Library animeList) {
+    private void getInputFromCMD(Scanner scanner, Library animeList) {
         System.out.println("What kind of anime are we adding? (anything else to quit)");
         for(int i = 0; i < ANIME_CMDS.length; i++)
             System.out.println(i + ") " + ANIME_CMDS[i]);
@@ -98,7 +98,7 @@ public final class Menu {
      * @param scanner for input
      * @param animeList
      */
-    private static void getAnimeFromUser(Scanner scanner, Library animeList) {
+    private void getAnimeFromUser(Scanner scanner, Library animeList) {
         eatNewLine(scanner);
         System.out.println("What anime would you like to add?");
         String animeTitle = scanner.nextLine().toUpperCase();
@@ -164,7 +164,12 @@ public final class Menu {
         System.out.println("-----------------------------------------------------------");
     }
 
-    private static void getAlternateAnime(Scanner scanner, Library animeList) {
+    /**
+     *
+     * @param scanner
+     * @param animeList
+     */
+    private void getAlternateAnime(Scanner scanner, Library animeList) {
         if(animeList.getAnime().length == 0) {
             System.out.println("No anime being tracked to branch from!");
             return;
@@ -249,7 +254,7 @@ public final class Menu {
      * @param scan              Scanner for getting input from user
      * @param animeList         Library of stored anime and their info
      */
-    private static void remove(Scanner scan, Library animeList) {
+    private void remove(Scanner scan, Library animeList) {
         if(animeList.getAnime().length == 0) {
             System.out.println("-------------------------------------");
             System.out.println("No anime currently being tracked");
@@ -281,7 +286,7 @@ public final class Menu {
      * @param scanner Scanner to get input from user
      * @return Boolean false, if user wants to exit program, otherwise returns true
      */
-    private static boolean setQuit(Scanner scanner) {
+    private boolean setQuit(Scanner scanner) {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you wish to quit? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
@@ -299,7 +304,7 @@ public final class Menu {
     /**
      * Function prints an indication that no valid menu option was selected
      */
-    private static void printError() {
+    private void printError() {
         System.out.println("-------------------------------------");
         System.out.println("Error reading command, please enter command by integer again!");
         System.out.println("-------------------------------------");
@@ -310,7 +315,7 @@ public final class Menu {
      * @param scanner              Scanner for getting input from user
      * @param animeList         ArrayList of stored anime
      */
-    private static void outputCases(Scanner scanner, Library animeList) {
+    private void outputCases(Scanner scanner, Library animeList) {
         boolean notQuit = true;
         //Looping for the output commands interface
         do {
@@ -334,15 +339,15 @@ public final class Menu {
         while (notQuit);
     }
 
-    private static String printTopBorder() {
+    private String printTopBorder() {
         return "-----------------------------------------------------------\n";
     }
 
-    private static String printBottomBorder(){
+    private String printBottomBorder(){
         return "\n-----------------------------------------------------------";
     }
 
-    private static void printOutputCMDS() {
+    private void printOutputCMDS() {
         System.out.println("Select A Command With The Number:");
 
         //Display our list of commands
@@ -350,7 +355,7 @@ public final class Menu {
             System.out.println(i + 1 + ") " + OUTPUT_CMDS[i]);
     }
 
-    private static void printMainCMDS() {
+    private void printMainCMDS() {
         System.out.println("Select A Command With The Number:");
 
         //Display our list of commands
@@ -361,7 +366,7 @@ public final class Menu {
     /**
      *  Displays quick usability guide for each command (for output command options)
      */
-    private static void helpOutputCommands() {
+    private void helpOutputCommands() {
         System.out.print(
                 """     
                         -----------------------------------------------------------
@@ -384,7 +389,7 @@ public final class Menu {
      * @param scanner Scanner
      * @return returns Boolean => true if user does not want to exit program, otherwise false
      */
-    private static boolean exitToMain(Scanner scanner) {
+    private boolean exitToMain(Scanner scanner) {
         System.out.println("-------------------------------------");
         System.out.println("Are you sure you want to quit back to the Main Menu? (Yes:1, No:0)");
         System.out.println("-------------------------------------");
@@ -403,7 +408,7 @@ public final class Menu {
     /**
      * Displays quick usability guide for each command (from main menu)
      */
-    private static void help() {
+    private void help() {
         System.out.print(
                 """
                         -----------------------------------------------------------
@@ -417,7 +422,7 @@ public final class Menu {
                 """);
     }
 
-    private static void eatNewLine(Scanner scanner) {
+    private void eatNewLine(Scanner scanner) {
         scanner.nextLine();
     }
 }
