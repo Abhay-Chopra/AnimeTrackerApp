@@ -12,8 +12,8 @@ import java.util.*;
 public final class Menu {
 
     private boolean notQuit = true;
-    private Library animeList = new Library();
-    private Scanner scanner = new Scanner(System.in);
+    private final Library animeList = new Library();
+    private final Scanner scanner = new Scanner(System.in);
 
     private static final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
     private static final String[] OUTPUT_CMDS = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
@@ -77,11 +77,19 @@ public final class Menu {
         for(int i = 0; i < ANIME_CMDS.length; i++)
             System.out.println(i + ") " + ANIME_CMDS[i]);
 
-        int input = scanner.nextInt();
+        int input = -1;
+        try {
+            input = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input detected! Returning to menu");
+            eatNewLine(scanner);
+            return;
+        }
 
         switch(input) {
             case 0 -> getAnimeFromUser(scanner, animeList);
             case 1 -> getAlternateAnime(scanner, animeList);
+            default -> System.out.println("Nothing chosen! Returning to menu!");
         }
     }
 
@@ -108,7 +116,10 @@ public final class Menu {
         String genreToAdd = "";
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
-            addedGenres.add(genreToAdd);
+            if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
+                addedGenres.add(genreToAdd);
+                System.out.println("Added " + genreToAdd);
+            }
         } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
         System.out.println("What themes does this anime fall under? (anything else when finished)");
@@ -120,7 +131,10 @@ public final class Menu {
         String themeToAdd = "";
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
-            addedThemes.add(genreToAdd);
+            if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
+                addedThemes.add(genreToAdd);
+                System.out.println("Added " + themeToAdd );
+            }
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
         System.out.println("How many episodes have you watched?");
@@ -182,7 +196,10 @@ public final class Menu {
         String genreToAdd = "";
         do {
             genreToAdd = scanner.nextLine().toUpperCase();
-            addedGenres.add(genreToAdd);
+            if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
+                addedGenres.add(genreToAdd);
+                System.out.println("Added " + genreToAdd);
+            }
         } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
         System.out.println("What themes does this anime fall under? (anything else when finished)");
@@ -194,7 +211,10 @@ public final class Menu {
         String themeToAdd = "";
         do {
             themeToAdd = scanner.nextLine().toUpperCase();
-            addedThemes.add(genreToAdd);
+            if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
+                addedThemes.add(genreToAdd);
+                System.out.println("Added " + themeToAdd );
+            }
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
         System.out.println("How many episodes have you watched?");
