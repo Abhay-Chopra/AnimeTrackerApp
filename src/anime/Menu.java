@@ -4,6 +4,8 @@ import anime.Entity.Anime;
 import anime.util.Library;
 import anime.util.Reader;
 
+import java.sql.Array;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public final class Menu {
@@ -88,7 +90,61 @@ public final class Menu {
 
     //TODO Complete function getAnimeFromUser
     private static void getAnimeFromUser(Scanner scanner, Library animeList) {
+        System.out.println("Enter Anime Title");
+        String animeTitle = scanner.nextLine().toUpperCase();
 
+        if(animeList.contains(animeTitle)){
+            System.out.println("An Anime by that name already exists, please try again");
+            return;
+        }
+
+        System.out.println("What genres does this anime fall under? (anything else when finished)");
+        for(String genre : Anime.LIST_OF_GENRES){
+            System.out.println(genre);
+        }
+
+        ArrayList<String> addedGenres = new ArrayList<>();
+        String genreToAdd = "";
+        do {
+            genreToAdd = scanner.nextLine().toUpperCase();
+            addedGenres.add(genreToAdd);
+        } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
+
+        System.out.println("What themes does this anime fall under? (anything else when finished)");
+        for(String theme : Anime.LIST_OF_THEMES){
+            System.out.println(theme);
+        }
+
+        ArrayList<String> addedThemes = new ArrayList<>();
+        String themeToAdd = "";
+        do {
+            themeToAdd = scanner.nextLine().toUpperCase();
+            addedThemes.add(genreToAdd);
+        } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
+
+        System.out.println("How many episodes have you watched?");
+        int episodes = scanner.nextInt();
+
+        System.out.println("What would you rate this anime, out of 10?");
+        double rating = scanner.nextDouble();
+
+        System.out.println("What's the status on the current anime? (select by integer)");
+        for(int i = 0; i < Anime.Status.values().length; i++) {
+            System.out.println((i+1)+") " + Anime.Status.values()[i]);
+        }
+        Anime.Status status = Anime.Status.values()[scanner.nextInt()];
+
+        System.out.println("What season did this anime air? (select by integer)");
+        for(int i = 0; i < Anime.Season.values().length; i++) {
+            System.out.println((i+1)+") " + Anime.Season.values()[i]);
+        }
+        Anime.Season season = Anime.Season.values()[scanner.nextInt()];
+
+        Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
+
+        animeList.addAnime(newAnime);
+
+        System.out.println("Successfully added " + animeTitle + " to the list!");
     }
 
     /**
