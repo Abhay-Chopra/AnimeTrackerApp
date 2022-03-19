@@ -30,7 +30,7 @@ public class Anime {
         SUMMER,
         FALL
     }
-    //TODO Add studio field
+
     //Constructor and Methods beyond here
     public Anime(String name, ArrayList<String> genres, ArrayList<String> themes,
                  int episodes, double rating, Status status, Season season, Studio animeStudio) {

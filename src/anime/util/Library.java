@@ -120,9 +120,7 @@ public class Library {
      *
      * @return String that containsAnime all genre for a particular anime
      */
-    public String getGenreByAnime(Scanner scan) {
-        System.out.println("What anime's genres would you like to search?");
-        String searchedAnime = scan.nextLine().toUpperCase();
+    public String getGenreByAnime(String searchedAnime) {
         if (this.containsAnime(searchedAnime)) {
             ArrayList<String> animeGenres = new ArrayList<>();
             for (Anime anime: animeList) {
