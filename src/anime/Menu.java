@@ -6,6 +6,7 @@ import anime.Entity.Studio;
 import anime.util.Library;
 import anime.util.Reader;
 
+import java.io.File;
 import java.util.*;
 
 public class Menu {
@@ -57,10 +58,24 @@ public class Menu {
      * Creates or updates library given file from user
      */
     private void getInputFromFile() {
-        //TODO Complete function getInputFromFile
         System.out.print("Enter the anime file you want to read: ");
+
         String fileName = scanner.nextLine();
-        Reader.Import(fileName);
+        File file = new File(fileName);
+        boolean loopFlag = true;
+
+        while (loopFlag){
+            if(file.isFile() && file.canRead() && file.exists()){
+                ArrayList<Anime> animeList = Reader.Import(file);
+                animeLibrary.addBulkAnime(animeList);
+                loopFlag = false;
+            }
+            else{
+                System.err.print("Please enter a valid file: ");
+                fileName = scanner.nextLine();
+                file = new File(fileName);
+            }
+        }
     }
 
     /**
@@ -149,7 +164,7 @@ public class Menu {
         Anime.Season season = Anime.Season.values()[scanner.nextInt()];
         eatNewLine();
 
-        //Studio (this is kinda sussy)
+        //Studio
         Studio animeStudio;
         //Check if the current list of studios is empty
         if(animeLibrary.getStudios().length == 0) {
@@ -374,7 +389,7 @@ public class Menu {
                 case 4 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedGenre() + printBottomBorder());
                 case 5 -> System.out.println(printTopBorder()  + animeLibrary.getGenreByAnime(getAnimeNameToSearch()) + printBottomBorder());
                 case 6 -> System.out.println(printTopBorder()  + animeLibrary.getAnimeRatings() + printBottomBorder());
-                case 7 -> System.out.println(printTopBorder()  + animeLibrary.allStudiostracked() + printBottomBorder());
+                case 7 -> System.out.println(printTopBorder()  + animeLibrary.allStudiosTracked() + printBottomBorder());
                 case 8 -> helpOutputCommands();
                 case 9 -> notQuit = exitToMain(scanner);
                 default -> printError();
