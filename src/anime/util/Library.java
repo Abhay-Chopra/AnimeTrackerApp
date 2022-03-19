@@ -40,8 +40,7 @@ public class Library {
      *
      * @return String containing all studios'
      */
-    public String getStudios()
-    {
+    public String getStudios() {
         if(animeList.isEmpty()){return "No anime currently being tracked!";}
         StringBuilder returnString = new StringBuilder();
         for(Anime anime: animeList){
@@ -164,8 +163,19 @@ public class Library {
         System.out.println("-----------------------------------------------------------");
     }
 
-    //TODO return an array of all anime
+    /**
+     * Convert the ArrayList to a fixed array and send it off
+     * @return the fixed array of the animeList
+     */
+    //TODO test and fix this?
     public Anime[] getAnime() {
-        return null;
+        Anime[] returnArray;
+        try {
+            returnArray = (Anime[])animeList.toArray();
+            return returnArray;
+        }catch (ClassCastException e){
+            returnArray = new Anime[]{};
+            return returnArray;
+        }
     }
 }

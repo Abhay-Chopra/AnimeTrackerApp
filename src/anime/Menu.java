@@ -51,6 +51,79 @@ public final class Menu {
     }
 
     /**
+     * Creates or updates library given file from user
+     * @param scanner           Scanner for getting input from user
+     * @param animeList         Library of stored anime and their info
+     */
+    private static void getInputFromFile(Scanner scanner, Library animeList) {
+        //TODO Complete function getInputFromFile
+        System.out.print("Enter the anime file you want to read: ");
+        String fileName = scanner.nextLine();
+        Reader.Import(fileName);
+    }
+
+    /**
+     * Input function that sets up case structure for main menu interface
+     *
+     * @param scanner              Scanner for getting input from user
+     * @param animeList         Library containing all Anime and their information
+     */
+    private static void getInputFromCMD(Scanner scanner, Library animeList) {
+        boolean notAdded = true;
+        System.out.println("What anime would you like to add?");
+        String newAnime = "";
+        while (notAdded) {
+            newAnime = scanner.nextLine().toUpperCase();
+            if (animeList.contains(newAnime)) {
+                System.out.println("That anime is already tracked! Please try again");
+            } else {
+                getAnimeFromUser(scanner, animeList);
+                notAdded = false;
+            }
+        }
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("Completed adding " + newAnime + " to the list!");
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    //TODO Complete function getAnimeFromUser
+    private static void getAnimeFromUser(Scanner scanner, Library animeList) {
+
+    }
+
+    /**
+     * Removes anime from all datastructures given a name (by user)
+     * @param scan              Scanner for getting input from user
+     * @param animeList         Library of stored anime and their info
+     */
+    private static void remove(Scanner scan, Library animeList) {
+        if(animeList.getAnime().length == 0) {
+            System.out.println("-------------------------------------");
+            System.out.println("No anime currently being tracked");
+            System.out.println("-------------------------------------");
+        } else
+        {
+            System.out.println("Which of the following would you like to remove?");
+            System.out.println("------------------------------------------------");
+            for (Anime anime : animeList.getAnime()) {
+                System.out.println(anime);
+                System.out.println("------------------------------------------------");
+            }
+            String animeToRemove = scan.nextLine().toUpperCase();
+            if (animeList.contains(animeToRemove)) {
+                animeList.removeAnime(animeToRemove);
+                System.out.println("-------------------------------------");
+                System.out.println("Finished removing " + animeToRemove);
+                System.out.println("-------------------------------------");
+            } else {
+                System.out.println("-------------------------------------");
+                System.out.println("That anime is not in the list!");
+                System.out.println("-------------------------------------");
+            }
+        }
+    }
+
+    /**
      * Function confirms that the user wants to exit the program
      * @param scanner Scanner to get input from user
      * @return Boolean false, if user wants to exit program, otherwise returns true
@@ -123,81 +196,6 @@ public final class Menu {
         for (int i = 0; i < OUTPUT_CMDS.length; i++)
             System.out.println(i + 1 + ") " + OUTPUT_CMDS[i]);
     }
-
-
-    /**
-     * Input function that sets up case structure for main menu interface
-     *
-     * @param scanner              Scanner for getting input from user
-     * @param animeList         Library containing all Anime and their information
-     */
-    private static void getInputFromCMD(Scanner scanner, Library animeList) {
-        boolean notAdded = true;
-        System.out.println("What anime would you like to add?");
-        String newAnime = "";
-        while (notAdded) {
-            newAnime = scanner.nextLine().toUpperCase();
-            if (animeList.contains(newAnime)) {
-                System.out.println("That anime is already tracked! Please try again");
-            } else {
-                getAnimeFromUser(scanner, animeList);
-                notAdded = false;
-            }
-        }
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Completed adding " + newAnime + " to the list!");
-        System.out.println("-----------------------------------------------------------");
-    }
-
-    //TODO Complete function getAnimeFromUser
-    private static void getAnimeFromUser(Scanner scanner, Library animeList) {
-    }
-    
-    //TODO Complete function getInputFromFile
-    /**
-     * Creates or updates library given file from user
-     * @param scanner           Scanner for getting input from user
-     * @param animeList         Library of stored anime and their info
-     */
-    private static void getInputFromFile(Scanner scanner, Library animeList) {
-        System.out.print("Enter the anime file you want to read: ");
-        String fileName = scanner.nextLine();
-        Reader.Import(fileName);
-    }
-
-    /**
-     * Removes anime from all datastructures given a name (by user)
-     * @param scan              Scanner for getting input from user
-     * @param animeList         Library of stored anime and their info
-     */
-    private static void remove(Scanner scan, Library animeList) {
-        if(animeList.getAnime().length == 0){
-            System.out.println("-------------------------------------");
-            System.out.println("No anime currently being tracked");
-            System.out.println("-------------------------------------");
-        }else
-        {
-            System.out.println("Which of the following would you like to remove?");
-            System.out.println("------------------------------------------------");
-            for (Anime anime : animeList.getAnime())
-            {
-                System.out.println(anime);
-                System.out.println("------------------------------------------------");
-            }
-            String animeToRemove = scan.nextLine().toUpperCase();
-            if (animeList.contains(animeToRemove)) {
-                animeList.removeAnime(animeToRemove);
-                System.out.println("-------------------------------------");
-                System.out.println("Finished removing " + animeToRemove);
-                System.out.println("-------------------------------------");
-            } else {
-                System.out.println("-------------------------------------");
-                System.out.println("That anime is not in the list!");
-                System.out.println("-------------------------------------");
-            }
-        }
-    }
-
 
     private static void printMainCMDS() {
         System.out.println("Select A Command With The Number:");
