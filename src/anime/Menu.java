@@ -79,7 +79,7 @@ public final class Menu {
             if (animeList.contains(newAnime)) {
                 System.out.println("That anime is already tracked! Please try again");
             } else {
-                getAnimeFromUser(scanner, animeList);
+                getAnimeFromUser(scanner, animeList, newAnime);
                 notAdded = false;
             }
         }
@@ -89,17 +89,10 @@ public final class Menu {
     }
 
     //TODO Complete function getAnimeFromUser
-    private static void getAnimeFromUser(Scanner scanner, Library animeList) {
-        System.out.println("Enter Anime Title");
-        String animeTitle = scanner.nextLine().toUpperCase();
-
-        if(animeList.contains(animeTitle)){
-            System.out.println("An Anime by that name already exists, please try again");
-            return;
-        }
+    private static void getAnimeFromUser(Scanner scanner, Library animeList, String animeTitle) {
 
         System.out.println("What genres does this anime fall under? (anything else when finished)");
-        for(String genre : Anime.LIST_OF_GENRES){
+        for(String genre : Anime.LIST_OF_GENRES) {
             System.out.println(genre);
         }
 
@@ -130,13 +123,13 @@ public final class Menu {
 
         System.out.println("What's the status on the current anime? (select by integer)");
         for(int i = 0; i < Anime.Status.values().length; i++) {
-            System.out.println((i+1)+") " + Anime.Status.values()[i]);
+            System.out.println((i)+") " + Anime.Status.values()[i]);
         }
         Anime.Status status = Anime.Status.values()[scanner.nextInt()];
 
         System.out.println("What season did this anime air? (select by integer)");
         for(int i = 0; i < Anime.Season.values().length; i++) {
-            System.out.println((i+1)+") " + Anime.Season.values()[i]);
+            System.out.println((i)+") " + Anime.Season.values()[i]);
         }
         Anime.Season season = Anime.Season.values()[scanner.nextInt()];
 
@@ -208,7 +201,6 @@ public final class Menu {
         System.out.println("-------------------------------------");
     }
 
-
     /**
      * Sets up the output command structure for output commands menu
      * @param scanner              Scanner for getting input from user
@@ -241,6 +233,7 @@ public final class Menu {
     private static String printTopBorder() {
         return "-----------------------------------------------------------\n";
     }
+
     private static String printBottomBorder(){
         return "\n-----------------------------------------------------------";
     }
