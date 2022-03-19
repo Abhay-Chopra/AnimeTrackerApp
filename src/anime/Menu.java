@@ -1,6 +1,7 @@
 package anime;
 
 import anime.Entity.Anime;
+import anime.Entity.SeasonAnime;
 import anime.util.Library;
 import anime.util.Reader;
 
@@ -17,6 +18,7 @@ public final class Menu {
     private static final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
     private static final String[] OUTPUT_CMDS = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
             "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Help", "Exit to Main Menu"};
+    private static final String[] ANIME_CMDS = {"Original", "Alternate"};
 
     public Menu(){
         printHeader();
@@ -71,25 +73,30 @@ public final class Menu {
      * @param animeList         Library containing all Anime and their information
      */
     private static void getInputFromCMD(Scanner scanner, Library animeList) {
-        boolean notAdded = true;
-        System.out.println("What anime would you like to add?");
-        String newAnime = "";
-        while (notAdded) {
-            newAnime = scanner.nextLine().toUpperCase();
-            if (animeList.contains(newAnime)) {
-                System.out.println("That anime is already tracked! Please try again");
-            } else {
-                getAnimeFromUser(scanner, animeList, newAnime);
-                notAdded = false;
-            }
+        System.out.println("What kind of anime are we adding? (anything else to quit)");
+        for(int i = 0; i < ANIME_CMDS.length; i++)
+            System.out.println(i + ") " + ANIME_CMDS[i]);
+
+        int input = scanner.nextInt();
+
+        switch(input) {
+            case 0 -> getAnimeFromUser(scanner, animeList);
+            case 1 -> getAlternateAnime(scanner, animeList);
         }
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Completed adding " + newAnime + " to the list!");
-        System.out.println("-----------------------------------------------------------");
     }
 
-    //TODO Complete function getAnimeFromUser
-    private static void getAnimeFromUser(Scanner scanner, Library animeList, String animeTitle) {
+    /**
+     * Adding a ORIGINAL ANIME to the library
+     * @param scanner for input
+     * @param animeList
+     */
+    private static void getAnimeFromUser(Scanner scanner, Library animeList) {
+        System.out.println("What anime would you like to add?");
+        String animeTitle = scanner.nextLine();
+        if(animeList.contains(animeTitle)) {
+            System.out.println("That anime is already tracked! Please Try Again");
+            return;
+        }
 
         System.out.println("What genres does this anime fall under? (anything else when finished)");
         for(String genre : Anime.LIST_OF_GENRES) {
@@ -137,7 +144,83 @@ public final class Menu {
 
         animeList.addAnime(newAnime);
 
-        System.out.println("Successfully added " + animeTitle + " to the list!");
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("Completed adding " + newAnime.getName() + " to the list!");
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    private static void getAlternateAnime(Scanner scanner, Library animeList) {
+        if(animeList.getAnime().length == 0) {
+            System.out.println("No anime being tracked for branch from!");
+            return;
+        }
+
+        System.out.println("What anime is this branched from?");
+
+        Anime[] bufferAnime = animeList.getAnime();
+        for(int i = 0; i < bufferAnime.length; i++){
+            System.out.println(i+") " + bufferAnime[i]);
+        }
+
+        Anime parentAnime = bufferAnime[scanner.nextInt()];
+
+        System.out.println("What is the title of this anime?");
+        String animeTitle = scanner.nextLine();
+        if(animeList.contains(animeTitle)) {
+            System.out.println("That anime is already tracked! Please Try Again");
+            return;
+        }
+
+        System.out.println("What genres does this anime fall under? (anything else when finished)");
+        for(String genre : Anime.LIST_OF_GENRES) {
+            System.out.println(genre);
+        }
+
+        ArrayList<String> addedGenres = new ArrayList<>();
+        String genreToAdd = "";
+        do {
+            genreToAdd = scanner.nextLine().toUpperCase();
+            addedGenres.add(genreToAdd);
+        } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
+
+        System.out.println("What themes does this anime fall under? (anything else when finished)");
+        for(String theme : Anime.LIST_OF_THEMES){
+            System.out.println(theme);
+        }
+
+        ArrayList<String> addedThemes = new ArrayList<>();
+        String themeToAdd = "";
+        do {
+            themeToAdd = scanner.nextLine().toUpperCase();
+            addedThemes.add(genreToAdd);
+        } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
+
+        System.out.println("How many episodes have you watched?");
+        int episodes = scanner.nextInt();
+
+        System.out.println("What would you rate this anime, out of 10?");
+        double rating = scanner.nextDouble();
+
+        System.out.println("What's the status on the current anime? (select by integer)");
+        for(int i = 0; i < Anime.Status.values().length; i++) {
+            System.out.println((i)+") " + Anime.Status.values()[i]);
+        }
+        Anime.Status status = Anime.Status.values()[scanner.nextInt()];
+
+        System.out.println("What season did this anime air? (select by integer)");
+        for(int i = 0; i < Anime.Season.values().length; i++) {
+            System.out.println((i)+") " + Anime.Season.values()[i]);
+        }
+        Anime.Season season = Anime.Season.values()[scanner.nextInt()];
+
+        SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
+
+        animeList.addAnime(sAnime);
+
+        System.out.println("-----------------------------------------------------------");
+        System.out.println("Completed adding " + sAnime.getName() + " to the list!");
+        System.out.println("-----------------------------------------------------------");
+
     }
 
     /**
