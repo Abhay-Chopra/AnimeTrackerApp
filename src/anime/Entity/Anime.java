@@ -33,7 +33,7 @@ public class Anime {
     //TODO Add studio field
     //Constructor and Methods beyond here
     public Anime(String name, ArrayList<String> genres, ArrayList<String> themes,
-                 int episodes, double rating, Anime.Status status, Anime.Season season) {
+                 int episodes, double rating, Status status, Season season, Studio animeStudio) {
         this.name = name;
         this.genres = genres;
         this.themes = themes;
@@ -41,6 +41,7 @@ public class Anime {
         this.rating = rating;
         this.status = status;
         this.season = season;
+        this.studio = animeStudio;
     }
 
     public String getName() {

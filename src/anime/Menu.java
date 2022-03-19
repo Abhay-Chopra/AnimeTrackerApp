@@ -2,8 +2,11 @@ package anime;
 
 import anime.Entity.Anime;
 import anime.Entity.SeasonAnime;
+import anime.Entity.Studio;
 import anime.util.Library;
 import anime.util.Reader;
+
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Menu {
@@ -70,7 +73,7 @@ public class Menu {
         for(int i = 0; i < ANIME_CMDS.length; i++)
             System.out.println(i + ") " + ANIME_CMDS[i]);
 
-        int input = -1;
+        int input;
         try {
             input = scanner.nextInt();
         } catch (InputMismatchException e) {
@@ -93,7 +96,7 @@ public class Menu {
         eatNewLine();
         System.out.println("What anime would you like to add?");
         String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeList.contains(animeTitle)) {
+        if(animeList.containsAnime(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
         }
@@ -139,14 +142,42 @@ public class Menu {
             System.out.println((i)+") " + Anime.Status.values()[i]);
         }
         Anime.Status status = Anime.Status.values()[scanner.nextInt()];
+        eatNewLine();
 
         System.out.println("What season did this anime air? (select by integer)");
         for(int i = 0; i < Anime.Season.values().length; i++) {
             System.out.println((i)+") " + Anime.Season.values()[i]);
         }
         Anime.Season season = Anime.Season.values()[scanner.nextInt()];
+        eatNewLine();
 
-        Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
+        //Studio
+        Studio animeStudio = null;
+        if(animeList.getStudios().length == 0) {
+            System.out.println("No studio's yet added!");
+            System.out.println("What studio produced this name?");
+            String animeStudioName = scanner.nextLine().toUpperCase();
+            animeStudio = new Studio(animeStudioName);
+            animeList.addStudio(animeStudio);
+        } else {
+            System.out.println("Did any of these studios produced this anime?");
+            Studio[] bufferStudios = animeList.getStudios();
+            for(int i = 0; i < bufferStudios.length; i++) {
+                System.out.println(i+") " + bufferStudios[i].getName());
+            }
+            System.out.println("NONE");
+            try {
+                animeStudio = bufferStudios[scanner.nextInt()];
+                eatNewLine();
+            } catch (InputMismatchException e) {
+                System.out.println("What studio produced this name?");
+                String animeStudioName = scanner.nextLine().toUpperCase();
+                animeStudio = new Studio(animeStudioName);
+                animeList.addStudio(animeStudio);
+            }
+        }
+
+        Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
         animeList.addAnime(newAnime);
 
@@ -176,7 +207,7 @@ public class Menu {
 
         System.out.println("What is the title of this anime?");
         String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeList.contains(animeTitle)) {
+        if(animeList.containsAnime(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
         }
@@ -229,7 +260,33 @@ public class Menu {
         }
         Anime.Season season = Anime.Season.values()[scanner.nextInt()];
 
-        SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season);
+        //Studio
+        Studio animeStudio = null;
+        if(animeList.getStudios().length == 0) {
+            System.out.println("No studio's yet added!");
+            System.out.println("What studio produced this name?");
+            String animeStudioName = scanner.nextLine().toUpperCase();
+            animeStudio = new Studio(animeStudioName);
+            animeList.addStudio(animeStudio);
+        } else {
+            System.out.println("Did any of these studios produced this anime?");
+            Studio[] bufferStudios = animeList.getStudios();
+            for(int i = 0; i < bufferStudios.length; i++) {
+                System.out.println(i+") " + bufferStudios[i].getName());
+            }
+            System.out.println("NONE");
+            try {
+                animeStudio = bufferStudios[scanner.nextInt()];
+                eatNewLine();
+            } catch (InputMismatchException e) {
+                System.out.println("What studio produced this name?");
+                String animeStudioName = scanner.nextLine().toUpperCase();
+                animeStudio = new Studio(animeStudioName);
+                animeList.addStudio(animeStudio);
+            }
+        }
+
+        SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
         animeList.addAnime(sAnime);
 
@@ -255,7 +312,7 @@ public class Menu {
                 System.out.println("------------------------------------------------");
             }
             String animeToRemove = scanner.nextLine().toUpperCase();
-            if (animeList.contains(animeToRemove)) {
+            if (animeList.containsAnime(animeToRemove)) {
                 animeList.removeAnime(animeToRemove);
                 System.out.println("-------------------------------------");
                 System.out.println("Finished removing " + animeToRemove);
