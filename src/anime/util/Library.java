@@ -169,13 +169,8 @@ public class Library {
      */
     //TODO test and fix this?
     public Anime[] getAnime() {
-        Anime[] returnArray;
-        try {
-            returnArray = (Anime[])animeList.toArray();
-            return returnArray;
-        }catch (ClassCastException e){
-            returnArray = new Anime[]{};
-            return returnArray;
-        }
+        Anime[] animeArray = new Anime[animeList.size()];
+        animeArray = animeList.toArray(animeArray);
+        return animeArray;
     }
 }

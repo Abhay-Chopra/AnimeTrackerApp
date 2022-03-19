@@ -91,8 +91,9 @@ public final class Menu {
      * @param animeList
      */
     private static void getAnimeFromUser(Scanner scanner, Library animeList) {
+        eatNewLine(scanner);
         System.out.println("What anime would you like to add?");
-        String animeTitle = scanner.nextLine();
+        String animeTitle = scanner.nextLine().toUpperCase();
         if(animeList.contains(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
@@ -151,7 +152,7 @@ public final class Menu {
 
     private static void getAlternateAnime(Scanner scanner, Library animeList) {
         if(animeList.getAnime().length == 0) {
-            System.out.println("No anime being tracked for branch from!");
+            System.out.println("No anime being tracked to branch from!");
             return;
         }
 
@@ -159,13 +160,14 @@ public final class Menu {
 
         Anime[] bufferAnime = animeList.getAnime();
         for(int i = 0; i < bufferAnime.length; i++){
-            System.out.println(i+") " + bufferAnime[i]);
+            System.out.println(i+") " + bufferAnime[i].getName());
         }
 
         Anime parentAnime = bufferAnime[scanner.nextInt()];
+        eatNewLine(scanner);
 
         System.out.println("What is the title of this anime?");
-        String animeTitle = scanner.nextLine();
+        String animeTitle = scanner.nextLine().toUpperCase();
         if(animeList.contains(animeTitle)) {
             System.out.println("That anime is already tracked! Please Try Again");
             return;
@@ -220,7 +222,6 @@ public final class Menu {
         System.out.println("-----------------------------------------------------------");
         System.out.println("Completed adding " + sAnime.getName() + " to the list!");
         System.out.println("-----------------------------------------------------------");
-
     }
 
     /**
@@ -394,5 +395,9 @@ public final class Menu {
                         help -> displays help for commands
                         -----------------------------------------------------------
                 """);
+    }
+
+    private static void eatNewLine(Scanner scanner) {
+        scanner.nextLine();
     }
 }
