@@ -1,4 +1,4 @@
-attack on titan, [action;drama], [superpower], 9.4, 25, finished, spring
-demon slayer, [action;supernatural], [superpower], 10.0, 26, finished, spring
-full metal alchemtist: brotherhood, [action;drama;fantasy;adventure;comedy], [military], 10.0, 64, finished, spring
-code geasse, [action;drama;scifi], [mecha;military], 8.7, 25, finished, spring
+attack on titan, [action;drama], [superpower], 9.4, 25, 0, 1, Mappa
+demon slayer, [action;supernatural], [superpower], 10.0, 26, 0, 2, UFOTable
+full metal alchemtist: brotherhood, [action;drama;fantasy;adventure;comedy], [military], 10.0, 64, 2, 2, Bones
+code geasse, [action;drama;scifi], [mecha;military], 8.7, 25, 1, 3, Sunrise
