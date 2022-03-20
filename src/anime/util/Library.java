@@ -45,6 +45,7 @@ public class Library {
      */
     public String getAnimeRatings() {
         if(animeList.isEmpty()){return "No anime currently being tracked!";}
+        animeList.sort(new AnimeRatingComparator());
         StringBuilder returnString = new StringBuilder();
         for(Anime anime: animeList)
         {
@@ -55,19 +56,26 @@ public class Library {
     }
 
     /**
-     * Determines the top streamed anime based on total watch time of each anime
-     *
+     * Determines the top streamed anime based on total watch time of each anime by sorting
+     * the list and returning the top three streamed shows
      * @return String that containsAnime the top streamed anime from all stored anime
      */
     public String topStreamedAnime() {
-        String output;
-        if (animeList.size() > 0) {
-            Anime topStreamedAnime = null;
-            output = "Your current top streamed anime is: " + topStreamedAnime + "\nEstimated watch time: " + topStreamedAnime.getEpisodes() * Anime.EPISODE_LENGTH + " minutes";
-        } else {
-            output = "No anime is currently being tracked";
+        //Return if empty
+        if(animeList.isEmpty())
+            return "No anime being tracked!";
+
+        //Sort the anime in descending order
+        animeList.sort(new AnimeWatchTimeComparator().reversed());
+        //String builder for easy string building
+        StringBuilder retString = new StringBuilder();
+        retString.append("Your Top Streamed Anime Are").append("\n");
+        //Iterate over the anime in the top 3 spots and append to the builder
+        for(int i = 0; i < 3; i++) {
+            retString.append(animeList.get(i).getName()).append(" -> Watch Time: ").append(animeList.get(i).getEpisodes()*Anime.EPISODE_LENGTH).append(" minutes").append("\n");
         }
-        return output;
+
+        return retString.toString().strip();
     }
 
     /**
@@ -128,6 +136,10 @@ public class Library {
         }
     }
 
+    /**
+     * Build a string of the information of all anime tracked
+     * @return the built string of the anime currently tracked
+     */
     public String allAnimeTracked() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -151,7 +163,7 @@ public class Library {
     /**
      * Display a list of the studios currently in Library
      *
-     * @return String containing all studios'
+     * @return Array of Studios
      */
     public Studio[] getStudios() {
         Studio[] studioArray = new Studio[studios.size()];
@@ -159,7 +171,15 @@ public class Library {
         return studioArray;
     }
 
+    /**
+     * Build a string of the information of all studios tracked
+     * @return the built string of the studios currently tracked
+     */
     public String allStudiosTracked() {
+
+        if(studios.size() == 0)
+            return "No Studios Being Tracked!";
+
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Studio s : this.studios) {

@@ -406,9 +406,8 @@ public class Menu {
 
         System.out.println("What anime would you like the genres for?");
         for(Anime a : animeLibrary.getAnime()){
-            System.out.println(a.getName() + "\n");
+            System.out.println(a.getName());
         }
-        eatNewLine();
 
         return scanner.nextLine().toUpperCase();
     }
