@@ -84,19 +84,34 @@ public class Library {
      * @return String that containsAnime all the genres of a particular anime
      */
     public String topStreamedGenre() {
-        String output;
-        if (animeList.size() > 0) {
-            for (Anime anime : animeList) {
-            }
-            String topStreamedGenre = "filler";
-            int numberOfEpisodes = 1;
 
-            //printing out to console
-            output = "Your top streamed anime genre is: " + topStreamedGenre + "\nEstimated Watch Time: " + numberOfEpisodes * Anime.EPISODE_LENGTH + " minutes";
-        } else {
-            output = "No anime is currently being tracked!";
+        if(animeList.isEmpty())
+            return "No currently tracked anime";
+
+        HashMap<String, Integer> genresToEpisodes = new HashMap<>();
+
+        //Fill the hashmap will the genres and their respective watch times
+        for(Anime a : this.animeList) {
+            for(String s : a.getGenres()) {
+                if(!genresToEpisodes.containsKey(s)) {
+                    genresToEpisodes.put(s, a.getEpisodes()*Anime.EPISODE_LENGTH);
+                } else {
+                    genresToEpisodes.put(s, (genresToEpisodes.get(s) + (a.getEpisodes() * Anime.EPISODE_LENGTH)));
+                }
+            }
         }
-        return output;
+
+        int highestWatchTime = 0;
+        String bigJon = "";
+
+        for(String s : genresToEpisodes.keySet()) {
+            if(genresToEpisodes.get(s) > highestWatchTime) {
+                highestWatchTime = genresToEpisodes.get(s);
+                bigJon = s;
+            }
+        }
+
+        return "The most watched genre is " + bigJon + " with a total watch time of " + highestWatchTime;
     }
 
     /**
