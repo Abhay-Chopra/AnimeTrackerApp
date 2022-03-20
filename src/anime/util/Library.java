@@ -9,8 +9,8 @@ public class Library {
     private ArrayList<Studio> studios;
 
     public Library() {
-        animeList = new ArrayList<Anime>();
-        studios = new ArrayList<Studio>();
+        animeList = new ArrayList<>();
+        studios = new ArrayList<>();
     }
 
     public boolean containsAnime(String animeName){
@@ -159,7 +159,7 @@ public class Library {
         return studioArray;
     }
 
-    public String allStudiostracked() {
+    public String allStudiosTracked() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Studio s : this.studios) {
@@ -167,5 +167,13 @@ public class Library {
         }
 
         return stringBuilder.toString();
+    }
+
+    /**
+     * Add multiple anime at once
+     * @param givenAnimeList ArrayList containing additional anime
+     */
+    public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
+        animeList.addAll(givenAnimeList);
     }
 }
