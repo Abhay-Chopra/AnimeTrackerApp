@@ -221,6 +221,7 @@ public class Library {
     public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
         animeList.addAll(givenAnimeList);
         for (Anime anime: animeList) {
+            if(!studios.contains(anime.getStudio()))
             studios.add(anime.getStudio());
         }
     }
