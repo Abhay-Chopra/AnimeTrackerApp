@@ -208,6 +208,7 @@ public class Library {
         for(Studio s : this.studios) {
             stringBuilder.append("---------------\n").append(s.toString()).append("\n");
         }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
 
         return stringBuilder.toString();
     }
