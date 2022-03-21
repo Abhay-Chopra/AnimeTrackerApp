@@ -69,6 +69,7 @@ public class Menu {
                 ArrayList<Anime> animeList = Reader.Import(file);
                 animeLibrary.addBulkAnime(animeList);
                 loopFlag = false;
+                System.out.printf("%sSuccessfully read from %s!%s\n", printTopBorder(),file,printBottomBorder());
             }
             else{
                 System.err.print("Please enter a valid file: ");

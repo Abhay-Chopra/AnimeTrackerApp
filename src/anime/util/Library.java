@@ -3,6 +3,9 @@ import java.util.*;
 import anime.Entity.Anime;
 import anime.Entity.Studio;
 
+/**
+ *
+ */
 public class Library {
     //The only container in the class, a List of Anime
     private ArrayList<Anime> animeList;
@@ -41,6 +44,7 @@ public class Library {
 
     /**
      * Print the contents of the map of anime -> rating (double)
+     *
      * @return String containing all anime ratings'
      */
     public String getAnimeRatings() {
@@ -58,6 +62,7 @@ public class Library {
     /**
      * Determines the top streamed anime based on total watch time of each anime by sorting
      * the list and returning the top three streamed shows
+     *
      * @return String that containsAnime the top streamed anime from all stored anime
      */
     public String topStreamedAnime() {
@@ -153,6 +158,7 @@ public class Library {
 
     /**
      * Build a string of the information of all anime tracked
+     *
      * @return the built string of the anime currently tracked
      */
     public String allAnimeTracked() {
@@ -167,6 +173,7 @@ public class Library {
 
     /**
      * Convert the ArrayList to a fixed array and send it off
+     *
      * @return the fixed array of the animeList
      */
     public Anime[] getAnime() {
@@ -188,6 +195,7 @@ public class Library {
 
     /**
      * Build a string of the information of all studios tracked
+     *
      * @return the built string of the studios currently tracked
      */
     public String allStudiosTracked() {
@@ -206,9 +214,13 @@ public class Library {
 
     /**
      * Add multiple anime at once
+     *
      * @param givenAnimeList ArrayList containing additional anime
      */
     public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
         animeList.addAll(givenAnimeList);
+        for (Anime anime: animeList) {
+            studios.add(anime.getStudio());
+        }
     }
 }

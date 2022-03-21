@@ -8,7 +8,7 @@ package anime;
  * Objective: Software that tracks the user's top streamed anime category
  */
 public class Main {
-
+    //TODO UML diagram
     public static void main(String[] args) {
         Menu mainMenu = new Menu();
         mainMenu.Start();

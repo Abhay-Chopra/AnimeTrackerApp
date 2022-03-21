@@ -49,4 +49,11 @@ public class Reader {
 
         return returnList;
     }
+
+    /**
+     *
+     * @param animeList
+     */
+    public static void save(Library animeList){
+    }
 }
