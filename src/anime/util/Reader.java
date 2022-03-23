@@ -1,12 +1,12 @@
 package anime.util;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.ArrayList;
 
 import anime.Entity.Anime;
 import anime.Entity.Studio;
 
+import java.io.*;
+import java.util.ArrayList;
+
+//TODO Add better error handling for both functions
 public class Reader {
     /**
      * Creating an anime list give all info from a file
@@ -15,9 +15,8 @@ public class Reader {
      */
     public static ArrayList<Anime> Import(File file) {
         ArrayList<Anime> returnList = new ArrayList<>();
-        try{
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try(FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader)){
             String line = bufferedReader.readLine();
 
             while(line != null) {
@@ -45,15 +44,49 @@ public class Reader {
         }catch (Exception e) {
             System.err.println("Error reading from anime file!");
             System.exit(1);
-        }//TODO Add better error handling
-
+        }
         return returnList;
     }
 
     /**
      *
-     * @param animeList
+     * @param anime Array containing all anime currently stored
+     * @param fileName name of the file that will be attempted to be saved to
      */
-    public static void save(Library animeList){
+    public static void save(Anime[] anime, String fileName){
+        File file = new File(fileName);
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Error creating file " + file);
+                System.exit(1);
+            }
+        }
+        if(file.exists() && file.isFile() && file.canWrite()){
+            try(FileWriter fileWriter = new FileWriter(file);
+                PrintWriter printWriter = new PrintWriter(fileWriter)) {
+                for (Anime currentAnime : anime) {
+                    StringBuilder genres = new StringBuilder();
+                    for (String genre: currentAnime.getGenres()) {
+                        genres.append(String.format("%s;", genre.toLowerCase()));
+                    }
+                    genres.deleteCharAt(genres.length() - 1);
+                    StringBuilder themes = new StringBuilder();
+                    for (String theme: currentAnime.getThemes()) {
+                        themes.append(String.format("%s;", theme.toLowerCase()));
+                    }
+                    themes.deleteCharAt(themes.length() - 1);
+                    String animeInfo = String.format("%s,%s,%s,%s,%s,%s,%s,%s", currentAnime.getName().toLowerCase(), genres
+                                                                           , themes, currentAnime.getRating(), currentAnime.getEpisodes()
+                                                                           , currentAnime.getStatus().ordinal(), currentAnime.getSeason().ordinal()
+                                                                           , currentAnime.getStudio());
+                    printWriter.println(animeInfo);
+                }
+            } catch (IOException e) {
+                System.err.println("Error writing to file " + file);
+                System.exit(1);
+            }
+        }
     }
 }
