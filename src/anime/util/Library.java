@@ -220,10 +220,9 @@ public class Library {
      */
     //TODO Add equals and hashcode for Studio class
     public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
-        animeList.addAll(givenAnimeList);
-        for (Anime anime: animeList) {
-            if(!studios.contains(anime.getStudio())) {
-                studios.add(anime.getStudio());
+        for (Anime anime: givenAnimeList) {
+            if(!this.containsAnime(anime.getName())){
+                animeList.add(anime);
             }
         }
     }

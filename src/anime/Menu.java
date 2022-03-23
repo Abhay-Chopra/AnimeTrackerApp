@@ -27,7 +27,7 @@ public class Menu {
             //Pre-Loading file
             ArrayList<Anime> animeList = Reader.Import(new File(args[0]));
             animeLibrary.addBulkAnime(animeList);
-            System.out.printf("PreLoading...%s file%n%n", args[0]);
+            System.out.printf("Pre-Loading...%s file%n%n", args[0]);
         }
     }
 
@@ -270,8 +270,13 @@ public class Menu {
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
         System.out.println("How many episodes have you watched?");
-        int episodes = scanner.nextInt();
-
+        int episodes = 0;
+        try {
+            episodes = scanner.nextInt();
+        }catch (InputMismatchException e){
+            System.err.println("Didn't give a count of episodes watched!");
+            System.exit(1);
+        }
         System.out.println("What would you rate this anime, out of 10?");
         double rating = scanner.nextDouble();
 
