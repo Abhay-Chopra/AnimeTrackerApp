@@ -17,11 +17,18 @@ public class Menu {
 
     private final String[] MAIN_CMDS = {"Input from File", "Add Anime", "Remove Anime", "Help", "Output Commands", "Exit Program"};
     private final String[] OUTPUT_CMDS = {"Print All Anime Tracked", "Total Watch Time", "Top Streamed Anime",
-            "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Help", "Exit to Main Menu"};
+            "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Save to File" ,"Help", "Exit to Main Menu"};
     private final String[] ANIME_CMDS = {"Original", "Alternate"};
 
-    public Menu(){
+    public Menu(String[] args){
         printHeader();
+        //Checking commandline arguments
+        if(args.length == 1){
+            //Pre-Loading file
+            ArrayList<Anime> animeList = Reader.Import(new File(args[0]));
+            animeLibrary.addBulkAnime(animeList);
+            System.out.printf("PreLoading...%s file%n%n", args[0]);
+        }
     }
 
     private void printHeader() {
@@ -58,13 +65,15 @@ public class Menu {
      * Creates or updates library given file from user
      */
     private void getInputFromFile() {
+        //Getting a file name from the user (that has stored data)
         System.out.print("Enter the anime file you want to read: ");
-
         String fileName = scanner.nextLine();
         File file = new File(fileName);
-        boolean loopFlag = true;
 
+        // flag for the while loop
+        boolean loopFlag = true;
         while (loopFlag){
+            //Confirming that the file is valid
             if(file.isFile() && file.canRead() && file.exists()){
                 ArrayList<Anime> animeList = Reader.Import(file);
                 animeLibrary.addBulkAnime(animeList);
@@ -383,7 +392,6 @@ public class Menu {
             int input = scanner.nextInt();
             scanner.nextLine();
             switch (input) {
-                //TODO Add toString to Library class and Anime class as well
                 case 1 -> System.out.println(animeLibrary.allAnimeTracked());
                 case 2 -> System.out.println(printTopBorder() + animeLibrary.totalWatchTime() + printBottomBorder());
                 case 3 -> System.out.println(printTopBorder()  + animeLibrary.topStreamedAnime() + printBottomBorder());
@@ -391,12 +399,20 @@ public class Menu {
                 case 5 -> System.out.println(printTopBorder()  + animeLibrary.getGenreByAnime(getAnimeNameToSearch()) + printBottomBorder());
                 case 6 -> System.out.println(printTopBorder()  + animeLibrary.getAnimeRatings() + printBottomBorder());
                 case 7 -> System.out.println(printTopBorder()  + animeLibrary.allStudiosTracked() + printBottomBorder());
-                case 8 -> helpOutputCommands();
-                case 9 -> notQuit = exitToMain(scanner);
+                case 8 -> callReader();
+                case 9 -> helpOutputCommands();
+                case 10 -> notQuit = exitToMain(scanner);
                 default -> printError();
             }
         }
         while (notQuit);
+    }
+
+    private void callReader() {
+        System.out.print("Please provide the name of the file you want to write to: ");
+        String fileName = scanner.nextLine();
+        Reader.save(animeLibrary.getAnime(), fileName);
+        System.out.printf("%sSuccessfully saved to file %s%s%n", printTopBorder(), fileName, printBottomBorder());
     }
 
     private String getAnimeNameToSearch() {
