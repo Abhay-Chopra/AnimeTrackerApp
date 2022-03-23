@@ -8,8 +8,8 @@ import anime.Entity.Studio;
  */
 public class Library {
     //The only container in the class, a List of Anime
-    private ArrayList<Anime> animeList;
-    private ArrayList<Studio> studios;
+    private final ArrayList<Anime> animeList;
+    private final ArrayList<Studio> studios;
 
     public Library() {
         animeList = new ArrayList<>();
