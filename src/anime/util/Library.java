@@ -206,7 +206,7 @@ public class Library {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Studio s : this.studios) {
-            stringBuilder.append("---------------\n").append(s.toString()).append("\n");
+            stringBuilder.append("").append(s.toString()).append("\n");
         }
         stringBuilder.deleteCharAt(stringBuilder.length()-1);
 
@@ -218,11 +218,13 @@ public class Library {
      *
      * @param givenAnimeList ArrayList containing additional anime
      */
+    //TODO Add equals and hashcode for Studio class
     public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
         animeList.addAll(givenAnimeList);
         for (Anime anime: animeList) {
-            if(!studios.contains(anime.getStudio()))
-            studios.add(anime.getStudio());
+            if(!studios.contains(anime.getStudio())) {
+                studios.add(anime.getStudio());
+            }
         }
     }
 }
