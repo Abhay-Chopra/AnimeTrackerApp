@@ -222,7 +222,7 @@ public class Library {
         animeList.addAll(givenAnimeList);
         for (Anime anime: animeList) {
             if(!studios.contains(anime.getStudio()))
-            studios.add(anime.getStudio());
+                studios.add(anime.getStudio());
         }
     }
 }
