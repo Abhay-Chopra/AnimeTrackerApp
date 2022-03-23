@@ -227,9 +227,6 @@ public class Library {
                     studios.add(anime.getStudio());
                 }
             }
-
-            if(!studios.contains(anime.getStudio()))
-                    studios.add(anime.getStudio());
         }
     }
 }

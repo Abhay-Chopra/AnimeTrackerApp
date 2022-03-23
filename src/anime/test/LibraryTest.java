@@ -25,61 +25,65 @@ class LibraryTest {
 
     private void fillingTestingLibrary() {
         testLibary = new Library();
+        testLibary.addBulkAnime(Reader.Import(new File("test.txt")));
     }
 
-    @Test
-    void containsAnime() {
-    }
-
-    @Test
-    void addAnime() {
-    }
-
-    @Test
-    void removeAnime() {
-    }
-
-    @Test
-    void addStudio() {
-    }
-
-    @Test
-    void removeStudio() {
+    private void emptyTestLibrary() {
+        testLibary = new Library();
     }
 
     @Test
     void getAnimeRatings() {
+        fillingTestingLibrary();
+        String test =
+                "CODE GEASSE -> 8.7\n" +
+                "MONSTER -> 8.82\n" +
+                "GINTAMA -> 8.95\n" +
+                "ATTACK ON TITAN -> 9.4\n" +
+                "DEMON SLAYER -> 10.0\n" +
+                "FULL METAL ALCHEMIST: BROTHERHOOD -> 10.0";
+        assertEquals(test, testLibary.getAnimeRatings());
     }
 
     @Test
     void topStreamedAnime() {
+        fillingTestingLibrary();
+        String test = "" +
+                "Your Top Streamed Anime Are\n" +
+                "GINTAMA -> Watch Time: 2300 minutes\n" +
+                "FULL METAL ALCHEMIST: BROTHERHOOD -> Watch Time: 1472 minutes\n" +
+                "DEMON SLAYER -> Watch Time: 598 minutes";
+        assertEquals(test, testLibary.topStreamedAnime());
     }
 
     @Test
     void topStreamedGenre() {
+        fillingTestingLibrary();
+        assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibary.topStreamedGenre());
+    }
+
+    @Test
+    void emptyTopStreamedGenre() {
+        emptyTestLibrary();
+        assertEquals("No currently tracked anime", testLibary.topStreamedGenre());
     }
 
     @Test
     void totalWatchTime() {
+        fillingTestingLibrary();
+        assertEquals("Total Watch Time (estimated): 5750 minutes", testLibary.totalWatchTime());
+    }
+
+    @Test
+    void emptyWatchTime() {
+        emptyTestLibrary();
+        assertEquals("Total Watch Time (estimated): 0 minutes", testLibary.totalWatchTime());
     }
 
     @Test
     void getGenreByAnime() {
-    }
-
-    @Test
-    void allAnimeTracked() {
-    }
-
-    @Test
-    void getAnime() {
-    }
-
-    @Test
-    void getStudios() {
-    }
-
-    @Test
-    void allStudiosTracked() {
+        fillingTestingLibrary();
+        String animeToTest = testLibary.getAnime()[0].getName();
+        assertEquals("The anime ATTACK ON TITAN has genres ACTION, DRAMA ", testLibary.getGenreByAnime(animeToTest));
     }
 }
