@@ -1,6 +1,7 @@
 package anime.test;
 
 import anime.Entity.Anime;
+import anime.util.Library;
 import anime.util.Reader;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,12 @@ class LibraryTest {
         assertFalse(testArray.isEmpty());
         assertEquals("ATTACK ON TITAN", testArray.get(0).getName());
         assertEquals("MONSTER", testArray.get(testArray.size()-1).getName());
+    }
+
+    private Library testLibary;
+
+    private void fillingTestingLibrary() {
+        testLibary = new Library();
     }
 
     @Test
