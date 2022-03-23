@@ -1,5 +1,6 @@
 package anime.Entity;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Studio {
     //Fields
@@ -25,5 +26,18 @@ public class Studio {
     @Override
     public String toString() {
         return "Name: " + this.name;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Studio){
+            return Objects.equals(((Studio) other).getName(), this.getName());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getName().hashCode();
     }
 }
