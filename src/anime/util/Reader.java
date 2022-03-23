@@ -49,7 +49,7 @@ public class Reader {
     }
 
     /**
-     *
+     *  Save our anime to a specified txt file
      * @param anime Array containing all anime currently stored
      * @param fileName name of the file that will be attempted to be saved to
      */

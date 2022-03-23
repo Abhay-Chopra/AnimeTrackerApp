@@ -206,7 +206,7 @@ public class Library {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Studio s : this.studios) {
-            stringBuilder.append("").append(s.toString()).append("\n");
+            stringBuilder.append(s.toString()).append("\n");
         }
         stringBuilder.deleteCharAt(stringBuilder.length()-1);
 
