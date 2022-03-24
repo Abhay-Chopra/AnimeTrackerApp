@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class Main {
     //TODO UML diagram
     public static void main(String[] args) {
+        //look for passed args and continue to launch main
         if(args.length > 1){
             System.err.println("Too Many Arguments from CMD!");
             System.err.printf("Args: %s%n", Arrays.toString(args));

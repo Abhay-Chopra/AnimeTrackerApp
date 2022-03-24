@@ -17,6 +17,8 @@ public class Library {
     }
 
     public boolean containsAnime(String animeName){
+        //Checking if our library currently contains an anime
+        //this could have been an .equals() function inside of anime itself
         for (Anime anime: animeList) {
             if (anime.getName().equals(animeName)){
                 return true;
@@ -31,6 +33,7 @@ public class Library {
     }
 
     public void removeAnime(String animeToRemove) {
+        //Removing anime based of name
         animeList.removeIf(anime -> anime.getName().equals(animeToRemove));
     }
 
@@ -48,9 +51,12 @@ public class Library {
      * @return String containing all anime ratings'
      */
     public String getAnimeRatings() {
+        //Return this is empty list
         if(animeList.isEmpty()){return "No anime currently being tracked!";}
+        //Sort the anime by rating for a clean look
         animeList.sort(new AnimeRatingComparator());
         StringBuilder returnString = new StringBuilder();
+        //append the anime to a return list
         for(Anime anime: animeList)
         {
             returnString.append(anime.getName()).append(" -> ").append(anime.getRating()).append("\n");
@@ -89,15 +95,17 @@ public class Library {
      * @return String that containsAnime all the genres of a particular anime
      */
     public String topStreamedGenre() {
-
+        //return if emtpy
         if(animeList.isEmpty())
             return "No currently tracked anime";
 
+        //map to map genres to stream time
         HashMap<String, Integer> genresToEpisodes = new HashMap<>();
 
         //Fill the hashmap will the genres and their respective watch times
         for(Anime a : this.animeList) {
             for(String s : a.getGenres()) {
+                //if the genre is NOT in the map, add it with a base watch time, otherwise add watch time to it
                 if(!genresToEpisodes.containsKey(s)) {
                     genresToEpisodes.put(s, a.getEpisodes()*Anime.EPISODE_LENGTH);
                 } else {
@@ -106,6 +114,7 @@ public class Library {
             }
         }
 
+        //iterate over the map and look for the highest watch time
         int highestWatchTime = 0;
         String bigJon = "";
 
@@ -125,6 +134,7 @@ public class Library {
      * @return String that containsAnime the total watch-time for user
      */
     public String totalWatchTime() {
+        //iterate over every anime and sum the total episodes * watch time
         int totalEpisodes = 0;
         for (Anime anime : animeList) {
             totalEpisodes += anime.getEpisodes();
@@ -138,13 +148,16 @@ public class Library {
      * @return String that containsAnime all genre for a particular anime
      */
     public String getGenreByAnime(String searchedAnime) {
+        //check if the anime title is stored
         if (this.containsAnime(searchedAnime)) {
+            //list to store the genres of that anime
             ArrayList<String> animeGenres = new ArrayList<>();
             for (Anime anime: animeList) {
                 if (anime.getName().equals(searchedAnime)){
                     animeGenres = anime.getGenres();
                 }
             }
+            //build a return string of those genres and return it
             StringBuilder genres = new StringBuilder();
             for (String genre: animeGenres) {
                 genres.append(genre).append(", ");
@@ -162,6 +175,7 @@ public class Library {
      * @return the built string of the anime currently tracked
      */
     public String allAnimeTracked() {
+        //iterate the animelist and build a string of .toStrings() to return to the user
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Anime a : this.animeList) {
@@ -177,6 +191,7 @@ public class Library {
      * @return the fixed array of the animeList
      */
     public Anime[] getAnime() {
+        //return a simple array of all anime
         Anime[] animeArray = new Anime[animeList.size()];
         animeArray = animeList.toArray(animeArray);
         return animeArray;
@@ -188,6 +203,7 @@ public class Library {
      * @return Array of Studios
      */
     public Studio[] getStudios() {
+        //return a simple array of all studios
         Studio[] studioArray = new Studio[studios.size()];
         studioArray = studios.toArray(studioArray);
         return studioArray;
@@ -200,11 +216,13 @@ public class Library {
      */
     public String allStudiosTracked() {
 
+        //return if studios is empty
         if(studios.size() == 0)
             return "No Studios Being Tracked!";
 
         StringBuilder stringBuilder = new StringBuilder();
 
+        //iterate studios and build a return string of .toStrings
         for(Studio s : this.studios) {
             stringBuilder.append(s.toString()).append("\n");
         }
@@ -219,6 +237,7 @@ public class Library {
      * @param givenAnimeList ArrayList containing additional anime
      */
     public void addBulkAnime(ArrayList<Anime> givenAnimeList) {
+        //iterate over and add the anime from the Reader class, dumping duplicate anime and studios
         for (Anime anime: givenAnimeList) {
             if (!this.containsAnime(anime.getName())) {
                 animeList.add(anime);

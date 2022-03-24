@@ -116,7 +116,9 @@ public class Menu {
      * Adding a ORIGINAL ANIME to the library
      */
     private void getAnimeFromUser() {
+        //clear the new line
         eatNewLine();
+        //ask the for an anime title to add and check if we already have it
         System.out.println("What anime would you like to add?");
         String animeTitle = scanner.nextLine().toUpperCase();
         if(animeLibrary.containsAnime(animeTitle)) {
@@ -124,11 +126,13 @@ public class Menu {
             return;
         }
 
+        //list out the genres available and get them from the user
         System.out.println("What genres does this anime fall under? (anything else when finished)");
         for(String genre : Anime.LIST_OF_GENRES) {
             System.out.println(genre);
         }
 
+        //getting genre input
         ArrayList<String> addedGenres = new ArrayList<>();
         String genreToAdd;
         do {
@@ -139,11 +143,13 @@ public class Menu {
             }
         } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
+        //listing the themes for the user
         System.out.println("What themes does this anime fall under? (anything else when finished)");
         for(String theme : Anime.LIST_OF_THEMES){
             System.out.println(theme);
         }
 
+        //getting theme input from the user
         ArrayList<String> addedThemes = new ArrayList<>();
         String themeToAdd;
         do {
@@ -154,12 +160,15 @@ public class Menu {
             }
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
+        //getting episodes
         System.out.println("How many episodes have you watched?");
         int episodes = scanner.nextInt();
 
+        //getting rating
         System.out.println("What would you rate this anime, out of 10?");
         double rating = scanner.nextDouble();
 
+        //iterate the status enum and print options to the users
         System.out.println("What's the status on the current anime? (select by integer)");
         for(int i = 0; i < Anime.Status.values().length; i++) {
             System.out.println((i)+") " + Anime.Status.values()[i]);
@@ -167,6 +176,7 @@ public class Menu {
         Anime.Status status = Anime.Status.values()[scanner.nextInt()];
         eatNewLine();
 
+        //iterate the season enum and print the option to the users
         System.out.println("What season did this anime air? (select by integer)");
         for(int i = 0; i < Anime.Season.values().length; i++) {
             System.out.println((i)+") " + Anime.Season.values()[i]);
@@ -203,6 +213,7 @@ public class Menu {
             }
         }
 
+        //create the anime and store it in the library
         Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
         animeStudio.addAnime(newAnime);
@@ -217,6 +228,7 @@ public class Menu {
      * Get an alternate anime (Season, OVA, Movie) from the user
      */
     private void getAlternateAnime() {
+        //if no anime to parent from return this
         if(animeLibrary.getAnime().length == 0) {
             System.out.println("No anime being tracked to branch from!");
             return;
@@ -224,11 +236,13 @@ public class Menu {
 
         System.out.println("What anime is this branched from?");
 
+        //get the array of anime and print to the user for selection
         Anime[] bufferAnime = animeLibrary.getAnime();
         for(int i = 0; i < bufferAnime.length; i++){
             System.out.println(i+") " + bufferAnime[i].getName());
         }
 
+        //get the parent anime of this alternate anime
         Anime parentAnime = bufferAnime[scanner.nextInt()];
         eatNewLine();
 
