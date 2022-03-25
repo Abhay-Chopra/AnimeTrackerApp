@@ -65,6 +65,12 @@ class LibraryTest {
         fillingTestingLibrary();
         assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibrary.topStreamedGenre());
     }
+    @Test
+    void topStreamedGenreAfterRemove(){
+        fillingTestingLibrary();
+        testLibrary.removeAnime("ATTACK ON TITAN");
+        assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibrary.topStreamedGenre());
+    }
 
     @Test
     void emptyTopStreamedGenre() {
@@ -89,5 +95,25 @@ class LibraryTest {
         fillingTestingLibrary();
         String animeToTest = testLibrary.getAnime()[0].getName();
         assertEquals("The anime ATTACK ON TITAN has genres ACTION, DRAMA ", testLibrary.getGenreByAnime(animeToTest));
+    }
+
+    @Test
+    void getGenreForDemonSlayer(){
+        fillingTestingLibrary();
+        String animeToTest = testLibrary.getAnime()[1].getName();
+        assertEquals("The anime DEMON SLAYER has genres ACTION, SUPERNATURAL ",testLibrary.getGenreByAnime(animeToTest));
+    }
+    @Test
+    void getGenreForFullMental(){
+        fillingTestingLibrary();
+        String animeToTest = testLibrary.getAnime()[2].getName();
+        assertEquals("The anime FULL METAL ALCHEMIST: BROTHERHOOD has genres ACTION, DRAMA, FANTASY, ADVENTURE, COMEDY ",testLibrary.getGenreByAnime(animeToTest));
+    }
+
+    @Test
+    void getGenreFor(){
+        fillingTestingLibrary();
+        String animeToTest = testLibrary.getAnime()[3].getName();
+        assertEquals("The anime CODE GEASSE has genres ACTION, DRAMA, SCIFI ",testLibrary.getGenreByAnime(animeToTest));
     }
 }

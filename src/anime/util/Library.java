@@ -200,7 +200,7 @@ public class Library {
      * @return the built string of the anime currently tracked
      */
     public String allAnimeTracked() {
-        //iterate the animelist and build a string of .toStrings() to return to the user
+        //iterate the anime-list and build a string of .toStrings() to return to the user
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Anime a : this.animeList) {
