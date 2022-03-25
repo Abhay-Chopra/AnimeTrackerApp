@@ -19,11 +19,13 @@ public class Reader {
      * @author Abhay Chopra, Brandon Greene
      */
     public static ArrayList<Anime> Import(File file) {
+        //creating initial list that will contain all anime objects
         ArrayList<Anime> returnList = new ArrayList<>();
+        //with-resources style of creating buffer and file reader
         try(FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader)){
             String line = bufferedReader.readLine();
-
+            //reading through file
             while(line != null) {
                 String[] animeInfo = line.split(",");
                 String animeName = animeInfo[0].toUpperCase();
@@ -40,13 +42,15 @@ public class Reader {
                 Anime.Status animeStatus = Anime.Status.values()[Integer.parseInt(animeInfo[5].strip())];
                 Anime.Season animeSeason = Anime.Season.values()[Integer.parseInt(animeInfo[6].strip())];
                 Studio animeStudio = new Studio(animeInfo[7].toUpperCase().strip());
-
+                //Creating anime object using the info from CSV file
                 Anime anime = new Anime(animeName, animeGenreList, animeThemeList, animeEpisodes, animeRating, animeStatus, animeSeason, animeStudio);
                 returnList.add(anime);
                 line = bufferedReader.readLine();
             }
 
-        }catch (Exception e) {
+        }
+        //Catching when file reading fails
+        catch (Exception e) {
             System.err.println("Error reading from anime file!");
             System.exit(1);
         }
@@ -69,6 +73,7 @@ public class Reader {
             }
         }
         if(file.exists() && file.isFile() && file.canWrite()){
+            //with-resources method of creating file and print writer
             try(FileWriter fileWriter = new FileWriter(file);
                 PrintWriter printWriter = new PrintWriter(fileWriter)) {
                 for (Anime currentAnime : anime) {
@@ -76,19 +81,24 @@ public class Reader {
                     for (String genre: currentAnime.getGenres()) {
                         genres.append(String.format("%s;", genre.toLowerCase()));
                     }
+                    //getting rid of the final ; in string
                     genres.deleteCharAt(genres.length() - 1);
                     StringBuilder themes = new StringBuilder();
                     for (String theme: currentAnime.getThemes()) {
                         themes.append(String.format("%s;", theme.toLowerCase()));
                     }
+                    //getting rid of the final ; in string
                     themes.deleteCharAt(themes.length() - 1);
+                    //Creating a line to add to external file
                     String animeInfo = String.format("%s,%s,%s,%s,%s,%s,%s,%s", currentAnime.getName().toLowerCase(), genres
                                                                            , themes, currentAnime.getRating(), currentAnime.getEpisodes()
                                                                            , currentAnime.getStatus().ordinal(), currentAnime.getSeason().ordinal()
                                                                            , currentAnime.getStudio().getName());
                     printWriter.println(animeInfo);
                 }
-            } catch (IOException e) {
+            }
+            //Catching exceptions when file writing is interrupted
+            catch (IOException e) {
                 System.err.println("Error writing to file " + file);
                 System.exit(1);
             }
