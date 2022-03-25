@@ -85,7 +85,7 @@ public class Reader {
                     String animeInfo = String.format("%s,%s,%s,%s,%s,%s,%s,%s", currentAnime.getName().toLowerCase(), genres
                                                                            , themes, currentAnime.getRating(), currentAnime.getEpisodes()
                                                                            , currentAnime.getStatus().ordinal(), currentAnime.getSeason().ordinal()
-                                                                           , currentAnime.getStudio());
+                                                                           , currentAnime.getStudio().getName());
                     printWriter.println(animeInfo);
                 }
             } catch (IOException e) {

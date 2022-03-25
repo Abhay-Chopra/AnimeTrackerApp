@@ -120,7 +120,7 @@ public class Library {
      * @return String that containsAnime all the genres of a particular anime
      */
     public String topStreamedGenre() {
-        //return if emtpy
+        //return if empty
         if(animeList.isEmpty())
             return "No currently tracked anime";
 

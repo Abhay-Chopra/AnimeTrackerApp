@@ -295,7 +295,7 @@ public class Menu {
             do {
                 themeToAdd = scanner.nextLine().toUpperCase();
                 if (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
-                    addedThemes.add(genreToAdd);
+                    addedThemes.add(themeToAdd);
                     System.out.println("Added " + themeToAdd);
                 }
             } while (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
@@ -321,7 +321,7 @@ public class Menu {
             }
             Anime.Status status = Anime.Status.values()[scanner.nextInt()];
 
-            //print hte seasons and get the season from the user
+            //print the seasons and get the season from the user
             System.out.println("What season did this anime air? (select by integer)");
             for (int i = 0; i < Anime.Season.values().length; i++) {
                 System.out.println((i) + ") " + Anime.Season.values()[i]);
