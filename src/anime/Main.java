@@ -10,7 +10,6 @@ import java.util.Arrays;
  * Objective: Software that tracks the user's top streamed anime category
  */
 public class Main {
-    //TODO UML diagram
     public static void main(String[] args) {
         //look for passed args and continue to launch main
         if(args.length > 1){

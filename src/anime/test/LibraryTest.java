@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for Library.java
+ */
 class LibraryTest {
 
     @Test
@@ -21,69 +24,70 @@ class LibraryTest {
         assertEquals("MONSTER", testArray.get(testArray.size()-1).getName());
     }
 
-    private Library testLibary;
+    private Library testLibrary;
 
     private void fillingTestingLibrary() {
-        testLibary = new Library();
-        testLibary.addBulkAnime(Reader.Import(new File("test.txt")));
+        testLibrary = new Library();
+        testLibrary.addBulkAnime(Reader.Import(new File("test.txt")));
     }
 
     private void emptyTestLibrary() {
-        testLibary = new Library();
+        testLibrary = new Library();
     }
 
     @Test
     void getAnimeRatings() {
         fillingTestingLibrary();
         String test =
-                "CODE GEASSE -> 8.7\n" +
-                "MONSTER -> 8.82\n" +
-                "GINTAMA -> 8.95\n" +
-                "ATTACK ON TITAN -> 9.4\n" +
-                "DEMON SLAYER -> 10.0\n" +
-                "FULL METAL ALCHEMIST: BROTHERHOOD -> 10.0";
-        assertEquals(test, testLibary.getAnimeRatings());
+                """
+                        CODE GEASSE -> 8.7
+                        MONSTER -> 8.82
+                        GINTAMA -> 8.95
+                        ATTACK ON TITAN -> 9.4
+                        DEMON SLAYER -> 10.0
+                        FULL METAL ALCHEMIST: BROTHERHOOD -> 10.0""";
+        assertEquals(test, testLibrary.getAnimeRatings());
     }
 
     @Test
     void topStreamedAnime() {
         fillingTestingLibrary();
-        String test = "" +
-                "Your Top Streamed Anime Are\n" +
-                "GINTAMA -> Watch Time: 2300 minutes\n" +
-                "FULL METAL ALCHEMIST: BROTHERHOOD -> Watch Time: 1472 minutes\n" +
-                "DEMON SLAYER -> Watch Time: 598 minutes";
-        assertEquals(test, testLibary.topStreamedAnime());
+        String test = """
+                Your Top Streamed Anime Are
+                GINTAMA -> Watch Time: 2300 minutes
+                FULL METAL ALCHEMIST: BROTHERHOOD -> Watch Time: 1472 minutes
+                DEMON SLAYER -> Watch Time: 598 minutes""";
+        assertEquals(test, testLibrary.topStreamedAnime());
     }
 
     @Test
     void topStreamedGenre() {
         fillingTestingLibrary();
-        assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibary.topStreamedGenre());
+        assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibrary.topStreamedGenre());
     }
 
     @Test
     void emptyTopStreamedGenre() {
         emptyTestLibrary();
-        assertEquals("No currently tracked anime", testLibary.topStreamedGenre());
+        assertEquals("No currently tracked anime", testLibrary.topStreamedGenre());
     }
 
     @Test
     void totalWatchTime() {
         fillingTestingLibrary();
-        assertEquals("Total Watch Time (estimated): 5750 minutes", testLibary.totalWatchTime());
+        assertEquals("Total Watch Time (estimated): 5750 minutes", testLibrary.totalWatchTime());
     }
 
     @Test
     void emptyWatchTime() {
         emptyTestLibrary();
-        assertEquals("Total Watch Time (estimated): 0 minutes", testLibary.totalWatchTime());
+        assertEquals("Total Watch Time (estimated): 0 minutes", testLibrary.totalWatchTime());
     }
 
     @Test
     void getGenreByAnime() {
         fillingTestingLibrary();
-        String animeToTest = testLibary.getAnime()[0].getName();
-        assertEquals("The anime ATTACK ON TITAN has genres ACTION, DRAMA ", testLibary.getGenreByAnime(animeToTest));
+        String animeToTest = testLibrary.getAnime()[0].getName();
+        assertEquals("The anime ATTACK ON TITAN has genres ACTION, DRAMA ", testLibrary.getGenreByAnime(animeToTest));
     }
 }

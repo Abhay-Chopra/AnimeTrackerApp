@@ -7,11 +7,16 @@ import java.io.*;
 import java.util.ArrayList;
 
 //TODO Add better error handling for both functions
+
+/**
+ * Class that can read data from files and store data to files
+ */
 public class Reader {
     /**
      * Creating an anime list give all info from a file
      * @param file File
      * @return arraylist containing anime
+     * @author Abhay Chopra, Brandon Greene
      */
     public static ArrayList<Anime> Import(File file) {
         ArrayList<Anime> returnList = new ArrayList<>();
