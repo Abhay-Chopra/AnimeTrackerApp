@@ -246,6 +246,7 @@ public class Menu {
         Anime parentAnime = bufferAnime[scanner.nextInt()];
         eatNewLine();
 
+        //get the title of the anime
         System.out.println("What is the title of this anime?");
         String animeTitle = scanner.nextLine().toUpperCase();
         if(animeLibrary.containsAnime(animeTitle)) {
@@ -253,6 +254,7 @@ public class Menu {
             return;
         }
 
+        //print out genres and get them from the user
         System.out.println("What genres does this anime fall under? (anything else when finished)");
         for(String genre : Anime.LIST_OF_GENRES) {
             System.out.println(genre);
@@ -268,6 +270,7 @@ public class Menu {
             }
         } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
+        //print out the themes and get them from the user
         System.out.println("What themes does this anime fall under? (anything else when finished)");
         for(String theme : Anime.LIST_OF_THEMES){
             System.out.println(theme);
@@ -283,6 +286,7 @@ public class Menu {
             }
         } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
+        //get episodes
         System.out.println("How many episodes have you watched?");
         int episodes = 0;
         try {
@@ -291,15 +295,19 @@ public class Menu {
             System.err.println("Didn't give a count of episodes watched!");
             System.exit(1);
         }
+
+        //get rating
         System.out.println("What would you rate this anime, out of 10?");
         double rating = scanner.nextDouble();
 
+        //print out status and get the status from the user
         System.out.println("What's the status on the current anime? (select by integer)");
         for(int i = 0; i < Anime.Status.values().length; i++) {
             System.out.println((i)+") " + Anime.Status.values()[i]);
         }
         Anime.Status status = Anime.Status.values()[scanner.nextInt()];
 
+        //print hte seasons and get the season from the user
         System.out.println("What season did this anime air? (select by integer)");
         for(int i = 0; i < Anime.Season.values().length; i++) {
             System.out.println((i)+") " + Anime.Season.values()[i]);
@@ -332,6 +340,7 @@ public class Menu {
             }
         }
 
+        //create the sub anime and ship it to the library
         SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
 
         animeStudio.addAnime(sAnime);
