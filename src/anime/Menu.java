@@ -233,6 +233,7 @@ public class Menu {
             System.out.println("-----------------------------------------------------------");
         } catch (InputMismatchException e) {
             System.out.println("Error while adding anime: "+e.toString());
+            eatNewLine();
         }
     }
 
@@ -364,6 +365,7 @@ public class Menu {
             System.out.println("-----------------------------------------------------------");
         } catch (InputMismatchException e) {
             System.out.println("Error while adding anime: "+e.toString());
+            eatNewLine();
         }
     }
 
