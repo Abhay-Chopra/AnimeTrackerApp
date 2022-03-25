@@ -6,8 +6,6 @@ import anime.Entity.Studio;
 import java.io.*;
 import java.util.ArrayList;
 
-//TODO Add better error handling for both functions
-
 /**
  * Class that can read data from files and store data to files
  */

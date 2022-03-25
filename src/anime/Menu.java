@@ -232,7 +232,7 @@ public class Menu {
             System.out.println("Completed adding " + newAnime.getName() + " to the list!");
             System.out.println("-----------------------------------------------------------");
         } catch (InputMismatchException e) {
-            System.out.println("Error while adding anime: "+e.toString());
+            System.out.println("Error while adding anime: "+ e);
             eatNewLine();
         }
     }
@@ -364,7 +364,7 @@ public class Menu {
             System.out.println("Completed adding " + sAnime.getName() + " to the list!");
             System.out.println("-----------------------------------------------------------");
         } catch (InputMismatchException e) {
-            System.out.println("Error while adding anime: "+e.toString());
+            System.out.println("Error while adding anime: "+ e);
             eatNewLine();
         }
     }
