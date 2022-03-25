@@ -120,7 +120,7 @@ public class Library {
      * @return String that containsAnime all the genres of a particular anime
      */
     public String topStreamedGenre() {
-        //return if emtpy
+        //return if empty
         if(animeList.isEmpty())
             return "No currently tracked anime";
 
@@ -200,7 +200,7 @@ public class Library {
      * @return the built string of the anime currently tracked
      */
     public String allAnimeTracked() {
-        //iterate the animelist and build a string of .toStrings() to return to the user
+        //iterate the anime-list and build a string of .toStrings() to return to the user
         StringBuilder stringBuilder = new StringBuilder();
 
         for(Anime a : this.animeList) {
