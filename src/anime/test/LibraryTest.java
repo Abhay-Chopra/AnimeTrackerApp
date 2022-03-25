@@ -69,7 +69,7 @@ class LibraryTest {
     void topStreamedGenreAfterRemove(){
         fillingTestingLibrary();
         testLibrary.removeAnime("ATTACK ON TITAN");
-        assertEquals("The most watched genre is ACTION with a total watch time of 5520", testLibrary.topStreamedGenre());
+        assertEquals("The most watched genre is ACTION with a total watch time of 4945", testLibrary.topStreamedGenre());
     }
 
     @Test
