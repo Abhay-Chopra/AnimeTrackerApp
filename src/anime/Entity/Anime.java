@@ -1,8 +1,10 @@
 package anime.Entity;
 import java.util.ArrayList;
 
+/**
+ * Anime Class that has various fields and methods related to streaming
+ */
 public class Anime {
-    //Fields
     private String name;
     private ArrayList<String> genres;
     private ArrayList<String> themes;
@@ -31,7 +33,17 @@ public class Anime {
         FALL
     }
 
-    //Constructor and Methods beyond here
+    /**
+     * Constructor for Anime
+     * @param name Anime name
+     * @param genres List of genres of Anime
+     * @param themes List containing themes of Anime
+     * @param episodes Episode watch count of Anime
+     * @param rating Rating of Anime
+     * @param status Watch Status of Anime
+     * @param season the Season type of Anime
+     * @param animeStudio Studio that produced the Anime
+     */
     public Anime(String name, ArrayList<String> genres, ArrayList<String> themes,
                  int episodes, double rating, Status status, Season season, Studio animeStudio) {
         this.name = name;
@@ -108,6 +120,10 @@ public class Anime {
         this.studio = studio;
     }
 
+    /**
+     * Overwrites the toString of Object
+     * @return string representation of Anime objects
+     */
     @Override
     public String toString() {
         return "Name: " + this.name + "\n" + "Genres: " + this.genres.toString() + "\n" + "Themes: " + this.themes.toString() + "\n" + "Rating: " + this.rating + "\n" +

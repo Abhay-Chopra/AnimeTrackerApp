@@ -4,18 +4,30 @@ import anime.Entity.Anime;
 import anime.Entity.Studio;
 
 /**
- *
+ * Allows for packaging together multiple anime, i.e. everything that is currently being tracked
+ * @author Abhay Chopra, Brandon Greene
+ * @version 1.0
+ * TA: 06 (W/ Amir)
+ * March 24th, 2022
  */
 public class Library {
     //The only container in the class, a List of Anime
     private final ArrayList<Anime> animeList;
     private final ArrayList<Studio> studios;
 
+    /**
+     * Constructor for the Library class
+     */
     public Library() {
         animeList = new ArrayList<>();
         studios = new ArrayList<>();
     }
 
+    /**
+     * Checks if tracked anime have some particular anime
+     * @param animeName String name of Anime
+     * @return boolean if stored Anime contain the particular anime
+     */
     public boolean containsAnime(String animeName){
         for (Anime anime: animeList) {
             if (anime.getName().equals(animeName)){
@@ -26,14 +38,27 @@ public class Library {
     }
 
     //All of our anime accessing code and processing goes here
+
+    /**
+     * Adds an anime into tracked Anime
+     * @param newAnime Anime to add
+     */
     public void addAnime(Anime newAnime) {
         animeList.add(newAnime);
     }
 
+    /**
+     * Removes anime from tracking
+     * @param animeToRemove Anime to remove
+     */
     public void removeAnime(String animeToRemove) {
         animeList.removeIf(anime -> anime.getName().equals(animeToRemove));
     }
 
+    /**
+     * Adds studio to tracked studio list
+     * @param newStudio Studio to Add
+     */
     public void addStudio(Studio newStudio) {
         studios.add(newStudio);
     }
@@ -95,7 +120,7 @@ public class Library {
 
         HashMap<String, Integer> genresToEpisodes = new HashMap<>();
 
-        //Fill the hashmap will the genres and their respective watch times
+        // will get the genres and their respective watch times
         for(Anime a : this.animeList) {
             for(String s : a.getGenres()) {
                 if(!genresToEpisodes.containsKey(s)) {
@@ -107,16 +132,16 @@ public class Library {
         }
 
         int highestWatchTime = 0;
-        String bigJon = "";
-
+        String bigGenre = "";
+        //Going through the genres and getting the highest watch time
         for(String s : genresToEpisodes.keySet()) {
             if(genresToEpisodes.get(s) > highestWatchTime) {
                 highestWatchTime = genresToEpisodes.get(s);
-                bigJon = s;
+                bigGenre = s;
             }
         }
 
-        return "The most watched genre is " + bigJon + " with a total watch time of " + highestWatchTime;
+        return "The most watched genre is " + bigGenre + " with a total watch time of " + highestWatchTime;
     }
 
     /**
@@ -204,7 +229,7 @@ public class Library {
             return "No Studios Being Tracked!";
 
         StringBuilder stringBuilder = new StringBuilder();
-
+        //Going through all studios tracked of current library
         for(Studio s : this.studios) {
             stringBuilder.append(s.toString()).append("\n");
         }

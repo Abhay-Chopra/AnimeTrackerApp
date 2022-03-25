@@ -10,7 +10,6 @@ import java.util.Arrays;
  * Objective: Software that tracks the user's top streamed anime category
  */
 public class Main {
-    //TODO UML diagram
     public static void main(String[] args) {
         if(args.length > 1){
             System.err.println("Too Many Arguments from CMD!");

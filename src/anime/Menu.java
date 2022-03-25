@@ -9,6 +9,13 @@ import anime.util.Reader;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Menu class that allows for all the operations within program (I/O and file handling)
+ * @author Abhay Chopra, Brandon Greene
+ * @version 1.0
+ * TA: 06 (W/ Amir)
+ * March 24th, 2022
+ */
 public class Menu {
 
     private boolean notQuit = true;
@@ -20,6 +27,10 @@ public class Menu {
             "Top Streamed Genre", "Anime By Genre", "View Ratings", "View Studios", "Save to File" ,"Help", "Exit to Main Menu"};
     private final String[] ANIME_CMDS = {"Original", "Alternate"};
 
+    /**
+     * Constructor for the Menu Class
+     * @param args Array containing the Command Line Arguments
+     */
     public Menu(String[] args){
         printHeader();
         //Checking commandline arguments
@@ -31,12 +42,9 @@ public class Menu {
         }
     }
 
-    private void printHeader() {
-        System.out.println("-----------------------------");
-        System.out.println("Brandon's And Abhay's Anime List");
-        System.out.println("-----------------------------");
-    }
-
+    /**
+     * Internal system to display and handle all the cases of the menu system
+     */
     public void Start() {
         int input;
         do {
@@ -413,6 +421,9 @@ public class Menu {
         while (notQuit);
     }
 
+    /**
+     * Calls reader to save all data currently being tracked into a text file
+     */
     private void callReader() {
         System.out.print("Please provide the name of the file you want to write to: ");
         String fileName = scanner.nextLine();
@@ -420,6 +431,10 @@ public class Menu {
         System.out.printf("%sSuccessfully saved to file %s%s%n", printTopBorder(), fileName, printBottomBorder());
     }
 
+    /**
+     *
+     * @return Anime Name
+     */
     private String getAnimeNameToSearch() {
         if(animeLibrary.getAnime().length == 0) {
             System.out.println("No anime currently being tracked!");
@@ -442,6 +457,9 @@ public class Menu {
         return "\n-----------------------------------------------------------";
     }
 
+    /**
+     * Displays the CMDS for the inner menu
+     */
     private void printOutputCMDS() {
         System.out.println("Select A Command With The Number:");
 
@@ -450,6 +468,9 @@ public class Menu {
             System.out.println(i + 1 + ") " + OUTPUT_CMDS[i]);
     }
 
+    /**
+     * Displays the CMDS for the outer menu
+     */
     private void printMainCMDS() {
         System.out.println("Select A Command With The Number:");
 
@@ -517,7 +538,19 @@ public class Menu {
                 """);
     }
 
+    /**
+     * Gets rid of a new line character from the user using the scanner
+     */
     private void eatNewLine() {
         scanner.nextLine();
+    }
+
+    /**
+     * Header for start of program
+     */
+    private void printHeader() {
+        System.out.println("-----------------------------");
+        System.out.println("Brandon's And Abhay's Anime List");
+        System.out.println("-----------------------------");
     }
 }
