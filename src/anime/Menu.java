@@ -124,239 +124,247 @@ public class Menu {
      * Adding a ORIGINAL ANIME to the library
      */
     private void getAnimeFromUser() {
-        //clear the new line
-        eatNewLine();
-        //ask the for an anime title to add and check if we already have it
-        System.out.println("What anime would you like to add?");
-        String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeLibrary.containsAnime(animeTitle)) {
-            System.out.println("That anime is already tracked! Please Try Again");
-            return;
-        }
-
-        //list out the genres available and get them from the user
-        System.out.println("What genres does this anime fall under? (anything else when finished)");
-        for(String genre : Anime.LIST_OF_GENRES) {
-            System.out.println(genre);
-        }
-
-        //getting genre input
-        ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd;
-        do {
-            genreToAdd = scanner.nextLine().toUpperCase();
-            if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
-                addedGenres.add(genreToAdd);
-                System.out.println("Added " + genreToAdd);
+        try {
+            //clear the new line
+            eatNewLine();
+            //ask the for an anime title to add and check if we already have it
+            System.out.println("What anime would you like to add?");
+            String animeTitle = scanner.nextLine().toUpperCase();
+            if (animeLibrary.containsAnime(animeTitle)) {
+                System.out.println("That anime is already tracked! Please Try Again");
+                return;
             }
-        } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
-        //listing the themes for the user
-        System.out.println("What themes does this anime fall under? (anything else when finished)");
-        for(String theme : Anime.LIST_OF_THEMES){
-            System.out.println(theme);
-        }
-
-        //getting theme input from the user
-        ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd;
-        do {
-            themeToAdd = scanner.nextLine().toUpperCase();
-            if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
-                addedThemes.add(themeToAdd);
-                System.out.println("Added " + themeToAdd );
+            //list out the genres available and get them from the user
+            System.out.println("What genres does this anime fall under? (anything else when finished)");
+            for (String genre : Anime.LIST_OF_GENRES) {
+                System.out.println(genre);
             }
-        } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
 
-        //getting episodes
-        System.out.println("How many episodes have you watched?");
-        int episodes = scanner.nextInt();
+            //getting genre input
+            ArrayList<String> addedGenres = new ArrayList<>();
+            String genreToAdd;
+            do {
+                genreToAdd = scanner.nextLine().toUpperCase();
+                if (Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
+                    addedGenres.add(genreToAdd);
+                    System.out.println("Added " + genreToAdd);
+                }
+            } while (Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
 
-        //getting rating
-        System.out.println("What would you rate this anime, out of 10?");
-        double rating = scanner.nextDouble();
-
-        //iterate the status enum and print options to the users
-        System.out.println("What's the status on the current anime? (select by integer)");
-        for(int i = 0; i < Anime.Status.values().length; i++) {
-            System.out.println((i)+") " + Anime.Status.values()[i]);
-        }
-        Anime.Status status = Anime.Status.values()[scanner.nextInt()];
-        eatNewLine();
-
-        //iterate the season enum and print the option to the users
-        System.out.println("What season did this anime air? (select by integer)");
-        for(int i = 0; i < Anime.Season.values().length; i++) {
-            System.out.println((i)+") " + Anime.Season.values()[i]);
-        }
-        Anime.Season season = Anime.Season.values()[scanner.nextInt()];
-        eatNewLine();
-
-        //Studio
-        Studio animeStudio;
-        //Check if the current list of studios is empty
-        if(animeLibrary.getStudios().length == 0) {
-            //Go about adding a new studio for the anime, and list of studios tracked
-            System.out.println("No studio's yet added!");
-            System.out.println("What studio produced this name?");
-            String animeStudioName = scanner.nextLine().toUpperCase();
-            animeStudio = new Studio(animeStudioName);
-            animeLibrary.addStudio(animeStudio);
-        } else {
-            //Iterate and output the current tracked studios to the user for selection
-            System.out.println("Did any of these studios produced this anime? (anything else for adding a new one)");
-            Studio[] bufferStudios = animeLibrary.getStudios();
-            for(int i = 0; i < bufferStudios.length; i++) {
-                System.out.println(i+") " + bufferStudios[i].getName());
+            //listing the themes for the user
+            System.out.println("What themes does this anime fall under? (anything else when finished)");
+            for (String theme : Anime.LIST_OF_THEMES) {
+                System.out.println(theme);
             }
-            //If anything out of the array, or mismatch input, we will add a new studio
-            try {
-                animeStudio = bufferStudios[scanner.nextInt()];
-                eatNewLine();
-            } catch (InputMismatchException | IndexOutOfBoundsException e) {
+
+            //getting theme input from the user
+            ArrayList<String> addedThemes = new ArrayList<>();
+            String themeToAdd;
+            do {
+                themeToAdd = scanner.nextLine().toUpperCase();
+                if (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
+                    addedThemes.add(themeToAdd);
+                    System.out.println("Added " + themeToAdd);
+                }
+            } while (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
+
+            //getting episodes
+            System.out.println("How many episodes have you watched?");
+            int episodes = scanner.nextInt();
+
+            //getting rating
+            System.out.println("What would you rate this anime, out of 10?");
+            double rating = scanner.nextDouble();
+
+            //iterate the status enum and print options to the users
+            System.out.println("What's the status on the current anime? (select by integer)");
+            for (int i = 0; i < Anime.Status.values().length; i++) {
+                System.out.println((i) + ") " + Anime.Status.values()[i]);
+            }
+            Anime.Status status = Anime.Status.values()[scanner.nextInt()];
+            eatNewLine();
+
+            //iterate the season enum and print the option to the users
+            System.out.println("What season did this anime air? (select by integer)");
+            for (int i = 0; i < Anime.Season.values().length; i++) {
+                System.out.println((i) + ") " + Anime.Season.values()[i]);
+            }
+            Anime.Season season = Anime.Season.values()[scanner.nextInt()];
+            eatNewLine();
+
+            //Studio
+            Studio animeStudio;
+            //Check if the current list of studios is empty
+            if (animeLibrary.getStudios().length == 0) {
+                //Go about adding a new studio for the anime, and list of studios tracked
+                System.out.println("No studio's yet added!");
                 System.out.println("What studio produced this name?");
                 String animeStudioName = scanner.nextLine().toUpperCase();
                 animeStudio = new Studio(animeStudioName);
                 animeLibrary.addStudio(animeStudio);
+            } else {
+                //Iterate and output the current tracked studios to the user for selection
+                System.out.println("Did any of these studios produced this anime? (anything else for adding a new one)");
+                Studio[] bufferStudios = animeLibrary.getStudios();
+                for (int i = 0; i < bufferStudios.length; i++) {
+                    System.out.println(i + ") " + bufferStudios[i].getName());
+                }
+                //If anything out of the array, or mismatch input, we will add a new studio
+                try {
+                    animeStudio = bufferStudios[scanner.nextInt()];
+                    eatNewLine();
+                } catch (InputMismatchException | IndexOutOfBoundsException e) {
+                    System.out.println("What studio produced this name?");
+                    String animeStudioName = scanner.nextLine().toUpperCase();
+                    animeStudio = new Studio(animeStudioName);
+                    animeLibrary.addStudio(animeStudio);
+                }
             }
+
+            //create the anime and store it in the library
+            Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
+
+            animeStudio.addAnime(newAnime);
+            animeLibrary.addAnime(newAnime);
+
+            System.out.println("-----------------------------------------------------------");
+            System.out.println("Completed adding " + newAnime.getName() + " to the list!");
+            System.out.println("-----------------------------------------------------------");
+        } catch (InputMismatchException e) {
+            System.out.println("Error while adding anime: "+e.toString());
         }
-
-        //create the anime and store it in the library
-        Anime newAnime = new Anime(animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
-
-        animeStudio.addAnime(newAnime);
-        animeLibrary.addAnime(newAnime);
-
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Completed adding " + newAnime.getName() + " to the list!");
-        System.out.println("-----------------------------------------------------------");
     }
 
     /**
      * Get an alternate anime (Season, OVA, Movie) from the user
      */
     private void getAlternateAnime() {
-        //if no anime to parent from return this
-        if(animeLibrary.getAnime().length == 0) {
-            System.out.println("No anime being tracked to branch from!");
-            return;
-        }
-
-        System.out.println("What anime is this branched from?");
-
-        //get the array of anime and print to the user for selection
-        Anime[] bufferAnime = animeLibrary.getAnime();
-        for(int i = 0; i < bufferAnime.length; i++){
-            System.out.println(i+") " + bufferAnime[i].getName());
-        }
-
-        //get the parent anime of this alternate anime
-        Anime parentAnime = bufferAnime[scanner.nextInt()];
-        eatNewLine();
-
-        //get the title of the anime
-        System.out.println("What is the title of this anime?");
-        String animeTitle = scanner.nextLine().toUpperCase();
-        if(animeLibrary.containsAnime(animeTitle)) {
-            System.out.println("That anime is already tracked! Please Try Again");
-            return;
-        }
-
-        //print out genres and get them from the user
-        System.out.println("What genres does this anime fall under? (anything else when finished)");
-        for(String genre : Anime.LIST_OF_GENRES) {
-            System.out.println(genre);
-        }
-
-        ArrayList<String> addedGenres = new ArrayList<>();
-        String genreToAdd;
-        do {
-            genreToAdd = scanner.nextLine().toUpperCase();
-            if(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
-                addedGenres.add(genreToAdd);
-                System.out.println("Added " + genreToAdd);
-            }
-        } while(Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
-
-        //print out the themes and get them from the user
-        System.out.println("What themes does this anime fall under? (anything else when finished)");
-        for(String theme : Anime.LIST_OF_THEMES){
-            System.out.println(theme);
-        }
-
-        ArrayList<String> addedThemes = new ArrayList<>();
-        String themeToAdd;
-        do {
-            themeToAdd = scanner.nextLine().toUpperCase();
-            if(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
-                addedThemes.add(genreToAdd);
-                System.out.println("Added " + themeToAdd );
-            }
-        } while(Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
-
-        //get episodes
-        System.out.println("How many episodes have you watched?");
-        int episodes = 0;
         try {
-            episodes = scanner.nextInt();
-        }catch (InputMismatchException e){
-            System.err.println("Didn't give a count of episodes watched!");
-            System.exit(1);
-        }
-
-        //get rating
-        System.out.println("What would you rate this anime, out of 10?");
-        double rating = scanner.nextDouble();
-
-        //print out status and get the status from the user
-        System.out.println("What's the status on the current anime? (select by integer)");
-        for(int i = 0; i < Anime.Status.values().length; i++) {
-            System.out.println((i)+") " + Anime.Status.values()[i]);
-        }
-        Anime.Status status = Anime.Status.values()[scanner.nextInt()];
-
-        //print hte seasons and get the season from the user
-        System.out.println("What season did this anime air? (select by integer)");
-        for(int i = 0; i < Anime.Season.values().length; i++) {
-            System.out.println((i)+") " + Anime.Season.values()[i]);
-        }
-        Anime.Season season = Anime.Season.values()[scanner.nextInt()];
-
-        //Studio
-        Studio animeStudio;
-        if(animeLibrary.getStudios().length == 0) {
-            System.out.println("No studio's yet added!");
-            System.out.println("What studio produced this name?");
-            String animeStudioName = scanner.nextLine().toUpperCase();
-            animeStudio = new Studio(animeStudioName);
-            animeLibrary.addStudio(animeStudio);
-        } else {
-            System.out.println("Did any of these studios produced this anime?");
-            Studio[] bufferStudios = animeLibrary.getStudios();
-            for(int i = 0; i < bufferStudios.length; i++) {
-                System.out.println(i+") " + bufferStudios[i].getName());
+            //if no anime to parent from return this
+            if (animeLibrary.getAnime().length == 0) {
+                System.out.println("No anime being tracked to branch from!");
+                return;
             }
-            System.out.println("NONE");
+
+            System.out.println("What anime is this branched from?");
+
+            //get the array of anime and print to the user for selection
+            Anime[] bufferAnime = animeLibrary.getAnime();
+            for (int i = 0; i < bufferAnime.length; i++) {
+                System.out.println(i + ") " + bufferAnime[i].getName());
+            }
+
+            //get the parent anime of this alternate anime
+            Anime parentAnime = bufferAnime[scanner.nextInt()];
+            eatNewLine();
+
+            //get the title of the anime
+            System.out.println("What is the title of this anime?");
+            String animeTitle = scanner.nextLine().toUpperCase();
+            if (animeLibrary.containsAnime(animeTitle)) {
+                System.out.println("That anime is already tracked! Please Try Again");
+                return;
+            }
+
+            //print out genres and get them from the user
+            System.out.println("What genres does this anime fall under? (anything else when finished)");
+            for (String genre : Anime.LIST_OF_GENRES) {
+                System.out.println(genre);
+            }
+
+            ArrayList<String> addedGenres = new ArrayList<>();
+            String genreToAdd;
+            do {
+                genreToAdd = scanner.nextLine().toUpperCase();
+                if (Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd)) {
+                    addedGenres.add(genreToAdd);
+                    System.out.println("Added " + genreToAdd);
+                }
+            } while (Arrays.asList(Anime.LIST_OF_GENRES).contains(genreToAdd));
+
+            //print out the themes and get them from the user
+            System.out.println("What themes does this anime fall under? (anything else when finished)");
+            for (String theme : Anime.LIST_OF_THEMES) {
+                System.out.println(theme);
+            }
+
+            ArrayList<String> addedThemes = new ArrayList<>();
+            String themeToAdd;
+            do {
+                themeToAdd = scanner.nextLine().toUpperCase();
+                if (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd)) {
+                    addedThemes.add(genreToAdd);
+                    System.out.println("Added " + themeToAdd);
+                }
+            } while (Arrays.asList(Anime.LIST_OF_THEMES).contains(themeToAdd));
+
+            //get episodes
+            System.out.println("How many episodes have you watched?");
+            int episodes = 0;
             try {
-                animeStudio = bufferStudios[scanner.nextInt()];
-                eatNewLine();
+                episodes = scanner.nextInt();
             } catch (InputMismatchException e) {
+                System.err.println("Didn't give a count of episodes watched!");
+                System.exit(1);
+            }
+
+            //get rating
+            System.out.println("What would you rate this anime, out of 10?");
+            double rating = scanner.nextDouble();
+
+            //print out status and get the status from the user
+            System.out.println("What's the status on the current anime? (select by integer)");
+            for (int i = 0; i < Anime.Status.values().length; i++) {
+                System.out.println((i) + ") " + Anime.Status.values()[i]);
+            }
+            Anime.Status status = Anime.Status.values()[scanner.nextInt()];
+
+            //print hte seasons and get the season from the user
+            System.out.println("What season did this anime air? (select by integer)");
+            for (int i = 0; i < Anime.Season.values().length; i++) {
+                System.out.println((i) + ") " + Anime.Season.values()[i]);
+            }
+            Anime.Season season = Anime.Season.values()[scanner.nextInt()];
+
+            //Studio
+            Studio animeStudio;
+            if (animeLibrary.getStudios().length == 0) {
+                System.out.println("No studio's yet added!");
                 System.out.println("What studio produced this name?");
                 String animeStudioName = scanner.nextLine().toUpperCase();
                 animeStudio = new Studio(animeStudioName);
                 animeLibrary.addStudio(animeStudio);
+            } else {
+                System.out.println("Did any of these studios produced this anime?");
+                Studio[] bufferStudios = animeLibrary.getStudios();
+                for (int i = 0; i < bufferStudios.length; i++) {
+                    System.out.println(i + ") " + bufferStudios[i].getName());
+                }
+                System.out.println("NONE");
+                try {
+                    animeStudio = bufferStudios[scanner.nextInt()];
+                    eatNewLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("What studio produced this name?");
+                    String animeStudioName = scanner.nextLine().toUpperCase();
+                    animeStudio = new Studio(animeStudioName);
+                    animeLibrary.addStudio(animeStudio);
+                }
             }
+
+            //create the sub anime and ship it to the library
+            SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
+
+            animeStudio.addAnime(sAnime);
+            animeLibrary.addAnime(sAnime);
+
+            System.out.println("-----------------------------------------------------------");
+            System.out.println("Completed adding " + sAnime.getName() + " to the list!");
+            System.out.println("-----------------------------------------------------------");
+        } catch (InputMismatchException e) {
+            System.out.println("Error while adding anime: "+e.toString());
         }
-
-        //create the sub anime and ship it to the library
-        SeasonAnime sAnime = new SeasonAnime(parentAnime, animeTitle, addedGenres, addedThemes, episodes, rating, status, season, animeStudio);
-
-        animeStudio.addAnime(sAnime);
-        animeLibrary.addAnime(sAnime);
-
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Completed adding " + sAnime.getName() + " to the list!");
-        System.out.println("-----------------------------------------------------------");
     }
 
     /**
