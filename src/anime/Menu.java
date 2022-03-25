@@ -205,17 +205,19 @@ public class Menu {
                 animeLibrary.addStudio(animeStudio);
             } else {
                 //Iterate and output the current tracked studios to the user for selection
-                System.out.println("Did any of these studios produced this anime? (anything else for adding a new one)");
+                System.out.println("Did any of these studios produced this anime? (none for none of them)");
                 Studio[] bufferStudios = animeLibrary.getStudios();
                 for (int i = 0; i < bufferStudios.length; i++) {
                     System.out.println(i + ") " + bufferStudios[i].getName());
                 }
+                System.out.println("NONE");
                 //If anything out of the array, or mismatch input, we will add a new studio
                 try {
                     animeStudio = bufferStudios[scanner.nextInt()];
                     eatNewLine();
                 } catch (InputMismatchException | IndexOutOfBoundsException e) {
                     System.out.println("What studio produced this name?");
+                    eatNewLine();
                     String animeStudioName = scanner.nextLine().toUpperCase();
                     animeStudio = new Studio(animeStudioName);
                     animeLibrary.addStudio(animeStudio);
@@ -348,6 +350,7 @@ public class Menu {
                     eatNewLine();
                 } catch (InputMismatchException e) {
                     System.out.println("What studio produced this name?");
+                    eatNewLine();
                     String animeStudioName = scanner.nextLine().toUpperCase();
                     animeStudio = new Studio(animeStudioName);
                     animeLibrary.addStudio(animeStudio);
