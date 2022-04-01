@@ -1,6 +1,6 @@
-package anime.util;
+package animelist.util;
 
-import anime.Entity.Anime;
+import animelist.entity.Anime;
 
 import java.util.Comparator;
 

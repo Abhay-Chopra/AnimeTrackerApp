@@ -1,4 +1,4 @@
-package anime.Entity;
+package animelist.entity;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
-package anime.util;
+package animelist.util;
 
 import java.util.*;
 
-import anime.Entity.Anime;
-import anime.Entity.Studio;
+import animelist.entity.Anime;
+import animelist.entity.Studio;
 
 /**
  * Allows for packaging together multiple anime, i.e. everything that is currently being tracked

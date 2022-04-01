@@ -1,10 +1,10 @@
-package anime.util;
+package animelist.util;
 
-import anime.Entity.Anime;
-import anime.Entity.SeasonAnime;
-import anime.Entity.Studio;
-import anime.util.Library;
-import anime.util.Reader;
+import animelist.entity.Anime;
+import animelist.entity.SeasonAnime;
+import animelist.entity.Studio;
+import animelist.util.Library;
+import animelist.util.Reader;
 
 import java.io.File;
 import java.util.*;

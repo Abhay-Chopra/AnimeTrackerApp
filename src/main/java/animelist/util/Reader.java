@@ -1,7 +1,7 @@
-package anime.util;
+package animelist.util;
 
-import anime.Entity.Anime;
-import anime.Entity.Studio;
+import animelist.entity.Anime;
+import animelist.entity.Studio;
 
 import java.io.*;
 import java.util.ArrayList;
