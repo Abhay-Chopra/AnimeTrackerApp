@@ -60,10 +60,10 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>anime.app.cpsc233projgui/anime.app.cpsc233projgui.HelloApplication</mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <mainClass>anime.animelist.app.app.cpsc233projgui/animelist.animelist.app.Main</mainClass>
+                            <launcher>animelist.app.app</launcher>
+                            <jlinkZipName>animelist.app.app</jlinkZipName>
+                            <jlinkImageName>animelist.app.app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
