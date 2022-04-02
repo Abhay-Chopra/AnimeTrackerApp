@@ -5,6 +5,7 @@ import animelist.util.Library;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -50,6 +51,8 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add.fxml"));
             Scene addScene = new Scene(loader.load(), 600, 400);
             Stage addStage = new Stage();
+            AddController controller = loader.getController();
+            controller.setAnimeList(this.animeList);
             addStage.setTitle("Add An Anime");
             addStage.setResizable(false);
             addStage.setScene(addScene);

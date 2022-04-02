@@ -26,7 +26,7 @@ public class Studio {
 
     @Override
     public String toString() {
-        return "Name: " + this.name;
+        return this.name;
     }
 
     @Override
