@@ -2,17 +2,21 @@ package animelist.app;
 
 import animelist.entity.Anime;
 import animelist.util.Library;
+import animelist.util.Reader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController {
 
@@ -95,4 +99,70 @@ public class MainController {
     void changeAnimeInformation(ActionEvent event) {
 
     }
+
+    /**
+     * Uses FileChooser to load a file and uses reader to read from file to add anime to anime library
+     * @param event Event on load clicked
+     */
+    @FXML
+    void loadFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load Anime File");
+        fileChooser.setInitialDirectory(new File("."));
+        File file = fileChooser.showOpenDialog(new Stage());
+        //Handling non-null files, i.e. ignoring when no file chosen
+        if (file != null) {
+            try {
+                animeList.addBulkAnime(Reader.Import(file));
+                updateAnimeInfo();
+            }catch (RuntimeException e){
+                //Handle errors here
+            }
+        }
+    }
+
+    /**
+     * Prints anime info to TextArea within GUI(i.e. updates the anime info)
+     */
+    private void updateAnimeInfo() {
+        animeInfo.setText(animeList.allAnimeTracked());
+        animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+    }
+
+    /**
+     * Uses FileChooser to save to a file and uses writer to write to file using information from anime library
+     * @param event Event on save clicked
+     */
+    @FXML
+    void saveFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Anime File");
+        fileChooser.setInitialDirectory(new File("."));
+        File file = fileChooser.showSaveDialog(new Stage());
+        //Handling non-null files, i.e. ignoring when no file chosen
+        if (file != null) {
+            try {
+                Reader.save(animeList.getAnime(),file.getName());
+            }catch (RuntimeException e){
+                //Handle Exceptions here
+            }
+        }
+    }
+
+    /**
+     * Handles quit button within menu items
+     * @param event Event when close clicked
+     */
+    @FXML
+    void closeProgram(ActionEvent event) {
+        //Adding a confirmation to quit program
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Exit");
+        alert.setContentText("Are you sure you want to exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            System.exit(0);
+        }
+    }
+
 }
