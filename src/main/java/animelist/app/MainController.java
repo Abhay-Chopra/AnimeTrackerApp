@@ -1,14 +1,11 @@
 package animelist.app;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 public class MainController {
     @FXML
-    private Label welcomeText;
+    void alert(ActionEvent event) {
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }
