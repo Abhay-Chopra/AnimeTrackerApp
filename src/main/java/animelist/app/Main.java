@@ -18,6 +18,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setTitle("Abhay and Brandon's Anime List v1.0");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
