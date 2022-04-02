@@ -8,32 +8,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="388.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animelist.app.AddController">
+<AnchorPane prefHeight="374.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animelist.app.AddController">
    <children>
-      <TextField fx:id="txtAnimeTitle" layoutX="14.0" layoutY="31.0" />
-      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
-      <TextField fx:id="txtAnimeEpisodes" layoutX="14.0" layoutY="73.0" />
-      <Text layoutX="13.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Episodes" />
-      <TextField fx:id="txtAnimeRating" layoutX="14.0" layoutY="115.0" />
-      <Text layoutX="14.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
-      <ComboBox fx:id="cmbThemes" layoutX="14.0" layoutY="157.0" prefWidth="150.0" />
-      <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Themes" />
-      <ComboBox fx:id="cmbGenres" layoutX="14.0" layoutY="199.0" prefWidth="150.0" />
-      <Text layoutX="14.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genres" />
-      <ComboBox fx:id="cmbStatus" layoutX="14.0" layoutY="241.0" prefWidth="150.0" />
-      <Text layoutX="14.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
-      <ComboBox fx:id="cmbSeason" layoutX="14.0" layoutY="283.0" prefWidth="150.0" />
-      <Text layoutX="14.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Season" />
-      <TextField fx:id="txtStudio" layoutX="15.0" layoutY="355.0" />
-      <Text layoutX="14.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Studio" />
-      <ComboBox fx:id="cmbStudio" layoutX="14.0" layoutY="324.0" onAction="#cmbChangeStudio" prefWidth="150.0" />
-      <CheckBox fx:id="chkAltAnime" layoutX="178.0" layoutY="31.0" mnemonicParsing="false" onAction="#displayParentAnime" prefHeight="25.0" prefWidth="142.0" text="Alternate Anime?" />
-      <Text fx:id="txtParentAnime" layoutX="174.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parent Anime" />
-      <ComboBox fx:id="cmbAnime" layoutX="174.0" layoutY="73.0" prefWidth="150.0" />
-      <Button layoutX="175.0" layoutY="101.0" mnemonicParsing="false" onAction="#addAnime" prefHeight="279.0" prefWidth="149.0" text="Add Anime" textAlignment="CENTER" wrapText="true">
+      <TextField fx:id="txtAnimeTitle" layoutX="9.0" layoutY="31.0" />
+      <Text layoutX="13.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
+      <TextField fx:id="txtAnimeEpisodes" layoutX="171.0" layoutY="31.0" />
+      <Text layoutX="170.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Episodes" />
+      <TextField fx:id="txtAnimeRating" layoutX="336.0" layoutY="31.0" />
+      <Text layoutX="336.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
+      <ComboBox fx:id="cmbThemes" layoutX="9.0" layoutY="129.0" prefWidth="150.0" />
+      <Text layoutX="14.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Themes" />
+      <ComboBox fx:id="cmbGenres" layoutX="171.0" layoutY="129.0" prefWidth="150.0" />
+      <Text layoutX="175.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genres" />
+      <ComboBox fx:id="cmbStatus" layoutX="9.0" layoutY="78.0" prefWidth="150.0" />
+      <Text layoutX="17.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="34.11328125" />
+      <ComboBox fx:id="cmbSeason" layoutX="175.0" layoutY="78.0" prefHeight="25.0" prefWidth="149.0" />
+      <Text layoutX="174.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Season" />
+      <TextField fx:id="txtStudio" layoutX="336.0" layoutY="109.0" />
+      <Text layoutX="336.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Studio" />
+      <ComboBox fx:id="cmbStudio" layoutX="335.0" layoutY="78.0" onAction="#cmbChangeStudio" prefWidth="150.0" />
+      <CheckBox fx:id="chkAltAnime" layoutX="339.0" layoutY="154.0" mnemonicParsing="false" onAction="#displayParentAnime" prefHeight="25.0" prefWidth="142.0" text="Alternate Anime?" />
+      <Text fx:id="txtParentAnime" layoutX="364.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parent Anime" />
+      <ComboBox fx:id="cmbAnime" layoutX="332.0" layoutY="211.0" prefHeight="25.0" prefWidth="156.0" />
+      <Button layoutX="311.0" layoutY="246.0" mnemonicParsing="false" onAction="#addAnime" prefHeight="125.0" prefWidth="177.0" text="Add Anime" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Calibri" size="34.0" />
          </font>
       </Button>
+      <Button layoutX="171.0" layoutY="160.0" mnemonicParsing="false" onAction="#addGenre" prefHeight="25.0" prefWidth="149.0" text="Add" />
+      <Button layoutX="9.0" layoutY="160.0" mnemonicParsing="false" onAction="#addTheme" prefHeight="25.0" prefWidth="150.0" text="Add" />
+      <ComboBox fx:id="cmbPickedThemes" layoutX="9.0" layoutY="196.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbPickedGenre" layoutX="171.0" layoutY="196.0" prefHeight="25.0" prefWidth="149.0" />
    </children>
 </AnchorPane>

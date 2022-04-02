@@ -10,8 +10,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+
 public class AddController {
     private Library animeList;
+    private ArrayList<String> genres = new ArrayList<>();
+    private ArrayList<String> themes = new ArrayList<>();
 
     @FXML
     private CheckBox chkAltAnime;
@@ -33,6 +39,14 @@ public class AddController {
 
     @FXML
     private ComboBox<Studio> cmbStudio;
+
+
+    @FXML
+    private ComboBox<String> cmbPickedGenre;
+
+    @FXML
+    private ComboBox<String> cmbPickedThemes;
+
 
     @FXML
     private TextField txtStudio;
@@ -94,9 +108,57 @@ public class AddController {
         if(chkAltAnime.isSelected()) {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
+            cmbAnime.getItems().addAll(animeList.getAnime());
         } else {
             cmbAnime.setVisible(false);
             txtParentAnime.setVisible(false);
         }
+    }
+
+    @FXML
+    void addAnime(ActionEvent event) {
+        String title = txtAnimeTitle.getText();
+        int episodes;
+        double rating;
+
+        try{
+            episodes = Integer.parseInt(txtAnimeEpisodes.getText());
+            rating = Double.parseDouble(txtAnimeRating.getText());
+        } catch (InputMismatchException e) {
+            //TODO: Give error alert
+            e.printStackTrace();
+        }
+
+        Anime.Season season = cmbSeason.getValue();
+        Anime.Status status = cmbStatus.getValue();
+    }
+
+    @FXML
+    void addGenre(ActionEvent event) {
+        String genre = cmbGenres.getValue();
+
+        if(!genres.contains(genre)) {
+            genres.add(genre);
+            cmbPickedGenre.getItems().addAll(genres);
+            cmbPickedGenre.getSelectionModel().selectFirst();
+        } else {
+            //TODO: Give error alert window
+            System.out.println("Error!");
+        }
+    }
+
+    @FXML
+    void addTheme(ActionEvent event) {
+        String theme = cmbThemes.getValue();
+
+        if(!themes.contains(theme)) {
+            themes.add(theme);
+            cmbPickedThemes.getItems().addAll(themes);
+            cmbPickedThemes.getSelectionModel().selectFirst();;
+        } else {
+            //TODO: Give error alert window
+            System.out.println("Error!");
+        }
+
     }
 }
