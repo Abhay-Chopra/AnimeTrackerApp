@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animelist.app.AddController">
+   <children>
+      <TextField fx:id="txtAnimeTitle" layoutX="14.0" layoutY="31.0" />
+      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" />
+      <TextField fx:id="txtAnimeEpisodes" layoutX="14.0" layoutY="73.0" />
+      <Text layoutX="13.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Episodes" />
+      <TextField fx:id="txtAnimeRating" layoutX="14.0" layoutY="115.0" />
+      <Text layoutX="14.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating" />
+      <ComboBox fx:id="cmbThemes" layoutX="14.0" layoutY="157.0" prefWidth="150.0" />
+      <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Themes" />
+      <ComboBox fx:id="cmbGenres" layoutX="14.0" layoutY="199.0" prefWidth="150.0" />
+      <Text layoutX="14.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genres" />
+      <ComboBox fx:id="cmbStatus" layoutX="14.0" layoutY="241.0" prefWidth="150.0" />
+      <Text layoutX="14.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+      <ComboBox fx:id="cmbSeason" layoutX="14.0" layoutY="283.0" prefWidth="150.0" />
+      <Text layoutX="14.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Season" />
+   </children>
+</AnchorPane>
