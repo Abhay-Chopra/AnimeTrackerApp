@@ -139,6 +139,7 @@ public class AddController {
 
         if(!genres.contains(genre)) {
             genres.add(genre);
+            cmbPickedGenre.getItems().clear();
             cmbPickedGenre.getItems().addAll(genres);
             cmbPickedGenre.getSelectionModel().selectFirst();
         } else {
@@ -153,6 +154,7 @@ public class AddController {
 
         if(!themes.contains(theme)) {
             themes.add(theme);
+            cmbPickedThemes.getItems().clear();
             cmbPickedThemes.getItems().addAll(themes);
             cmbPickedThemes.getSelectionModel().selectFirst();;
         } else {
