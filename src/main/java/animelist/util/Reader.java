@@ -50,8 +50,7 @@ public class Reader {
         }
         //Catching when file reading fails
         catch (Exception e) {
-            System.err.println("Error reading from anime file!");
-            System.exit(1);
+            throw new RuntimeException(String.format("Error reading from file: %s!", file.getName()));
         }
         return returnList;
     }
@@ -63,13 +62,15 @@ public class Reader {
      * @param fileName name of the file that will be attempted to be saved to
      */
     public static void save(Anime[] anime, String fileName) {
+        if(anime.length == 0){
+            throw new RuntimeException("Nothing to Save!");
+        }
         File file = new File(fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.err.println("Error creating file " + file);
-                System.exit(1);
+                throw new RuntimeException("Error creating file: " + file);
             }
         }
         if (file.exists() && file.isFile() && file.canWrite()) {
@@ -99,8 +100,7 @@ public class Reader {
             }
             //Catching exceptions when file writing is interrupted
             catch (IOException e) {
-                System.err.println("Error writing to file " + file);
-                System.exit(1);
+                throw new RuntimeException("Error writing to file " + file);
             }
         }
     }
