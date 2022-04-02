@@ -119,7 +119,11 @@ public class MainController {
                 animeList.addBulkAnime(Reader.Import(file));
                 updateAnimeInfo();
             }catch (RuntimeException e){
-                //Handle errors here
+                //Adding a confirmation to quit program
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning about Saving File");
+                alert.setContentText(e.getMessage());
+                alert.show();
             }
         }
     }
@@ -147,7 +151,11 @@ public class MainController {
             try {
                 Reader.save(animeList.getAnime(),file.getName());
             }catch (RuntimeException e){
-                //Handle Exceptions here
+                //Adding a confirmation to quit program
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning about Saving File");
+                alert.setContentText(e.getMessage());
+                alert.show();
             }
         }
     }
@@ -166,6 +174,14 @@ public class MainController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.exit(0);
         }
+    }
+
+    @FXML
+    void programInfo(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About this Application");
+        alert.setContentText("Authors: Brandon Greene, Abhay Chopra\nVersion: v1.3\nTA: Amir (Tutorial 06)\nThis is a GUI for our anime list program!");
+        alert.show();
     }
 
 }
