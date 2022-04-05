@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Locale;
 
 public class AddController {
     private Library animeList;
@@ -119,7 +120,7 @@ public class AddController {
     @FXML
     void addAnime(ActionEvent event) {
         //Setup base variables for anime
-        String title = txtAnimeTitle.getText().trim();
+        String title = txtAnimeTitle.getText().toUpperCase().trim();
         int episodes;
         double rating;
 
@@ -139,26 +140,19 @@ public class AddController {
                     Anime.Status status = cmbStatus.getValue();
 
                     //If either genre or themes boxes are empty, none were selected, error out
-                    if (!cmbPickedGenre.getItems().isEmpty() && !cmbPickedThemes.getItems().isEmpty()) {
-
-                        //Add all the selected themes and genre
-                        genres.addAll(cmbPickedGenre.getItems());
-                        themes.addAll(cmbPickedThemes.getItems());
-
-                        //Create the new studio
-                        Studio newStudio;
+                    if (!genres.isEmpty() || !themes.isEmpty()) {
 
                         //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
                         if (cmbStudio.getValue().toString().equals("None")) {
 
                             //Store the name
-                            String studioName = txtStudio.getText().trim();
+                            String studioName = txtStudio.getText().toUpperCase().trim();
 
                             //Check of the name is blank and error out if is
                             if (!txtStudio.getText().equals("")) {
 
                                 //Create the required objects and store them
-                                newStudio = new Studio(studioName);
+                                Studio newStudio = new Studio(studioName);
 
                                 //Check if were creating a sub anime
                                 if (chkAltAnime.isSelected()) {
@@ -184,22 +178,21 @@ public class AddController {
 
                         } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
 
-                            newStudio = cmbStudio.getValue();
+                            Studio studio = cmbStudio.getValue();
 
                             //Check if were creating a sub anime
                             if (chkAltAnime.isSelected()) {
 
                                 Anime parentAnime = cmbAnime.getValue();
-                                SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
+                                SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, studio);
+                                studio.addAnime(sAnime);
                                 animeList.addAnime(sAnime);
-                                animeList.addStudio(newStudio);
 
                             } else {
 
-                                Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, newStudio);
-                                newStudio.addAnime(newAnime);
+                                Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, studio);
+                                studio.addAnime(newAnime);
                                 animeList.addAnime(newAnime);
-                                animeList.addStudio(newStudio);
 
                             }
 
@@ -223,6 +216,7 @@ public class AddController {
             //TODO: Error alert for title
             System.out.println("Title should not be blank");
         }
+
     }
 
     @FXML
