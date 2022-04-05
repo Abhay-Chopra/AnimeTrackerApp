@@ -1,6 +1,7 @@
 package animelist.app;
 
 import animelist.entity.Anime;
+import animelist.entity.SeasonAnime;
 import animelist.entity.Studio;
 import animelist.util.Library;
 import javafx.event.ActionEvent;
@@ -78,7 +79,7 @@ public class AddController {
         cmbThemes.getItems().addAll(Anime.LIST_OF_THEMES);
         cmbThemes.getSelectionModel().selectFirst();
         cmbAnime.setVisible(false);
-        txtStudio.setVisible(false);
+        txtStudio.setVisible(true);
         txtParentAnime.setVisible(false);
         chkAltAnime.setVisible(false);
     }
@@ -117,20 +118,111 @@ public class AddController {
 
     @FXML
     void addAnime(ActionEvent event) {
-        String title = txtAnimeTitle.getText();
+        //Setup base variables for anime
+        String title = txtAnimeTitle.getText().trim();
         int episodes;
         double rating;
 
-        try{
-            episodes = Integer.parseInt(txtAnimeEpisodes.getText());
-            rating = Double.parseDouble(txtAnimeRating.getText());
-        } catch (InputMismatchException e) {
-            //TODO: Give error alert
-            e.printStackTrace();
-        }
+        //Check if title is blank
+        if(!title.equals("")) {
 
-        Anime.Season season = cmbSeason.getValue();
-        Anime.Status status = cmbStatus.getValue();
+            //Check if an anime with that title already exists
+            if (!animeList.containsAnime(title)) {
+
+                //Try catch the episodes and ratings
+                try {
+                    episodes = Integer.parseInt(txtAnimeEpisodes.getText());
+                    rating = Double.parseDouble(txtAnimeRating.getText());
+
+                    //Get the season and status from the boxes
+                    Anime.Season season = cmbSeason.getValue();
+                    Anime.Status status = cmbStatus.getValue();
+
+                    //If either genre or themes boxes are empty, none were selected, error out
+                    if (!cmbPickedGenre.getItems().isEmpty() && !cmbPickedThemes.getItems().isEmpty()) {
+
+                        //Add all the selected themes and genre
+                        genres.addAll(cmbPickedGenre.getItems());
+                        themes.addAll(cmbPickedThemes.getItems());
+
+                        //Create the new studio
+                        Studio newStudio;
+
+                        //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
+                        if (cmbStudio.getValue().toString().equals("None")) {
+
+                            //Store the name
+                            String studioName = txtStudio.getText().trim();
+
+                            //Check of the name is blank and error out if is
+                            if (!txtStudio.getText().equals("")) {
+
+                                //Create the required objects and store them
+                                newStudio = new Studio(studioName);
+
+                                //Check if were creating a sub anime
+                                if (chkAltAnime.isSelected()) {
+
+                                    Anime parentAnime = cmbAnime.getValue();
+                                    SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
+                                    animeList.addAnime(sAnime);
+                                    animeList.addStudio(newStudio);
+
+                                } else {
+
+                                    Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, newStudio);
+                                    newStudio.addAnime(newAnime);
+                                    animeList.addAnime(newAnime);
+                                    animeList.addStudio(newStudio);
+
+                                }
+
+                            } else {
+                                //TODO: Error out on studio name being blank
+                                System.out.println("Error, blank studio");
+                            }
+
+                        } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
+
+                            newStudio = cmbStudio.getValue();
+
+                            //Check if were creating a sub anime
+                            if (chkAltAnime.isSelected()) {
+
+                                Anime parentAnime = cmbAnime.getValue();
+                                SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
+                                animeList.addAnime(sAnime);
+                                animeList.addStudio(newStudio);
+
+                            } else {
+
+                                Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, newStudio);
+                                newStudio.addAnime(newAnime);
+                                animeList.addAnime(newAnime);
+                                animeList.addStudio(newStudio);
+
+                            }
+
+                        } else {
+                            //TODO: Error on studio somehow?
+                            System.out.println("Error on studio");
+                        }
+                    } else {
+                        //TODO: Error our because no theme/genres are selected
+                        System.out.println("Themes/Genres error");
+                    }
+                } catch (InputMismatchException | NumberFormatException e) {
+                    //TODO: Give error alert for episodes/ratings
+                    System.out.println("Ratings/Episodes error");
+                }
+            } else {
+                //TODO: Error alert for duplicate anime
+                System.out.println("Duplicate anime");
+            }
+        } else {
+            //TODO: Error alert for title
+            System.out.println("Title should not be blank");
+        }
     }
 
     @FXML
