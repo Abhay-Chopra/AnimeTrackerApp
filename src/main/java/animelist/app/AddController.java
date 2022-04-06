@@ -69,45 +69,57 @@ public class AddController {
 
     @FXML
     public void initialize() {
+
         Studio defaultStudio = new Studio("None");
         cmbStudio.getItems().add(defaultStudio);
         cmbStudio.getSelectionModel().selectFirst();
+
         cmbSeason.getItems().addAll(Anime.Season.values());
         cmbSeason.getSelectionModel().selectFirst();
+
         cmbStatus.getItems().addAll(Anime.Status.values());
         cmbStatus.getSelectionModel().selectFirst();
+
         cmbGenres.getItems().addAll(Anime.LIST_OF_GENRES);
         cmbGenres.getSelectionModel().selectFirst();
+
         cmbThemes.getItems().addAll(Anime.LIST_OF_THEMES);
         cmbThemes.getSelectionModel().selectFirst();
+
         cmbAnime.setVisible(false);
         txtStudio.setVisible(true);
         txtParentAnime.setVisible(false);
         chkAltAnime.setVisible(false);
+
     }
 
     public void setAnimeList(Library list) {
+
         this.animeList = list;
         if(animeList.getStudios().length > 0) {
-            cmbStudio.getItems().setAll(animeList.getStudios());
+            cmbStudio.getItems().addAll(animeList.getStudios());
         }
         if(animeList.getAnime().length > 0) {
             chkAltAnime.setVisible(true);
         }
+
     }
 
 
     @FXML
     void cmbChangeStudio(ActionEvent event) {
+
         if(cmbStudio.getValue().toString().equals("None")) {
             txtStudio.setVisible(true);
         } else {
             txtStudio.setVisible(false);
         }
+
     }
 
     @FXML
     void displayParentAnime(ActionEvent event) {
+
         if(chkAltAnime.isSelected()) {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
@@ -116,6 +128,7 @@ public class AddController {
             cmbAnime.setVisible(false);
             txtParentAnime.setVisible(false);
         }
+
     }
 
     @FXML
@@ -141,7 +154,7 @@ public class AddController {
                     Anime.Status status = cmbStatus.getValue();
 
                     //If either genre or themes boxes are empty, none were selected, error out
-                    if (!genres.isEmpty() || !themes.isEmpty()) {
+                    if (!genres.isEmpty() && !themes.isEmpty()) {
 
                         //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
                         if (cmbStudio.getValue().toString().equals("None")) {
@@ -158,6 +171,7 @@ public class AddController {
                                 //Check if were creating a sub anime
                                 if (chkAltAnime.isSelected()) {
 
+                                    cmbAnime.getSelectionModel().selectFirst();
                                     Anime parentAnime = cmbAnime.getValue();
                                     SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
                                     animeList.addAnime(sAnime);
