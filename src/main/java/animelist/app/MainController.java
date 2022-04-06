@@ -25,7 +25,7 @@ public class MainController {
     private Button addAnime;
 
     @FXML
-    private ComboBox<?> animeComboBox;
+    private ComboBox<String> animeComboBox;
 
     @FXML
     private TextArea animeInfo;
@@ -57,6 +57,7 @@ public class MainController {
             addStage.setScene(addScene);
             addStage.showAndWait();
             addAnime.setDisable(false);
+            updateAnimeInfo();
         } catch (IOException e) {
             e.printStackTrace();
             addAnime.setDisable(false);
@@ -68,6 +69,7 @@ public class MainController {
         if(animeList.containsAnime(String.valueOf(animeComboBox.getValue()))){
             animeList.removeAnime(String.valueOf(animeComboBox.getValue()));
         }
+        updateAnimeInfo();
     }
 
     @FXML
@@ -128,13 +130,12 @@ public class MainController {
      * Prints anime info to TextArea within GUI(i.e. updates the anime info)
      */
     private void updateAnimeInfo() {
-        animeInfo.setText(getAnimeNames(animeList.toString()));
+        updateComboBox();
         animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
     }
 
-    private String getAnimeNames(String allAnimeTracked) {
-        System.out.println(allAnimeTracked);
-        return allAnimeTracked;
+    private void updateComboBox() {
+        animeComboBox.getItems().addAll(animeList.toString().split("\n"));
     }
 
     /**

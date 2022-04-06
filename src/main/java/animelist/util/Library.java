@@ -35,7 +35,7 @@ public class Library {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Anime anime: animeList) {
-            stringBuilder.append(String.format("%s%n",anime));
+            stringBuilder.append(String.format("%s\n",anime.getName()));
         }
         return stringBuilder.toString();
     }
