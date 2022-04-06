@@ -197,6 +197,7 @@ public class AddController {
                             //Check if were creating a sub anime
                             if (chkAltAnime.isSelected()) {
 
+                                cmbAnime.getSelectionModel().selectFirst();
                                 Anime parentAnime = cmbAnime.getValue();
                                 SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, studio);
                                 studio.addAnime(sAnime);
