@@ -13,10 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Locale;
 
 public class AddController {
     private Library animeList;
@@ -119,13 +117,13 @@ public class AddController {
     }
 
     @FXML
-    void displayParentAnime(ActionEvent event) {
+    void displayParentAnime(ActionEvent ignoredEvent) {
 
         if(chkAltAnime.isSelected()) {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
             cmbAnime.getItems().addAll(animeList.getAnime());
-            cmbAnime.setConverter(new StringConverter<Anime>() {
+            cmbAnime.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(Anime anime) {
                     return anime.getName();
@@ -144,7 +142,7 @@ public class AddController {
     }
 
     @FXML
-    void addAnime(ActionEvent event) {
+    void addAnime(ActionEvent ignoredEvent) {
         //Setup base variables for anime
         String title = txtAnimeTitle.getText().toUpperCase().trim();
         int episodes;
@@ -168,7 +166,7 @@ public class AddController {
                     //If either genre or themes boxes are empty, none were selected, error out
                     if (!genres.isEmpty() && !themes.isEmpty()) {
 
-                        //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
+                        //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
                         if (cmbStudio.getValue().toString().equals("None")) {
 
                             //Store the name
@@ -250,7 +248,7 @@ public class AddController {
     }
 
     @FXML
-    void addGenre(ActionEvent event) {
+    void addGenre(ActionEvent ignoredEvent) {
         String genre = cmbGenres.getValue();
 
         if(!genres.contains(genre)) {
@@ -265,14 +263,14 @@ public class AddController {
     }
 
     @FXML
-    void addTheme(ActionEvent event) {
+    void addTheme(ActionEvent ignoredEvent) {
         String theme = cmbThemes.getValue();
 
         if(!themes.contains(theme)) {
             themes.add(theme);
             cmbPickedThemes.getItems().clear();
             cmbPickedThemes.getItems().addAll(themes);
-            cmbPickedThemes.getSelectionModel().selectFirst();;
+            cmbPickedThemes.getSelectionModel().selectFirst();
         } else {
             //TODO: Give error alert window
             System.out.println("Error!");
