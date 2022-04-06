@@ -171,72 +171,73 @@ public class AddController {
 
                                 //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
                                 if (cmbStudio.getValue().toString().equals("None")) {
-                        //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
-                        if (cmbStudio.getValue().toString().equals("None")) {
+                                    //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
+                                    if (cmbStudio.getValue().toString().equals("None")) {
 
-                                    //Store the name
-                                    String studioName = txtStudio.getText().toUpperCase().trim();
+                                        //Store the name
+                                        String studioName = txtStudio.getText().toUpperCase().trim();
 
-                                    //Check of the name is blank and error out if is
-                                    if (!txtStudio.getText().equals("")) {
+                                        //Check of the name is blank and error out if is
+                                        if (!txtStudio.getText().equals("")) {
 
-                                        //Create the required objects and store them
-                                        Studio newStudio = new Studio(studioName);
+                                            //Create the required objects and store them
+                                            Studio newStudio = new Studio(studioName);
+
+                                            //Check if were creating a sub anime
+                                            if (chkAltAnime.isSelected()) {
+
+                                                cmbAnime.getSelectionModel().selectFirst();
+                                                Anime parentAnime = cmbAnime.getValue();
+                                                SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
+                                                animeList.addAnime(sAnime);
+                                                animeList.addStudio(newStudio);
+
+                                            } else {
+
+                                                Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, newStudio);
+                                                newStudio.addAnime(newAnime);
+                                                animeList.addAnime(newAnime);
+                                                animeList.addStudio(newStudio);
+
+                                            }
+
+                                        } else {
+                                            createAlertWindow("Error, blank studio!");
+                                        }
+
+                                    } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
+
+                                        Studio studio = cmbStudio.getValue();
 
                                         //Check if were creating a sub anime
                                         if (chkAltAnime.isSelected()) {
 
                                             cmbAnime.getSelectionModel().selectFirst();
                                             Anime parentAnime = cmbAnime.getValue();
-                                            SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
+                                            SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, studio);
+                                            studio.addAnime(sAnime);
                                             animeList.addAnime(sAnime);
-                                            animeList.addStudio(newStudio);
 
                                         } else {
 
-                                            Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, newStudio);
-                                            newStudio.addAnime(newAnime);
+                                            Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, studio);
+                                            studio.addAnime(newAnime);
                                             animeList.addAnime(newAnime);
-                                            animeList.addStudio(newStudio);
 
                                         }
 
                                     } else {
-                                        createAlertWindow("Error, blank studio!");
+                                        createAlertWindow("Error on studio!");
                                     }
-
-                                } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
-
-                                    Studio studio = cmbStudio.getValue();
-
-                                    //Check if were creating a sub anime
-                                    if (chkAltAnime.isSelected()) {
-
-                                        cmbAnime.getSelectionModel().selectFirst();
-                                        Anime parentAnime = cmbAnime.getValue();
-                                        SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, studio);
-                                        studio.addAnime(sAnime);
-                                        animeList.addAnime(sAnime);
-
-                                    } else {
-
-                                        Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, studio);
-                                        studio.addAnime(newAnime);
-                                        animeList.addAnime(newAnime);
-
-                                    }
-
                                 } else {
-                                    createAlertWindow("Error on studio!");
+                                    createAlertWindow("Themes/Genres error!");
                                 }
                             } else {
-                                createAlertWindow("Themes/Genres error!");
+                                createAlertWindow("Rating must be between 0-10");
                             }
                         } else {
-                            createAlertWindow("Rating must be between 0-10");
+                            createAlertWindow("Cant have negative episodes!");
                         }
-                    } else {
-                        createAlertWindow("Cant have negative episodes!");
                     }
                 } catch (InputMismatchException | NumberFormatException e) {
                     createAlertWindow("Ratings/Episodes error!");
