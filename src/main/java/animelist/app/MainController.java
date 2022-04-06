@@ -76,8 +76,10 @@ public class MainController {
 
     @FXML
     void deleteAnime(ActionEvent ignoredEvent) {
-        if(animeList.containsAnime(String.valueOf(animeComboBox.getValue()))){
+        if(animeList.containsAnime(String.valueOf(animeComboBox.getValue())) && animeList.getAnime().length > 0){
             animeList.removeAnime(String.valueOf(animeComboBox.getValue()));
+        }else{
+            createAlert();
         }
         updateAnimeInfo();
     }
@@ -137,7 +139,7 @@ public class MainController {
 
     private void createAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error with output command");
+        alert.setTitle("Anime Not Found");
         alert.setContentText("No anime currently stored!");
         alert.show();
     }
@@ -180,6 +182,9 @@ public class MainController {
     private void updateComboBox() {
         animeComboBox.getItems().removeAll(animeComboBox.getItems());
         animeComboBox.getItems().addAll(animeList.toString().split("\n"));
+        if(animeList.toString().split("\n").length > 0 && !animeList.toString().split("\n")[0].equals("")){
+            animeComboBox.setValue(animeList.getAnime()[0].getName());
+        }
     }
 
     /**
