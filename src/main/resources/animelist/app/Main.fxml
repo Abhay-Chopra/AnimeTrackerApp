@@ -44,7 +44,7 @@
               </textFill>
             </Label>
                   <TextArea fx:id="animeInfo" layoutX="258.0" layoutY="33.0" prefHeight="233.0" prefWidth="436.0" />
-                  <ComboBox fx:id="animeComboBox" layoutX="62.0" layoutY="132.0" onAction="#changeAnimeInformation" prefHeight="25.0" prefWidth="89.0" promptText="None" />
+                  <ComboBox fx:id="animeComboBox" layoutX="62.0" layoutY="132.0" prefHeight="25.0" prefWidth="89.0" promptText="None" />
                   <Button fx:id="deleteAnime" layoutX="118.0" layoutY="192.0" mnemonicParsing="false" onAction="#deleteAnime" text="Delete" />
                   <Button fx:id="addAnime" layoutX="52.0" layoutY="192.0" mnemonicParsing="false" onAction="#addNewAnime" prefHeight="25.0" prefWidth="50.0" text="Add" />
           </children>
