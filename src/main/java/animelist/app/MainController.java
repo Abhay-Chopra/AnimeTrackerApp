@@ -1,12 +1,10 @@
 package animelist.app;
 
-import animelist.entity.Anime;
 import animelist.util.Library;
 import animelist.util.Reader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
@@ -33,9 +31,6 @@ public class MainController {
     private TextArea animeInfo;
 
     @FXML
-    private Button deleteAnime;
-
-    @FXML
     private TextArea outputArea;
 
 
@@ -48,7 +43,7 @@ public class MainController {
     }
 
     @FXML
-    void addNewAnime(ActionEvent event) {
+    void addNewAnime(ActionEvent ignoredEvent) {
         System.out.println("Works!!!");
         try {
             addAnime.setDisable(true);
@@ -69,46 +64,53 @@ public class MainController {
     }
 
     @FXML
-    void deleteAnime(ActionEvent event) {
-        System.out.println("Works!!!");
+    void deleteAnime(ActionEvent ignoredEvent) {
+        if(animeList.containsAnime(String.valueOf(animeComboBox.getValue()))){
+            animeList.removeAnime(String.valueOf(animeComboBox.getValue()));
+        }
     }
 
     @FXML
-    void getAllStudioTracked(ActionEvent event) {
-        System.out.println("Works!!!");
+    void getAllStudioTracked(ActionEvent ignoredEvent) {
+        updateOutput(animeList.allStudiosTracked());
+    }
+
+    private void updateOutput(String printString) {
+        outputArea.setText(printString);
+        outputArea.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
     }
 
     @FXML
-    void getSortedRating(ActionEvent event) {
-        System.out.println("Works!!!");
+    void getSortedRating(ActionEvent ignoredEvent) {
+        updateOutput(animeList.getAnimeRatings());
     }
 
     @FXML
-    void outputTopStreamedAnime(ActionEvent event) {
-        System.out.println("Works!!!");
+    void outputTopStreamedAnime(ActionEvent ignoredEvent) {
+        updateOutput(animeList.topStreamedAnime());
     }
 
     @FXML
-    void topStreamedGenre(ActionEvent event) {
-        System.out.println("Works!!!");
+    void topStreamedGenre(ActionEvent ignoredEvent) {
+        updateOutput(animeList.topStreamedGenre());
     }
 
     @FXML
-    void totalWatchTime(ActionEvent event) {
-        System.out.println("Works!!!");
+    void totalWatchTime(ActionEvent ignoredEvent) {
+        updateOutput(animeList.totalWatchTime());
     }
 
     @FXML
-    void changeAnimeInformation(ActionEvent event) {
+    void changeAnimeInformation(ActionEvent ignoredEvent) {
 
     }
 
     /**
      * Uses FileChooser to load a file and uses reader to read from file to add anime to anime library
-     * @param event Event on load clicked
+     * @param ignoredEvent Event on load clicked
      */
     @FXML
-    void loadFile(ActionEvent event) {
+    void loadFile(ActionEvent ignoredEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load Anime File");
         fileChooser.setInitialDirectory(new File("."));
@@ -132,16 +134,21 @@ public class MainController {
      * Prints anime info to TextArea within GUI(i.e. updates the anime info)
      */
     private void updateAnimeInfo() {
-        animeInfo.setText(animeList.allAnimeTracked());
+        animeInfo.setText(getAnimeNames(animeList.toString()));
         animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+    }
+
+    private String getAnimeNames(String allAnimeTracked) {
+        System.out.println(allAnimeTracked);
+        return allAnimeTracked;
     }
 
     /**
      * Uses FileChooser to save to a file and uses writer to write to file using information from anime library
-     * @param event Event on save clicked
+     * @param ignoredEvent Event on save clicked
      */
     @FXML
-    void saveFile(ActionEvent event) {
+    void saveFile(ActionEvent ignoredEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Anime File");
         fileChooser.setInitialDirectory(new File("."));
@@ -162,10 +169,10 @@ public class MainController {
 
     /**
      * Handles quit button within menu items
-     * @param event Event when close clicked
+     * @param ignoredEvent Event when close clicked
      */
     @FXML
-    void closeProgram(ActionEvent event) {
+    void closeProgram(ActionEvent ignoredEvent) {
         //Adding a confirmation to quit program
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Exit");
@@ -177,7 +184,7 @@ public class MainController {
     }
 
     @FXML
-    void programInfo(ActionEvent event) {
+    void programInfo(ActionEvent ignoredEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About this Application");
         alert.setContentText("Authors: Brandon Greene, Abhay Chopra\nVersion: v1.3\nTA: Amir (Tutorial 06)\nThis is a GUI for our anime list program!");

@@ -27,6 +27,20 @@ public class Library {
     }
 
     /**
+     * Overwrites the toString of Object
+     *
+     * @return string representation of Anime objects in library
+     */
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Anime anime: animeList) {
+            stringBuilder.append(String.format("%s%n",anime));
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
      * Checks if tracked anime have some particular anime
      *
      * @param animeName String name of Anime
