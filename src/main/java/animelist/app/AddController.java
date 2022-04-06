@@ -6,6 +6,7 @@ import animelist.entity.Studio;
 import animelist.util.Library;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -172,8 +173,7 @@ public class AddController {
                                 }
 
                             } else {
-                                //TODO: Error out on studio name being blank
-                                System.out.println("Error, blank studio");
+                                createAlertWindow("Error, blank studio");
                             }
 
                         } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
@@ -197,26 +197,28 @@ public class AddController {
                             }
 
                         } else {
-                            //TODO: Error on studio somehow?
-                            System.out.println("Error on studio");
+                            createAlertWindow("Error on studio");
                         }
                     } else {
-                        //TODO: Error our because no theme/genres are selected
-                        System.out.println("Themes/Genres error");
+                        createAlertWindow("Themes/Genres error");
                     }
                 } catch (InputMismatchException | NumberFormatException e) {
-                    //TODO: Give error alert for episodes/ratings
-                    System.out.println("Ratings/Episodes error");
+                    createAlertWindow("Ratings/Episodes error");
                 }
             } else {
-                //TODO: Error alert for duplicate anime
-                System.out.println("Duplicate anime");
+                createAlertWindow("Duplicate anime");
             }
         } else {
-            //TODO: Error alert for title
-            System.out.println("Title should not be blank");
+            createAlertWindow("Title should not be blank");
         }
+    }
 
+
+    @FXML
+    void createAlertWindow(String theAlert) {
+        Alert newAlert = new Alert(Alert.AlertType.ERROR);
+        newAlert.setHeaderText(theAlert);
+        newAlert.showAndWait();
     }
 
     @FXML

@@ -53,7 +53,7 @@ public class MainController {
         try {
             addAnime.setDisable(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add.fxml"));
-            Scene addScene = new Scene(loader.load(), 600, 400);
+            Scene addScene = new Scene(loader.load(), 490, 370);
             Stage addStage = new Stage();
             AddController controller = loader.getController();
             controller.setAnimeList(this.animeList);
