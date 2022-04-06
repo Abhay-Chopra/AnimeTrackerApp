@@ -31,7 +31,7 @@ public class MainController {
     private TextArea animeInfo;
 
     @FXML
-    private TextArea outputArea;
+    private Label outputArea;
 
 
     /**
@@ -77,7 +77,6 @@ public class MainController {
 
     private void updateOutput(String printString) {
         outputArea.setText(printString);
-        outputArea.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
     }
 
     @FXML
@@ -98,11 +97,6 @@ public class MainController {
     @FXML
     void totalWatchTime(ActionEvent ignoredEvent) {
         updateOutput(animeList.totalWatchTime());
-    }
-
-    @FXML
-    void changeAnimeInformation(ActionEvent ignoredEvent) {
-
     }
 
     /**
