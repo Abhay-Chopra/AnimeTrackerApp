@@ -5,6 +5,7 @@ import animelist.util.Reader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Font;
@@ -28,7 +29,7 @@ public class MainController {
     private ComboBox<String> animeComboBox;
 
     @FXML
-    private TextArea animeInfo;
+    private Label animeInfo;
 
     @FXML
     private Label outputArea;
@@ -44,7 +45,6 @@ public class MainController {
 
     @FXML
     void addNewAnime(ActionEvent ignoredEvent) {
-        System.out.println("Works!!!");
         try {
             addAnime.setDisable(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add.fxml"));
@@ -66,8 +66,12 @@ public class MainController {
 
     @FXML
     void updateAnimeText(ActionEvent ignoredEvent) {
-        animeInfo.setText(animeList.getAnimeByName(animeComboBox.getValue()).toString());
-        animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+        try{
+            animeInfo.setText(animeList.getAnimeByName(animeComboBox.getValue()).toString());
+            animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+        }catch (NullPointerException e){
+            animeInfo.setText("");
+        }
     }
 
     @FXML
@@ -87,6 +91,8 @@ public class MainController {
         if(animeList.getAnime().length > 0) {
             outputArea.setText(printString);
             outputArea.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+            outputArea.setMaxWidth(Double.MAX_VALUE);
+            outputArea.setAlignment(Pos.CENTER);
         }
         else {
             createAlert();
@@ -165,11 +171,14 @@ public class MainController {
      * Prints anime info to TextArea within GUI(i.e. updates the anime info)
      */
     private void updateAnimeInfo() {
-        updateComboBox();
         animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+        animeInfo.setMaxWidth(Double.MAX_VALUE);
+        animeInfo.setAlignment(Pos.CENTER);
+        updateComboBox();
     }
 
     private void updateComboBox() {
+        animeComboBox.getItems().removeAll(animeComboBox.getItems());
         animeComboBox.getItems().addAll(animeList.toString().split("\n"));
     }
 

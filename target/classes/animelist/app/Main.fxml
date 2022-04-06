@@ -7,10 +7,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="485.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="animelist.app.MainController">
@@ -31,33 +29,33 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" orientation="VERTICAL" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" orientation="VERTICAL" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #9EA3B0;" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0">
           <children>
-            <Label alignment="CENTER" layoutX="77.0" layoutY="44.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Anime" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" layoutX="64.0" layoutY="59.0" minWidth="60.0" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #f0fffa;" text="Anime Selector" textAlignment="CENTER" wrapText="false">
               <font>
-                <Font size="18.0" fx:id="x1" />
+                <Font size="21.0" fx:id="x1" />
               </font>
-              <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-              </textFill>
             </Label>
-                  <TextArea fx:id="animeInfo" layoutX="258.0" layoutY="33.0" prefHeight="233.0" prefWidth="436.0" />
-                  <ComboBox fx:id="animeComboBox" layoutX="62.0" layoutY="132.0" onAction="#updateAnimeText" prefHeight="25.0" prefWidth="89.0" promptText="None" />
-                  <Button fx:id="deleteAnime" layoutX="118.0" layoutY="192.0" mnemonicParsing="false" onAction="#deleteAnime" text="Delete" />
-                  <Button fx:id="addAnime" layoutX="52.0" layoutY="192.0" mnemonicParsing="false" onAction="#addNewAnime" prefHeight="25.0" prefWidth="50.0" text="Add" />
+                  <ComboBox fx:id="animeComboBox" layoutX="64.0" layoutY="134.0" onAction="#updateAnimeText" prefHeight="31.0" prefWidth="104.0" promptText="None" style="-fx-background-color: #f0fffa;" />
+                  <Button fx:id="deleteAnime" layoutX="186.0" layoutY="134.0" mnemonicParsing="false" onAction="#deleteAnime" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: E25D65;" text="Delete" textFill="WHITE" />
+                  <Button fx:id="addAnime" layoutX="101.0" layoutY="208.0" mnemonicParsing="false" onAction="#addNewAnime" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: lightgreen;" text="Add Anime">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Label fx:id="animeInfo" layoutX="381.0" layoutY="36.0" prefHeight="227.0" prefWidth="450.0" style="-fx-background-color: #f3f2ff;" textAlignment="CENTER" />
           </children>
         </AnchorPane>
         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="898.0">
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                  <Button layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#outputTopStreamedAnime" prefHeight="25.0" prefWidth="289.0" text="Top Streamed Anime" />
-                  <Button layoutX="14.0" layoutY="68.0" mnemonicParsing="false" onAction="#topStreamedGenre" prefHeight="25.0" prefWidth="289.0" text="Top Streamed Genre" />
-                  <Button layoutX="14.0" layoutY="145.0" mnemonicParsing="false" onAction="#totalWatchTime" prefHeight="25.0" prefWidth="289.0" text="Total Watch Time" />
-                  <Button layoutX="14.0" layoutY="108.0" mnemonicParsing="false" onAction="#getSortedRating" prefHeight="25.0" prefWidth="289.0" text="Get Ratings" />
-                  <Button layoutX="14.0" layoutY="187.0" mnemonicParsing="false" onAction="#getAllStudioTracked" prefHeight="25.0" prefWidth="289.0" text="Studios" />
-                  <Label fx:id="outputArea" layoutX="316.0" layoutY="12.0" prefHeight="266.0" prefWidth="558.0" text="Label">
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" textAlignment="CENTER" wrapText="false" />
+                  <Button layoutX="35.0" layoutY="45.0" mnemonicParsing="false" onAction="#outputTopStreamedAnime" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #f0fffa;" text="Top Streamed Anime" />
+                  <Button layoutX="35.0" layoutY="89.0" mnemonicParsing="false" onAction="#topStreamedGenre" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #f0fffa;" text="Top Streamed Genre" />
+                  <Button layoutX="35.0" layoutY="176.0" mnemonicParsing="false" onAction="#totalWatchTime" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #f0fffa;" text="Total Watch Time" />
+                  <Button layoutX="35.0" layoutY="133.0" mnemonicParsing="false" onAction="#getSortedRating" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #f0fffa;" text="Get Ratings" />
+                  <Button layoutX="35.0" layoutY="220.0" mnemonicParsing="false" onAction="#getAllStudioTracked" prefHeight="25.0" prefWidth="289.0" style="-fx-background-color: #f0fffa;" text="Studios" />
+                  <Label fx:id="outputArea" layoutX="379.0" layoutY="25.0" prefHeight="234.0" prefWidth="450.0" style="-fx-background-color: #f3f2ff;" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="15.0" />
                      </font>
