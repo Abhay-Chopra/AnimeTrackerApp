@@ -65,8 +65,8 @@ public class MainController {
     }
 
     @FXML
-    void updateAnimeText(ActionEvent event) {
-        animeInfo.setText(animeComboBox.getValue());
+    void updateAnimeText(ActionEvent ignoredEvent) {
+        animeInfo.setText(animeList.getAnimeByName(animeComboBox.getValue()).toString());
         animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
     }
 

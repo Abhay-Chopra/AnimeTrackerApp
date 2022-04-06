@@ -115,13 +115,13 @@ public class AddController {
     }
 
     @FXML
-    void displayParentAnime(ActionEvent event) {
+    void displayParentAnime(ActionEvent ignoredEvent) {
 
         if(chkAltAnime.isSelected()) {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
             cmbAnime.getItems().addAll(animeList.getAnime());
-            cmbAnime.setConverter(new StringConverter<Anime>() {
+            cmbAnime.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(Anime anime) {
                     return anime.getName();
@@ -141,7 +141,7 @@ public class AddController {
     }
 
     @FXML
-    void addAnime(ActionEvent event) {
+    void addAnime(ActionEvent ignoredEvent) {
         //Setup base variables for anime
         String title = txtAnimeTitle.getText().toUpperCase().trim();
         int episodes;
@@ -171,6 +171,8 @@ public class AddController {
 
                                 //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
                                 if (cmbStudio.getValue().toString().equals("None")) {
+                        //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
+                        if (cmbStudio.getValue().toString().equals("None")) {
 
                                     //Store the name
                                     String studioName = txtStudio.getText().toUpperCase().trim();
@@ -257,7 +259,7 @@ public class AddController {
     }
 
     @FXML
-    void addGenre(ActionEvent event) {
+    void addGenre(ActionEvent ignoredEvent) {
         String genre = cmbGenres.getValue();
 
         if(!genres.contains(genre)) {
@@ -271,14 +273,14 @@ public class AddController {
     }
 
     @FXML
-    void addTheme(ActionEvent event) {
+    void addTheme(ActionEvent ignoredEvent) {
         String theme = cmbThemes.getValue();
 
         if(!themes.contains(theme)) {
             themes.add(theme);
             cmbPickedThemes.getItems().clear();
             cmbPickedThemes.getItems().addAll(themes);
-            cmbPickedThemes.getSelectionModel().selectFirst();;
+            cmbPickedThemes.getSelectionModel().selectFirst();
         } else {
             createAlertWindow("Theme Already Added!");
         }

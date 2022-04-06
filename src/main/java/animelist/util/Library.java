@@ -277,6 +277,15 @@ public class Library {
         return stringBuilder.toString();
     }
 
+    public Anime getAnimeByName(String anime){
+        for (Anime a: this.animeList) {
+            if(a.getName().equals(anime)){
+                return a;
+            }
+        }
+        return null;
+    }
+
     /**
      * Add multiple anime at once
      *
