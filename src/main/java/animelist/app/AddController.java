@@ -173,7 +173,7 @@ public class AddController {
                                 }
 
                             } else {
-                                createAlertWindow("Error, blank studio");
+                                createAlertWindow("Error, blank studio!");
                             }
 
                         } else if (cmbStudio.getSelectionModel().getSelectedItem() != null) {
@@ -197,19 +197,19 @@ public class AddController {
                             }
 
                         } else {
-                            createAlertWindow("Error on studio");
+                            createAlertWindow("Error on studio!");
                         }
                     } else {
-                        createAlertWindow("Themes/Genres error");
+                        createAlertWindow("Themes/Genres error!");
                     }
                 } catch (InputMismatchException | NumberFormatException e) {
-                    createAlertWindow("Ratings/Episodes error");
+                    createAlertWindow("Ratings/Episodes error!");
                 }
             } else {
-                createAlertWindow("Duplicate anime");
+                createAlertWindow("Duplicate anime!");
             }
         } else {
-            createAlertWindow("Title should not be blank");
+            createAlertWindow("Title should not be blank!");
         }
     }
 
@@ -218,6 +218,7 @@ public class AddController {
     void createAlertWindow(String theAlert) {
         Alert newAlert = new Alert(Alert.AlertType.ERROR);
         newAlert.setHeaderText(theAlert);
+        newAlert.setTitle("Error Adding Anime");
         newAlert.showAndWait();
     }
 
