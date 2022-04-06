@@ -65,6 +65,12 @@ public class MainController {
     }
 
     @FXML
+    void updateAnimeText(ActionEvent event) {
+        animeInfo.setText(animeComboBox.getValue());
+        animeInfo.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+    }
+
+    @FXML
     void deleteAnime(ActionEvent ignoredEvent) {
         if(animeList.containsAnime(String.valueOf(animeComboBox.getValue()))){
             animeList.removeAnime(String.valueOf(animeComboBox.getValue()));
@@ -78,28 +84,56 @@ public class MainController {
     }
 
     private void updateOutput(String printString) {
-        outputArea.setText(printString);
-        outputArea.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+        if(animeList.getAnime().length > 0) {
+            outputArea.setText(printString);
+            outputArea.setFont(Font.font("Times", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 12));
+        }
+        else {
+            createAlert();
+        }
     }
 
     @FXML
     void getSortedRating(ActionEvent ignoredEvent) {
-        updateOutput(animeList.getAnimeRatings());
+        if(animeList.getAnime().length > 0) {
+            updateOutput(animeList.getAnimeRatings());
+        }else {
+            createAlert();
+        }
     }
 
     @FXML
     void outputTopStreamedAnime(ActionEvent ignoredEvent) {
+        if(animeList.getAnime().length > 0) {
         updateOutput(animeList.topStreamedAnime());
+        }else{
+            createAlert();
+        }
     }
 
     @FXML
     void topStreamedGenre(ActionEvent ignoredEvent) {
+        if(animeList.getAnime().length > 0) {
         updateOutput(animeList.topStreamedGenre());
+        }else{
+            createAlert();
+        }
     }
 
     @FXML
     void totalWatchTime(ActionEvent ignoredEvent) {
-        updateOutput(animeList.totalWatchTime());
+        if(animeList.getAnime().length > 0) {
+            updateOutput(animeList.totalWatchTime());
+        }else{
+            createAlert();
+        }
+    }
+
+    private void createAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error with output command");
+        alert.setContentText("No anime currently stored!");
+        alert.show();
     }
 
     /**
@@ -119,8 +153,8 @@ public class MainController {
                 updateAnimeInfo();
             }catch (RuntimeException e){
                 //Adding a confirmation to quit program
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning about Saving File");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Saving File");
                 alert.setContentText(e.getMessage());
                 alert.show();
             }
@@ -155,8 +189,8 @@ public class MainController {
                 Reader.save(animeList.getAnime(),file.getName());
             }catch (RuntimeException e){
                 //Adding a confirmation to quit program
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning about Saving File");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Saving File");
                 alert.setContentText(e.getMessage());
                 alert.show();
             }
