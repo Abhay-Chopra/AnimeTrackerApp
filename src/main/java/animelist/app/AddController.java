@@ -11,6 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -124,6 +125,17 @@ public class AddController {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
             cmbAnime.getItems().addAll(animeList.getAnime());
+            cmbAnime.setConverter(new StringConverter<Anime>() {
+                @Override
+                public String toString(Anime anime) {
+                    return anime.getName();
+                }
+
+                @Override
+                public Anime fromString(String s) {
+                    return cmbAnime.getValue();
+                }
+            });
         } else {
             cmbAnime.setVisible(false);
             txtParentAnime.setVisible(false);
