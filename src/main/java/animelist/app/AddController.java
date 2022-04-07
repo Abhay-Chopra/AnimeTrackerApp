@@ -11,12 +11,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Locale;
 
 public class AddController {
     private Library animeList;
@@ -195,7 +194,7 @@ public class AddController {
 
                     if(episodes > 0) {
 
-                        if (rating > 0 && rating < 10) {
+                        if (rating >= 0 && rating <= 10) {
 
                             //Get the season and status from the boxes
                             Anime.Season season = cmbSeason.getValue();
@@ -227,6 +226,7 @@ public class AddController {
                                                 SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, newStudio);
                                                 animeList.addAnime(sAnime);
                                                 animeList.addStudio(newStudio);
+                                                createSuccessWindow(title);
 
                                             } else {
 
@@ -234,6 +234,7 @@ public class AddController {
                                                 newStudio.addAnime(newAnime);
                                                 animeList.addAnime(newAnime);
                                                 animeList.addStudio(newStudio);
+                                                createSuccessWindow(title);
 
                                             }
 
@@ -253,12 +254,14 @@ public class AddController {
                                             SeasonAnime sAnime = new SeasonAnime(parentAnime, title, genres, themes, episodes, rating, status, season, studio);
                                             studio.addAnime(sAnime);
                                             animeList.addAnime(sAnime);
+                                            createSuccessWindow(title);
 
                                         } else {
 
                                             Anime newAnime = new Anime(title, genres, themes, episodes, rating, status, season, studio);
                                             studio.addAnime(newAnime);
                                             animeList.addAnime(newAnime);
+                                            createSuccessWindow(title);
 
                                         }
 
@@ -269,11 +272,13 @@ public class AddController {
                                     createAlertWindow("Themes/Genres error!");
                                 }
                             } else {
-                                createAlertWindow("Rating must be between 0-10");
+                                createAlertWindow("Themes or Genres are empty!!");
                             }
                         } else {
-                            createAlertWindow("Cant have negative episodes!");
+                            createAlertWindow("Rating must be between 0-10");
                         }
+                    } else {
+                        createAlertWindow("Cant have negative episodes!");
                     }
                 } catch (InputMismatchException | NumberFormatException e) {
                     createAlertWindow("Ratings/Episodes error!");
@@ -284,6 +289,14 @@ public class AddController {
         } else {
             createAlertWindow("Title should not be blank!");
         }
+    }
+
+    /**
+     * Close the window upon adding an anime
+     */
+    private void closeWindow() {
+        Stage thisStage = (Stage)cmbAnime.getScene().getWindow();
+        thisStage.close();
     }
 
 
@@ -297,6 +310,18 @@ public class AddController {
         newAlert.setHeaderText(theAlert);
         newAlert.setTitle("Error Adding Anime");
         newAlert.showAndWait();
+    }
+
+    /**
+     * Create this window upon successful addition of an anime
+     */
+    @FXML
+    private void createSuccessWindow(String animeTitle){
+        Alert newAlert = new Alert(Alert.AlertType.INFORMATION);
+        newAlert.setTitle("Success!");
+        newAlert.setHeaderText("You have successfully added " + animeTitle + " to the library!");
+        newAlert.showAndWait();
+        closeWindow();
     }
 
     /**
