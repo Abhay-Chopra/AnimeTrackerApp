@@ -68,25 +68,35 @@ public class AddController {
     private Text txtParentAnime;
 
 
+    /**
+     * When we initialize the controller we want to fill ine some
+     * defaults so we do that here
+     */
     @FXML
     public void initialize() {
 
+        //Setting studio information
         Studio defaultStudio = new Studio("None");
         cmbStudio.getItems().add(defaultStudio);
         cmbStudio.getSelectionModel().selectFirst();
 
+        //Season information
         cmbSeason.getItems().addAll(Anime.Season.values());
         cmbSeason.getSelectionModel().selectFirst();
 
+        //Status information
         cmbStatus.getItems().addAll(Anime.Status.values());
         cmbStatus.getSelectionModel().selectFirst();
 
+        //Genre information
         cmbGenres.getItems().addAll(Anime.LIST_OF_GENRES);
         cmbGenres.getSelectionModel().selectFirst();
 
+        //Theme information
         cmbThemes.getItems().addAll(Anime.LIST_OF_THEMES);
         cmbThemes.getSelectionModel().selectFirst();
 
+        //Visibility of some buttons need to be set to false or true at the start
         cmbAnime.setVisible(false);
         txtStudio.setVisible(true);
         txtParentAnime.setVisible(false);
@@ -94,12 +104,20 @@ public class AddController {
 
     }
 
+    /**
+     * Set the controllers library to the main one from the main window
+     * @param list the passed in library we are utilizing
+     */
     public void setAnimeList(Library list) {
 
         this.animeList = list;
+
+        //Fill the studio combo box if we have tracked studios
         if(animeList.getStudios().length > 0) {
             cmbStudio.getItems().addAll(animeList.getStudios());
         }
+
+        //if we have anime tracked, let the alt anime button be visible
         if(animeList.getAnime().length > 0) {
             chkAltAnime.setVisible(true);
         }
@@ -107,20 +125,32 @@ public class AddController {
     }
 
 
+    /**
+     * If we select the None option, we want to see the text field for adding new studios
+     * @param event of changing the combo box
+     */
     @FXML
     void cmbChangeStudio(ActionEvent event) {
 
+        //Setting the box to be visible
         txtStudio.setVisible(cmbStudio.getValue().toString().equals("None"));
 
     }
 
+    /**
+     * When we check the checkbox for adding an Alternate anime we want a combobox to be shown
+     * @param ignoredEvent
+     */
     @FXML
     void displayParentAnime(ActionEvent ignoredEvent) {
 
+        //If we check the box
         if(chkAltAnime.isSelected()) {
+            //Set all the parameters
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
             cmbAnime.getItems().addAll(animeList.getAnime());
+            //Change the converter so we stop using the anime.toString() and just anime.getName()
             cmbAnime.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(Anime anime) {
@@ -132,6 +162,7 @@ public class AddController {
                     return cmbAnime.getValue();
                 }
             });
+            //Select the first index
             cmbAnime.getSelectionModel().selectFirst();
         } else {
             cmbAnime.setVisible(false);
@@ -140,6 +171,10 @@ public class AddController {
 
     }
 
+    /**
+     * Adding an anime to the given library through a process of checking for correct inputs
+     * @param ignoredEvent
+     */
     @FXML
     void addAnime(ActionEvent ignoredEvent) {
         //Setup base variables for anime
@@ -171,6 +206,7 @@ public class AddController {
 
                                 //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
                                 if (cmbStudio.getValue().toString().equals("None")) {
+
                                     //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
                                     if (cmbStudio.getValue().toString().equals("None")) {
 
@@ -251,6 +287,10 @@ public class AddController {
     }
 
 
+    /**
+     * Generate a error alert message
+     * @param theAlert
+     */
     @FXML
     void createAlertWindow(String theAlert) {
         Alert newAlert = new Alert(Alert.AlertType.ERROR);
@@ -259,6 +299,10 @@ public class AddController {
         newAlert.showAndWait();
     }
 
+    /**
+     * Add selected genres to the pool of selected genres for the anime
+     * @param ignoredEvent
+     */
     @FXML
     void addGenre(ActionEvent ignoredEvent) {
         String genre = cmbGenres.getValue();
@@ -273,6 +317,10 @@ public class AddController {
         }
     }
 
+    /**
+     * Add selected themes to the pool of selected themes for the anime
+     * @param ignoredEvent
+     */
     @FXML
     void addTheme(ActionEvent ignoredEvent) {
         String theme = cmbThemes.getValue();
