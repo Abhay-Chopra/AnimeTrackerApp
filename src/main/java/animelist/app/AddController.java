@@ -295,6 +295,7 @@ public class AddController {
      * Close the window upon adding an anime
      */
     private void closeWindow() {
+        //Get this stage by accessing it via a combo box and close it
         Stage thisStage = (Stage)cmbAnime.getScene().getWindow();
         thisStage.close();
     }
