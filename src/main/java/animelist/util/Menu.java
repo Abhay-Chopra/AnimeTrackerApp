@@ -3,11 +3,12 @@ package animelist.util;
 import animelist.entity.Anime;
 import animelist.entity.SeasonAnime;
 import animelist.entity.Studio;
-import animelist.util.Library;
-import animelist.util.Reader;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Menu class that allows for all the operations within program (I/O and file handling)

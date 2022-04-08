@@ -128,9 +128,13 @@ public class Library {
         //String builder for easy string building
         StringBuilder retString = new StringBuilder();
         retString.append("Your Top Streamed Anime Are").append("\n");
-        //Iterate over the anime in the top 3 spots and append to the builder
-        for (int i = 0; i < 3; i++) {
-            retString.append(animeList.get(i).getName()).append(" -> Watch Time: ").append(animeList.get(i).getEpisodes() * Anime.EPISODE_LENGTH).append(" minutes").append("\n");
+        try{
+            //Iterate over the anime in the top 3 spots and append to the builder
+            for (int i = 0; i < 3; i++) {
+                retString.append(animeList.get(i).getName()).append(" -> Watch Time: ").append(animeList.get(i).getEpisodes() * Anime.EPISODE_LENGTH).append(" minutes").append("\n");
+            }
+        }catch (IndexOutOfBoundsException e){
+            return retString.toString().strip();
         }
 
         return retString.toString().strip();

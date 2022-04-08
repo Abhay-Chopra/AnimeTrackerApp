@@ -69,7 +69,7 @@ public class AddController {
 
     /**
      * When we initialize the controller we want to fill ine some
-     * defaults so we do that here
+     * defaults, so we do that here
      */
     @FXML
     public void initialize() {
@@ -104,7 +104,7 @@ public class AddController {
     }
 
     /**
-     * Set the controllers library to the main one from the main window
+     * Set the controllers' library to the main one from the main window
      * @param list the passed in library we are utilizing
      */
     public void setAnimeList(Library list) {
@@ -126,10 +126,10 @@ public class AddController {
 
     /**
      * If we select the None option, we want to see the text field for adding new studios
-     * @param event of changing the combo box
+     * @param ignoredEvent of changing the combo box
      */
     @FXML
-    void cmbChangeStudio(ActionEvent event) {
+    void cmbChangeStudio(ActionEvent ignoredEvent) {
 
         //Setting the box to be visible
         txtStudio.setVisible(cmbStudio.getValue().toString().equals("None"));
@@ -137,8 +137,7 @@ public class AddController {
     }
 
     /**
-     * When we check the checkbox for adding an Alternate anime we want a combobox to be shown
-     * @param ignoredEvent
+     * When we check the checkbox for adding an Alternate anime we want a combo-box to be shown
      */
     @FXML
     void displayParentAnime(ActionEvent ignoredEvent) {
@@ -149,11 +148,11 @@ public class AddController {
             txtParentAnime.setVisible(true);
             cmbAnime.setVisible(true);
             cmbAnime.getItems().addAll(animeList.getAnime());
-            //Change the converter so we stop using the anime.toString() and just anime.getName()
+            //Change the converter, so we stop using the anime.toString() and just anime.getName()
             cmbAnime.setConverter(new StringConverter<>() {
-                @Override
-                public String toString(Anime anime) {
-                    return anime.getName();
+                    @Override
+                    public String toString(Anime anime) {
+                        return anime.getName();
                 }
 
                 @Override
@@ -172,7 +171,6 @@ public class AddController {
 
     /**
      * Adding an anime to the given library through a process of checking for correct inputs
-     * @param ignoredEvent
      */
     @FXML
     void addAnime(ActionEvent ignoredEvent) {
@@ -203,7 +201,7 @@ public class AddController {
                             //If either genre or themes boxes are empty, none were selected, error out
                             if (!genres.isEmpty() && !themes.isEmpty()) {
 
-                                //If the combobox is "None" Studio, use the input box to create a new one, use combobox if one is selected
+                                //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
                                 if (cmbStudio.getValue().toString().equals("None")) {
 
                                     //If the combo-box is "None" Studio, use the input box to create a new one, use combo-box if one is selected
@@ -303,7 +301,6 @@ public class AddController {
 
     /**
      * Generate a error alert message
-     * @param theAlert
      */
     @FXML
     void createAlertWindow(String theAlert) {
@@ -327,7 +324,6 @@ public class AddController {
 
     /**
      * Add selected genres to the pool of selected genres for the anime
-     * @param ignoredEvent
      */
     @FXML
     void addGenre(ActionEvent ignoredEvent) {
@@ -345,7 +341,6 @@ public class AddController {
 
     /**
      * Add selected themes to the pool of selected themes for the anime
-     * @param ignoredEvent
      */
     @FXML
     void addTheme(ActionEvent ignoredEvent) {
