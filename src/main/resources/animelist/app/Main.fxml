@@ -33,14 +33,17 @@
       <items>
         <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0">
           <children>
-            <Label alignment="CENTER" layoutX="64.0" layoutY="59.0" minWidth="60.0" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #f0fffa;" text="Anime Selector" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" layoutX="64.0" layoutY="48.0" minWidth="60.0" prefHeight="46.0" prefWidth="194.0" style="-fx-background-color: #f0fffa;" text="Anime Selector" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="21.0" fx:id="x1" />
               </font>
             </Label>
-                  <ComboBox fx:id="animeComboBox" layoutX="64.0" layoutY="134.0" onAction="#updateAnimeText" prefHeight="31.0" prefWidth="104.0" promptText="None" style="-fx-background-color: #f0fffa;" />
-                  <Button fx:id="deleteAnime" layoutX="186.0" layoutY="134.0" mnemonicParsing="false" onAction="#deleteAnime" prefHeight="31.0" prefWidth="88.0" style="-fx-background-color: E25D65;" text="Delete" textFill="WHITE" />
-                  <Button fx:id="addAnime" layoutX="101.0" layoutY="208.0" mnemonicParsing="false" onAction="#addNewAnime" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: lightgreen;" text="Add Anime">
+                  <ComboBox fx:id="animeComboBox" layoutX="64.0" layoutY="134.0" onAction="#updateAnimeText" prefHeight="31.0" prefWidth="194.0" promptText="None" style="-fx-background-color: #f0fffa;" />
+                  <Button fx:id="deleteAnime" layoutX="177.0" layoutY="202.0" mnemonicParsing="false" onAction="#deleteAnime" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: E25D65;" text="Delete" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Button fx:id="addAnime" layoutX="25.0" layoutY="202.0" mnemonicParsing="false" onAction="#addNewAnime" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: lightgreen;" text="Add Anime">
                      <font>
                         <Font size="14.0" />
                      </font></Button>

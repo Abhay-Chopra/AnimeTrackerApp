@@ -18,6 +18,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Manages GUI and handles its corresponding events
+ * @version 1.0
+ * @author Abhay Chopra, Brandon Greene
+ * Date: 2022-04-08
+ * TA: Amir (T06)
+ */
 public class MainController {
 
     private Library animeList;
@@ -41,15 +48,30 @@ public class MainController {
     @FXML
     public void initialize() {
         animeList = new Library();
+        try{
+            if(Main.getSysArgs().length > 0){
+                animeList.addBulkAnime(Reader.Import(new File(Main.getSysArgs()[0])));
+                updateAnimeInfo();
+            }
+        }catch (RuntimeException e){
+            System.err.println("Invalid File!");
+            System.err.println("Launching without file...");
+        }
     }
 
+    /**
+     * Adds anime to library
+     * @param ignoredEvent Event when add anime button clicked
+     */
     @FXML
     void addNewAnime(ActionEvent ignoredEvent) {
         try {
+            //Setting up adding data entry separate window
             addAnime.setDisable(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add.fxml"));
             Scene addScene = new Scene(loader.load(), 490, 370);
             Stage addStage = new Stage();
+            //Managing controller for new window
             AddController controller = loader.getController();
             controller.setAnimeList(this.animeList);
             addStage.setTitle("Add An Anime");
@@ -57,6 +79,7 @@ public class MainController {
             addStage.setScene(addScene);
             addStage.showAndWait();
             addAnime.setDisable(false);
+            //Updating Label containing info about anime
             updateAnimeInfo();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,6 +87,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Updates Label listing information about anime (using combo-box)
+     */
     @FXML
     void updateAnimeText(ActionEvent ignoredEvent) {
         try{
@@ -74,6 +100,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Deletes anime from library (using combo box from GUI)
+     */
     @FXML
     void deleteAnime(ActionEvent ignoredEvent) {
         if(animeList.containsAnime(String.valueOf(animeComboBox.getValue())) && animeList.getAnime().length > 0){
@@ -84,11 +113,18 @@ public class MainController {
         updateAnimeInfo();
     }
 
+    /**
+     * Action event that is handled when output button for all studio currently tracked
+     */
     @FXML
     void getAllStudioTracked(ActionEvent ignoredEvent) {
         updateOutput(animeList.allStudiosTracked());
     }
 
+    /**
+     * Updates label corresponding to the output of buttons
+     * @param printString String to show on GUI label
+     */
     private void updateOutput(String printString) {
         if(animeList.getAnime().length > 0) {
             outputArea.setText(printString);
@@ -101,6 +137,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Action event that is handled when output button for sorting of anime rating
+     */
     @FXML
     void getSortedRating(ActionEvent ignoredEvent) {
         if(animeList.getAnime().length > 0) {
@@ -110,6 +149,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Action event that is handled when output button for top streamed anime is clicked
+     */
     @FXML
     void outputTopStreamedAnime(ActionEvent ignoredEvent) {
         if(animeList.getAnime().length > 0) {
@@ -119,6 +161,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Action event that is handled when output button for top streamed genre is clicked
+     */
     @FXML
     void topStreamedGenre(ActionEvent ignoredEvent) {
         if(animeList.getAnime().length > 0) {
@@ -128,6 +173,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Action event that is handled when output button for total watch time is clicked
+     */
     @FXML
     void totalWatchTime(ActionEvent ignoredEvent) {
         if(animeList.getAnime().length > 0) {
@@ -137,6 +185,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Creates an Error alert for no anime currently being stored
+     */
     private void createAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Anime Not Found");
@@ -179,6 +230,9 @@ public class MainController {
         updateComboBox();
     }
 
+    /**
+     * Updates the combo-box containing anime
+     */
     private void updateComboBox() {
         animeComboBox.getItems().removeAll(animeComboBox.getItems());
         animeComboBox.getItems().addAll(animeList.toString().split("\n"));
@@ -227,6 +281,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Presents info about program using alert
+     * @param ignoredEvent Event when about menu item clicked
+     */
     @FXML
     void programInfo(ActionEvent ignoredEvent) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
