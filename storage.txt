@@ -1,0 +1,2 @@
+code geasse,action;drama;scifi,mecha;military,8.7,25,1,3,SUNRISE
+monster,drama,military,8.82,10,0,1,MADHOUSE
