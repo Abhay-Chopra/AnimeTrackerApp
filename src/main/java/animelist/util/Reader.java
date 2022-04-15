@@ -59,13 +59,12 @@ public class Reader {
      * Save our anime to a specified txt file
      *
      * @param anime    Array containing all anime currently stored
-     * @param fileName name of the file that will be attempted to be saved to
+     * @param file name of the file that will be attempted to be saved to
      */
-    public static void save(Anime[] anime, String fileName) {
+    public static void save(Anime[] anime, File file) {
         if(anime.length == 0){
             throw new RuntimeException("Nothing to Save!");
         }
-        File file = new File(fileName);
         if (!file.exists()) {
             try {
                 file.createNewFile();

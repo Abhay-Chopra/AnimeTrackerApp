@@ -465,7 +465,8 @@ public class Menu {
     private void callReader() {
         System.out.print("Please provide the name of the file you want to write to: ");
         String fileName = scanner.nextLine();
-        Reader.save(animeLibrary.getAnime(), fileName);
+        File file = new File(fileName);
+        Reader.save(animeLibrary.getAnime(), file);
         System.out.printf("%sSuccessfully saved to file %s%s%n", printTopBorder(), fileName, printBottomBorder());
     }
 

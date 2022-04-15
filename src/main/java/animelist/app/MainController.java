@@ -254,7 +254,7 @@ public class MainController {
         //Handling non-null files, i.e. ignoring when no file chosen
         if (file != null) {
             try {
-                Reader.save(animeList.getAnime(),file.getName());
+                Reader.save(animeList.getAnime(),file);
             }catch (RuntimeException e){
                 //Adding a confirmation to quit program
                 Alert alert = new Alert(Alert.AlertType.ERROR);

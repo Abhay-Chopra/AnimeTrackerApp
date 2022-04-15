@@ -1,2 +1,0 @@
-gintama,action;comedy,superpower,8.95,100,2,1,SUNRISE
-monster,drama,military,8.82,10,0,1,MADHOUSE
